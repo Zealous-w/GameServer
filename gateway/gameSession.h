@@ -1,4 +1,3 @@
-#include "../server/khaki/log.h"
 #include "../server/khaki/khaki.h"
 #include <unordered_map>
 
@@ -15,5 +14,4 @@ public:
 private:
     khaki::TcpThreadServer server_;
 	std::mutex mtx_;
-	std::unordered_map<int, khaki::TcpWeakPtr> sessionLists_;
 };

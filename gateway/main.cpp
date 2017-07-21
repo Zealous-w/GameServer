@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[]) {
     khaki::EventLoop loop;
-	khaki::Log::getLog().setLogLevel(khaki::Log::LogLevel::E_LOG_INFO);
+	khaki::InitKhakiLog(khaki::logger, "./gateway.log", log4cpp::Priority::DEBUG);
 
 	gameSession echo(&loop, "127.0.0.1", 9527, 4);
 	echo.start();

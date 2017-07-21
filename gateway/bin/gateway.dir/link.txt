@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -pthread    CMakeFiles/../bin/gateway.dir/clientServer.cpp.o CMakeFiles/../bin/gateway.dir/main.cpp.o CMakeFiles/../bin/gateway.dir/gameServer.cpp.o CMakeFiles/../bin/gateway.dir/clientSession.cpp.o CMakeFiles/../bin/gateway.dir/gameSession.cpp.o  -o ../bin/gateway -rdynamic ../server/khaki/build/libkhaki.a ../server/khaki/deps/lib/liblog4cpp.a 
