@@ -1,14 +1,20 @@
 #include <iostream>
-#include "gameSession.h"
-#include "gameServer.h"
+#include <gameSession.h>
+#include <gameServer.h>
+#include <global.h>
 
 int main(int argc, char* argv[]) {
     khaki::EventLoop loop;
-	khaki::InitKhakiLog(khaki::logger, "./gateway.log", log4cpp::Priority::DEBUG);
+	khaki::InitLog(khaki::logger, "./gateway.log", log4cpp::Priority::DEBUG);
 
-	gameSession echo(&loop, "127.0.0.1", 9527, 4);
+	gameServer echo(&loop, "127.0.0.1", 9527, 4);
 	echo.start();
 
 	loop.loop();
+
+	//////
+    //delete g_cServer;
+	delete g_gServer;
+	log4cpp::Category::shutdown();    
     return 0;
 }
