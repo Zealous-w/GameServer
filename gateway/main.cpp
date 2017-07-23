@@ -7,14 +7,17 @@ int main(int argc, char* argv[]) {
     khaki::EventLoop loop;
 	khaki::InitLog(khaki::logger, "./gateway.log", log4cpp::Priority::DEBUG);
 
-	gameServer echo(&loop, "127.0.0.1", 9527, 4);
-	echo.start();
+	g_cServer = new clientServer(&loop, "127.0.0.1", 9527, 4);
+	g_gServer = new gameServer(&loop, "127.0.0.1", 9528, 4);
+	
+	g_cServer->start();
+	g_gServer->start();
 
 	loop.loop();
-
 	//////
-    //delete g_cServer;
+    delete g_cServer;
 	delete g_gServer;
-	log4cpp::Category::shutdown();    
+	log4cpp::Category::shutdown();
+	google::protobuf::ShutdownProtobufLibrary();
     return 0;
 }

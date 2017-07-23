@@ -1,0 +1,17 @@
+syntax = "proto3";
+package gs;
+
+enum ProtoID {
+    ID_NULL = 0;
+    ID_S2G_RegisterServer = 10001;
+    ID_G2S_RegisterServer = 10002;
+}
+
+message S2G_RegisterServer {
+    uint32 sid = 1;
+}
+
+message G2S_RegisterServer {
+    uint32 ret = 1;
+    uint32 sid = 2;
+}

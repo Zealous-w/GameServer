@@ -4,6 +4,6 @@
 #include <clientServer.h>
 
 gameServer* g_gServer;
-//clientServer* g_cServer;
+clientServer* g_cServer;
 
 #endif
