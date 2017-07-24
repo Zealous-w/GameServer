@@ -3,7 +3,7 @@
 #include <khaki.h>
 #include <Queue.h>
 #include <unordered_map>
-#include <gameSession.h>
+#include <clientSession.h>
 #include <base/common.h>
 
 #include <map>

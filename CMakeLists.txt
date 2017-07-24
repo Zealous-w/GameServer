@@ -1,1 +1,2 @@
 ADD_SUBDIRECTORY(gateway)
+ADD_SUBDIRECTORY(gameserver)

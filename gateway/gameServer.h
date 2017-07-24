@@ -19,6 +19,8 @@ public:
 
     void OnConnection(const khaki::TcpClientPtr& con);
 	void OnConnClose(const khaki::TcpClientPtr& con);
+
+    gameSessionPtr GetGameSessionBySid(uint32 sid);
 private:
     khaki::TcpThreadServer server_;
 	std::mutex mtx_;

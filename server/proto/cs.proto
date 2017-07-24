@@ -19,7 +19,7 @@ message S2C_Ping {
 }
 
 message C2S_Login {
-    uint64 uid = 1; 
+    uint64 uid = 1;
 }
 
 message S2C_Login {

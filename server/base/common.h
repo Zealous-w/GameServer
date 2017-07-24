@@ -27,9 +27,8 @@ inline std::string Encode(struct PACKET& pkt) {
     return smsg;
 }
 
-inline struct PACKET Decode(std::string& msg) {
+inline struct PACKET Decode(khaki::Buffer& buf) {
     struct PACKET pkt;
-    khaki::Buffer buf(msg);
     pkt.len = buf.readInt32();
     pkt.cmd = buf.readInt32();
     pkt.uid = buf.readInt64();

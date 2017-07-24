@@ -1,4 +1,5 @@
 #include <gameSession.h>
+#include <clientSession.h>
 
 gameSession::gameSession(gameServer* server, const khaki::TcpClientPtr& conn) :
         server_(server), conn_(conn) {
@@ -12,20 +13,20 @@ void gameSession::OnMessage(const khaki::TcpClientPtr& con) {
     
 }
 
-void gameSession::RegisterCmd() {
-    //command_[] =  
+void gameSession::SendToGameServer(std::string& msg) {
+    conn_->send(msg.c_str(), msg.size());
 }
 
-void gameSession::SendToClient(std::string& str) {
+void gameSession::SendToClient(std::string& msg) {
 
+}
+
+void gameSession::RegisterCmd() {
+    command_[gs::ProtoID::ID_S2G_RegisterServer] = std::bind(&gameSession::HandlerRegisterSid, this, std::placeholders::_1);
 }
 
 void gameSession::DispatcherCmd(struct PACKET& msg) {
     if ( command_.find(msg.cmd) != command_.end() ) {
-        // if (sessionLists_.find(msg.sid) == sessionLists_.end() ) {
-        //     log4cppDebug(khaki::logger, "Not Found This Server %d", msg.sid);
-        //     return;
-        // }
         command_[msg.cmd](msg);
     } else {
         log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);

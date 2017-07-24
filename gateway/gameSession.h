@@ -3,11 +3,13 @@
 #include <khaki.h>
 #include <Queue.h>
 #include <unordered_map>
+
 #include <base/basic.h>
 #include <base/common.h>
 #include <protocol/out/cs.pb.h>
 #include <protocol/in/gs.pb.h>
 
+class clientSession;
 class gameServer;
 class gameSession {
 public:
@@ -20,7 +22,9 @@ public:
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
 
-    void SendToClient(std::string& str);
+    void SendToGameServer(std::string& msg);
+
+    void SendToClient(std::string& msg);
 private:
 	std::mutex mtx_;
     uint64 sid;
@@ -28,6 +32,8 @@ private:
     gameServer* server_;
     std::map<uint32, ServiceFunc> command_;
     khaki::queue<struct PACKET> queue_;
+
+    std::unordered_map<uint32, std::shared_ptr<clientSession>> clientLists;
 public:
     bool HandlerRegisterSid(struct PACKET& str);
     bool HandlerDirtyPacket(struct PACKET& str);

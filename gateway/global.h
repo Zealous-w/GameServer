@@ -3,7 +3,7 @@
 #include <gameServer.h>
 #include <clientServer.h>
 
-gameServer* g_gServer;
-clientServer* g_cServer;
+extern gameServer* g_gServer;
+extern clientServer* g_cServer;
 
 #endif

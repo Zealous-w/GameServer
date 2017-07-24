@@ -3,8 +3,10 @@ package gs;
 
 enum ProtoID {
     ID_NULL = 0;
-    ID_S2G_RegisterServer = 10001;
-    ID_G2S_RegisterServer = 10002;
+    ID_S2G_RegisterServer = 9001;
+    ID_G2S_RegisterServer = 9002;
+    ID_G2S_Login = 9003;
+    ID_S2G_Login = 9004;
 }
 
 message S2G_RegisterServer {
@@ -14,4 +16,12 @@ message S2G_RegisterServer {
 message G2S_RegisterServer {
     uint32 ret = 1;
     uint32 sid = 2;
+}
+
+message G2S_Login {
+    uint64 uid = 1;
+}
+
+message S2G_Login {
+    uint32 ret = 1;
 }

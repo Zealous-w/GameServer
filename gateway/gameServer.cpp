@@ -25,3 +25,12 @@ void gameServer::OnConnClose(const khaki::TcpClientPtr& con) {
     //sessionLists_.erase(con->getFd());
     log4cppDebug(khaki::logger, "gametSession fd : %d closed", con->getFd());
 }
+
+gameSessionPtr gameServer::GetGameSessionBySid(uint32 sid) {
+    std::unique_lock<std::mutex> lck(mtx_);
+    gameSessionPtr gs;
+    if ( sessionLists_.find(sid) != sessionLists_.end() ) {
+        gs = sessionLists_[sid];
+    }
+    return gs;
+}
