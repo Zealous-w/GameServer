@@ -8,6 +8,7 @@
 #include <base/common.h>
 #include <protocol/out/cs.pb.h>
 #include <protocol/in/gs.pb.h>
+#include <player.h>
 
 class gateSession {
 public:
@@ -26,7 +27,7 @@ private:
     std::map<uint32, ServiceFunc> command_;
     khaki::queue<struct PACKET> queue_;
 
-    std::unordered_map<uint32, uint32> clientLists;
+    std::unordered_map<uint64, player*> clientLists;
 public:
     bool HandlerRegisterSid(struct PACKET& str);
     bool HandlerDirtyPacket(struct PACKET& str);

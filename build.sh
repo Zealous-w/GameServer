@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 buildProto() {
 	echo "Build Protocol ..."
 	protoc -I=./server/proto --cpp_out=./server/protocol/out ./server/proto/cs.proto
@@ -24,6 +23,12 @@ buildGateway() {
 	mkdir build && cd build && mkdir bin && cmake .. && make
 }
 
+clean() {
+	echo "Begin clean ..."
+	rm -rf build 
+	cd server/khaki && rm -rf build
+}
+
 case $1 in
 	"-k")
 	buildKhaki
@@ -33,5 +38,8 @@ case $1 in
 	;;
 	"-p")
 	buildProto
+	;;
+	"-c")
+	clean
 	;;
 esac
