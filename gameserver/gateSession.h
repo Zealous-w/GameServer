@@ -24,6 +24,8 @@ public:
     void DispatcherCmd(struct PACKET& msg);
 
     void RegisterServer();
+    void SendPacket(struct PACKET& pkt);
+    void SendPacket(uint32 cmd, std::string& msg);
 private:
 	std::mutex mtx_;
     khaki::EventLoop* loop_;

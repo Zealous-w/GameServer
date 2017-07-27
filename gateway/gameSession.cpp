@@ -34,6 +34,15 @@ void gameSession::DispatcherCmd(struct PACKET& msg) {
 }
 
 bool gameSession::HandlerRegisterSid(struct PACKET& str) {
+    gs::S2G_RegisterServer recv;
+    if ( !recv.ParseFromString(str.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", str.cmd);
+        return false;
+    }
+
+    uint32 sid = recv.sid();
+
     return false;
 }
 
