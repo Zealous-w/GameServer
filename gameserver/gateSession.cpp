@@ -6,6 +6,14 @@ gateSession::gateSession(khaki::EventLoop* loop, std::string& host, uint16_t por
 }
 gateSession::~gateSession(){}
 
+bool gateSession::ConnectGateway() {
+    return conn_.connectServer();
+}
+
+void gateSession::Loop() {
+    loop_->loop();
+}
+
 void gateSession::OnMessage(const khaki::TcpClientPtr& con) {
 }
 
@@ -19,6 +27,10 @@ void gateSession::DispatcherCmd(struct PACKET& msg) {
     } else {
         log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
     }
+}
+
+void gateSession::RegisterServer() {
+
 }
 
 bool gateSession::HandlerRegisterSid(struct PACKET& str) {

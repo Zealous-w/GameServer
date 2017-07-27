@@ -31,7 +31,7 @@ private:
     khaki::TcpClientPtr conn_;
     gameServer* server_;
     std::map<uint32, ServiceFunc> command_;
-    khaki::queue<struct PACKET> queue_;
+    khaki::queue<struct PACKET> msgQueue_;
 
     std::unordered_map<uint32, std::shared_ptr<clientSession>> clientLists;
 public:

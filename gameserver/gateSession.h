@@ -16,16 +16,20 @@ public:
     gateSession(khaki::EventLoop* loop, std::string& host, uint16_t port);
     ~gateSession();
 
+    bool ConnectGateway();
+    void Loop();
 	void OnMessage(const khaki::TcpClientPtr& con);
 
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
+
+    void RegisterServer();
 private:
 	std::mutex mtx_;
     khaki::EventLoop* loop_;
     khaki::Connector conn_;
     std::map<uint32, ServiceFunc> command_;
-    khaki::queue<struct PACKET> queue_;
+    khaki::queue<struct PACKET> msgQueue_;
 
     std::unordered_map<uint64, player*> clientLists;
 public:

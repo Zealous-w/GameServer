@@ -5,5 +5,7 @@ class player {
 public:
     player();
     ~player();
+private:
+    
 };
 #endif

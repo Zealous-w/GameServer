@@ -2,6 +2,7 @@
 #define GAME_CLIENT_SESSION_H
 #include <khaki.h>
 #include <unordered_map>
+#include <Queue.h>
 #include <base/basic.h>
 #include <base/common.h>
 #include <protocol/out/cs.pb.h>
@@ -31,6 +32,7 @@ private:
     khaki::TcpClientPtr conn_;
     clientServer* server_;
     std::weak_ptr<gameSession> gameSession_;
+    khaki::queue<struct PACKET> msgQueue_;
 public:
     bool HandlerLogin(struct PACKET& str);
     bool HandlerDirtyPacket(struct PACKET& str);
