@@ -1,5 +1,5 @@
 #include <gateSession.h>
-
+#include <Util.h>
 gateSession::gateSession(khaki::EventLoop* loop, std::string& host, uint16_t port) :
         loop_(loop), conn_(new khaki::Connector(loop_, host, port)) {
     conn_->setConnectCallback(std::bind(&gateSession::OnConnected, this, std::placeholders::_1));
@@ -17,6 +17,15 @@ void gateSession::Loop() {
     loop_->loop();
 }
 
+void gateSession::Heartbeat() {
+    gs::S2G_Ping msg;
+    msg.set_now_time(khaki::util::getTime());
+    std::string str = msg.SerializeAsString();
+    
+    SendPacket(uint32(gs::ProtoID::ID_S2G_Ping), str);
+    //log4cppDebug(khaki::logger, "gateSession::Heartbeat()");
+}
+
 void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
     gs::S2G_RegisterServer msg;
     log4cppDebug(khaki::logger, "OnConnected");
@@ -24,6 +33,7 @@ void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
 
     std::string str = msg.SerializeAsString();
     SendPacket(uint32(gs::ProtoID::ID_S2G_RegisterServer), str);
+    loop_->getTimer()->AddTimer(std::bind(&gateSession::Heartbeat, this), khaki::util::getTime(), 10);/*10s tick*/
 }
 
 void gateSession::OnMessage(const khaki::TcpConnectorPtr& con) {

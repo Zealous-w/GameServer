@@ -7,6 +7,7 @@ enum ProtoID {
     ID_G2S_RegisterServer = 9002;
     ID_G2S_Login = 9003;
     ID_S2G_Login = 9004;
+    ID_S2G_Ping = 9005;
 }
 
 message S2G_RegisterServer {
@@ -24,4 +25,8 @@ message G2S_Login {
 
 message S2G_Login {
     uint32 ret = 1;
+}
+
+message S2G_Ping {
+    uint32 now_time = 1;
 }

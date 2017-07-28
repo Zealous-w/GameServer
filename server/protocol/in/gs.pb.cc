@@ -22,13 +22,19 @@ class S2G_RegisterServerDefaultTypeInternal : public ::google::protobuf::interna
 } _S2G_RegisterServer_default_instance_;
 class G2S_RegisterServerDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<G2S_RegisterServer> {
 } _G2S_RegisterServer_default_instance_;
+class G2S_LoginDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<G2S_Login> {
+} _G2S_Login_default_instance_;
+class S2G_LoginDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<S2G_Login> {
+} _S2G_Login_default_instance_;
+class S2G_PingDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<S2G_Ping> {
+} _S2G_Ping_default_instance_;
 
 namespace protobuf_gs_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[2];
+::google::protobuf::Metadata file_level_metadata[5];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 }  // namespace
@@ -44,6 +50,9 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
 };
 PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
     TableStruct::schema[] = {
+  { NULL, NULL, 0, -1, -1, false },
+  { NULL, NULL, 0, -1, -1, false },
+  { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
 };
@@ -62,16 +71,40 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(G2S_RegisterServer, ret_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(G2S_RegisterServer, sid_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(G2S_Login, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(G2S_Login, uid_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2G_Login, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2G_Login, ret_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2G_Ping, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2G_Ping, now_time_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(S2G_RegisterServer)},
   { 6, -1, sizeof(G2S_RegisterServer)},
+  { 13, -1, sizeof(G2S_Login)},
+  { 19, -1, sizeof(S2G_Login)},
+  { 25, -1, sizeof(S2G_Ping)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_S2G_RegisterServer_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_G2S_RegisterServer_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_G2S_Login_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_S2G_Login_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_S2G_Ping_default_instance_),
 };
 
 namespace {
@@ -92,7 +125,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 2);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 5);
 }
 
 }  // namespace
@@ -102,6 +135,12 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[0].reflection;
   _G2S_RegisterServer_default_instance_.Shutdown();
   delete file_level_metadata[1].reflection;
+  _G2S_Login_default_instance_.Shutdown();
+  delete file_level_metadata[2].reflection;
+  _S2G_Login_default_instance_.Shutdown();
+  delete file_level_metadata[3].reflection;
+  _S2G_Ping_default_instance_.Shutdown();
+  delete file_level_metadata[4].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
@@ -110,6 +149,9 @@ void TableStruct::InitDefaultsImpl() {
   ::google::protobuf::internal::InitProtobufDefaults();
   _S2G_RegisterServer_default_instance_.DefaultConstruct();
   _G2S_RegisterServer_default_instance_.DefaultConstruct();
+  _G2S_Login_default_instance_.DefaultConstruct();
+  _S2G_Login_default_instance_.DefaultConstruct();
+  _S2G_Ping_default_instance_.DefaultConstruct();
 }
 
 void InitDefaults() {
@@ -121,12 +163,16 @@ void AddDescriptorsImpl() {
   static const char descriptor[] = {
       "\n\010gs.proto\022\002gs\"!\n\022S2G_RegisterServer\022\013\n\003"
       "sid\030\001 \001(\r\".\n\022G2S_RegisterServer\022\013\n\003ret\030\001"
-      " \001(\r\022\013\n\003sid\030\002 \001(\r*N\n\007ProtoID\022\013\n\007ID_NULL\020"
-      "\000\022\032\n\025ID_S2G_RegisterServer\020\221N\022\032\n\025ID_G2S_"
-      "RegisterServer\020\222Nb\006proto3"
+      " \001(\r\022\013\n\003sid\030\002 \001(\r\"\030\n\tG2S_Login\022\013\n\003uid\030\001 "
+      "\001(\004\"\030\n\tS2G_Login\022\013\n\003ret\030\001 \001(\r\"\034\n\010S2G_Pin"
+      "g\022\020\n\010now_time\030\001 \001(\r*\206\001\n\007ProtoID\022\013\n\007ID_NU"
+      "LL\020\000\022\032\n\025ID_S2G_RegisterServer\020\251F\022\032\n\025ID_G"
+      "2S_RegisterServer\020\252F\022\021\n\014ID_G2S_Login\020\253F\022"
+      "\021\n\014ID_S2G_Login\020\254F\022\020\n\013ID_S2G_Ping\020\255Fb\006pr"
+      "oto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 185);
+      descriptor, 324);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "gs.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -152,8 +198,11 @@ const ::google::protobuf::EnumDescriptor* ProtoID_descriptor() {
 bool ProtoID_IsValid(int value) {
   switch (value) {
     case 0:
-    case 10001:
-    case 10002:
+    case 9001:
+    case 9002:
+    case 9003:
+    case 9004:
+    case 9005:
       return true;
     default:
       return false;
@@ -679,6 +728,708 @@ void G2S_RegisterServer::set_sid(::google::protobuf::uint32 value) {
   
   sid_ = value;
   // @@protoc_insertion_point(field_set:gs.G2S_RegisterServer.sid)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int G2S_Login::kUidFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+G2S_Login::G2S_Login()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_gs_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:gs.G2S_Login)
+}
+G2S_Login::G2S_Login(const G2S_Login& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  uid_ = from.uid_;
+  // @@protoc_insertion_point(copy_constructor:gs.G2S_Login)
+}
+
+void G2S_Login::SharedCtor() {
+  uid_ = GOOGLE_ULONGLONG(0);
+  _cached_size_ = 0;
+}
+
+G2S_Login::~G2S_Login() {
+  // @@protoc_insertion_point(destructor:gs.G2S_Login)
+  SharedDtor();
+}
+
+void G2S_Login::SharedDtor() {
+}
+
+void G2S_Login::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* G2S_Login::descriptor() {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const G2S_Login& G2S_Login::default_instance() {
+  protobuf_gs_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+G2S_Login* G2S_Login::New(::google::protobuf::Arena* arena) const {
+  G2S_Login* n = new G2S_Login;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void G2S_Login::Clear() {
+// @@protoc_insertion_point(message_clear_start:gs.G2S_Login)
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+
+bool G2S_Login::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:gs.G2S_Login)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint64 uid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &uid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:gs.G2S_Login)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:gs.G2S_Login)
+  return false;
+#undef DO_
+}
+
+void G2S_Login::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:gs.G2S_Login)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 uid = 1;
+  if (this->uid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->uid(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:gs.G2S_Login)
+}
+
+::google::protobuf::uint8* G2S_Login::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:gs.G2S_Login)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 uid = 1;
+  if (this->uid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->uid(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:gs.G2S_Login)
+  return target;
+}
+
+size_t G2S_Login::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:gs.G2S_Login)
+  size_t total_size = 0;
+
+  // uint64 uid = 1;
+  if (this->uid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
+        this->uid());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void G2S_Login::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:gs.G2S_Login)
+  GOOGLE_DCHECK_NE(&from, this);
+  const G2S_Login* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const G2S_Login>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:gs.G2S_Login)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:gs.G2S_Login)
+    MergeFrom(*source);
+  }
+}
+
+void G2S_Login::MergeFrom(const G2S_Login& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:gs.G2S_Login)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.uid() != 0) {
+    set_uid(from.uid());
+  }
+}
+
+void G2S_Login::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:gs.G2S_Login)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void G2S_Login::CopyFrom(const G2S_Login& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:gs.G2S_Login)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool G2S_Login::IsInitialized() const {
+  return true;
+}
+
+void G2S_Login::Swap(G2S_Login* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void G2S_Login::InternalSwap(G2S_Login* other) {
+  std::swap(uid_, other->uid_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata G2S_Login::GetMetadata() const {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// G2S_Login
+
+// uint64 uid = 1;
+void G2S_Login::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+::google::protobuf::uint64 G2S_Login::uid() const {
+  // @@protoc_insertion_point(field_get:gs.G2S_Login.uid)
+  return uid_;
+}
+void G2S_Login::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:gs.G2S_Login.uid)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int S2G_Login::kRetFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+S2G_Login::S2G_Login()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_gs_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:gs.S2G_Login)
+}
+S2G_Login::S2G_Login(const S2G_Login& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ret_ = from.ret_;
+  // @@protoc_insertion_point(copy_constructor:gs.S2G_Login)
+}
+
+void S2G_Login::SharedCtor() {
+  ret_ = 0u;
+  _cached_size_ = 0;
+}
+
+S2G_Login::~S2G_Login() {
+  // @@protoc_insertion_point(destructor:gs.S2G_Login)
+  SharedDtor();
+}
+
+void S2G_Login::SharedDtor() {
+}
+
+void S2G_Login::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* S2G_Login::descriptor() {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const S2G_Login& S2G_Login::default_instance() {
+  protobuf_gs_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+S2G_Login* S2G_Login::New(::google::protobuf::Arena* arena) const {
+  S2G_Login* n = new S2G_Login;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void S2G_Login::Clear() {
+// @@protoc_insertion_point(message_clear_start:gs.S2G_Login)
+  ret_ = 0u;
+}
+
+bool S2G_Login::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:gs.S2G_Login)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint32 ret = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &ret_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:gs.S2G_Login)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:gs.S2G_Login)
+  return false;
+#undef DO_
+}
+
+void S2G_Login::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:gs.S2G_Login)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 ret = 1;
+  if (this->ret() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->ret(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:gs.S2G_Login)
+}
+
+::google::protobuf::uint8* S2G_Login::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:gs.S2G_Login)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 ret = 1;
+  if (this->ret() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->ret(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:gs.S2G_Login)
+  return target;
+}
+
+size_t S2G_Login::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:gs.S2G_Login)
+  size_t total_size = 0;
+
+  // uint32 ret = 1;
+  if (this->ret() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->ret());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void S2G_Login::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:gs.S2G_Login)
+  GOOGLE_DCHECK_NE(&from, this);
+  const S2G_Login* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const S2G_Login>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:gs.S2G_Login)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:gs.S2G_Login)
+    MergeFrom(*source);
+  }
+}
+
+void S2G_Login::MergeFrom(const S2G_Login& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:gs.S2G_Login)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.ret() != 0) {
+    set_ret(from.ret());
+  }
+}
+
+void S2G_Login::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:gs.S2G_Login)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void S2G_Login::CopyFrom(const S2G_Login& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:gs.S2G_Login)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S2G_Login::IsInitialized() const {
+  return true;
+}
+
+void S2G_Login::Swap(S2G_Login* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void S2G_Login::InternalSwap(S2G_Login* other) {
+  std::swap(ret_, other->ret_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata S2G_Login::GetMetadata() const {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// S2G_Login
+
+// uint32 ret = 1;
+void S2G_Login::clear_ret() {
+  ret_ = 0u;
+}
+::google::protobuf::uint32 S2G_Login::ret() const {
+  // @@protoc_insertion_point(field_get:gs.S2G_Login.ret)
+  return ret_;
+}
+void S2G_Login::set_ret(::google::protobuf::uint32 value) {
+  
+  ret_ = value;
+  // @@protoc_insertion_point(field_set:gs.S2G_Login.ret)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int S2G_Ping::kNowTimeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+S2G_Ping::S2G_Ping()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_gs_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:gs.S2G_Ping)
+}
+S2G_Ping::S2G_Ping(const S2G_Ping& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  now_time_ = from.now_time_;
+  // @@protoc_insertion_point(copy_constructor:gs.S2G_Ping)
+}
+
+void S2G_Ping::SharedCtor() {
+  now_time_ = 0u;
+  _cached_size_ = 0;
+}
+
+S2G_Ping::~S2G_Ping() {
+  // @@protoc_insertion_point(destructor:gs.S2G_Ping)
+  SharedDtor();
+}
+
+void S2G_Ping::SharedDtor() {
+}
+
+void S2G_Ping::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* S2G_Ping::descriptor() {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const S2G_Ping& S2G_Ping::default_instance() {
+  protobuf_gs_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+S2G_Ping* S2G_Ping::New(::google::protobuf::Arena* arena) const {
+  S2G_Ping* n = new S2G_Ping;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void S2G_Ping::Clear() {
+// @@protoc_insertion_point(message_clear_start:gs.S2G_Ping)
+  now_time_ = 0u;
+}
+
+bool S2G_Ping::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:gs.S2G_Ping)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint32 now_time = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &now_time_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:gs.S2G_Ping)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:gs.S2G_Ping)
+  return false;
+#undef DO_
+}
+
+void S2G_Ping::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:gs.S2G_Ping)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 now_time = 1;
+  if (this->now_time() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->now_time(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:gs.S2G_Ping)
+}
+
+::google::protobuf::uint8* S2G_Ping::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:gs.S2G_Ping)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 now_time = 1;
+  if (this->now_time() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->now_time(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:gs.S2G_Ping)
+  return target;
+}
+
+size_t S2G_Ping::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:gs.S2G_Ping)
+  size_t total_size = 0;
+
+  // uint32 now_time = 1;
+  if (this->now_time() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->now_time());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void S2G_Ping::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:gs.S2G_Ping)
+  GOOGLE_DCHECK_NE(&from, this);
+  const S2G_Ping* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const S2G_Ping>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:gs.S2G_Ping)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:gs.S2G_Ping)
+    MergeFrom(*source);
+  }
+}
+
+void S2G_Ping::MergeFrom(const S2G_Ping& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:gs.S2G_Ping)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.now_time() != 0) {
+    set_now_time(from.now_time());
+  }
+}
+
+void S2G_Ping::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:gs.S2G_Ping)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void S2G_Ping::CopyFrom(const S2G_Ping& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:gs.S2G_Ping)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S2G_Ping::IsInitialized() const {
+  return true;
+}
+
+void S2G_Ping::Swap(S2G_Ping* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void S2G_Ping::InternalSwap(S2G_Ping* other) {
+  std::swap(now_time_, other->now_time_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata S2G_Ping::GetMetadata() const {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// S2G_Ping
+
+// uint32 now_time = 1;
+void S2G_Ping::clear_now_time() {
+  now_time_ = 0u;
+}
+::google::protobuf::uint32 S2G_Ping::now_time() const {
+  // @@protoc_insertion_point(field_get:gs.S2G_Ping.now_time)
+  return now_time_;
+}
+void S2G_Ping::set_now_time(::google::protobuf::uint32 value) {
+  
+  now_time_ = value;
+  // @@protoc_insertion_point(field_set:gs.S2G_Ping.now_time)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -38,6 +38,7 @@ private:
 
     std::unordered_map<uint32, std::shared_ptr<clientSession>> clientLists;
 public:
+    bool HandlerPing(struct PACKET& str);
     bool HandlerRegisterSid(struct PACKET& str);
     bool HandlerDirtyPacket(struct PACKET& str);
 };

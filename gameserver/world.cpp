@@ -12,7 +12,7 @@ World::~World() {
 
 void World::Run() {
     while ( running_ ) {
-        log4cppDebug(khaki::logger, "World::Run");
+        //log4cppDebug(khaki::logger, "World::Run");
         usleep(50000);
     }
 }

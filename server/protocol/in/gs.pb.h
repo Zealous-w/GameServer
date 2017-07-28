@@ -32,9 +32,18 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace gs {
+class G2S_Login;
+class G2S_LoginDefaultTypeInternal;
+extern G2S_LoginDefaultTypeInternal _G2S_Login_default_instance_;
 class G2S_RegisterServer;
 class G2S_RegisterServerDefaultTypeInternal;
 extern G2S_RegisterServerDefaultTypeInternal _G2S_RegisterServer_default_instance_;
+class S2G_Login;
+class S2G_LoginDefaultTypeInternal;
+extern S2G_LoginDefaultTypeInternal _S2G_Login_default_instance_;
+class S2G_Ping;
+class S2G_PingDefaultTypeInternal;
+extern S2G_PingDefaultTypeInternal _S2G_Ping_default_instance_;
 class S2G_RegisterServer;
 class S2G_RegisterServerDefaultTypeInternal;
 extern S2G_RegisterServerDefaultTypeInternal _S2G_RegisterServer_default_instance_;
@@ -58,14 +67,17 @@ void InitDefaults();
 
 enum ProtoID {
   ID_NULL = 0,
-  ID_S2G_RegisterServer = 10001,
-  ID_G2S_RegisterServer = 10002,
+  ID_S2G_RegisterServer = 9001,
+  ID_G2S_RegisterServer = 9002,
+  ID_G2S_Login = 9003,
+  ID_S2G_Login = 9004,
+  ID_S2G_Ping = 9005,
   ProtoID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ProtoID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ProtoID_IsValid(int value);
 const ProtoID ProtoID_MIN = ID_NULL;
-const ProtoID ProtoID_MAX = ID_G2S_RegisterServer;
+const ProtoID ProtoID_MAX = ID_S2G_Ping;
 const int ProtoID_ARRAYSIZE = ProtoID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ProtoID_descriptor();
@@ -245,6 +257,246 @@ class G2S_RegisterServer : public ::google::protobuf::Message /* @@protoc_insert
   mutable int _cached_size_;
   friend struct protobuf_gs_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class G2S_Login : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:gs.G2S_Login) */ {
+ public:
+  G2S_Login();
+  virtual ~G2S_Login();
+
+  G2S_Login(const G2S_Login& from);
+
+  inline G2S_Login& operator=(const G2S_Login& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const G2S_Login& default_instance();
+
+  static inline const G2S_Login* internal_default_instance() {
+    return reinterpret_cast<const G2S_Login*>(
+               &_G2S_Login_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    2;
+
+  void Swap(G2S_Login* other);
+
+  // implements Message ----------------------------------------------
+
+  inline G2S_Login* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  G2S_Login* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const G2S_Login& from);
+  void MergeFrom(const G2S_Login& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(G2S_Login* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint64 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::uint64 uid() const;
+  void set_uid(::google::protobuf::uint64 value);
+
+  // @@protoc_insertion_point(class_scope:gs.G2S_Login)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 uid_;
+  mutable int _cached_size_;
+  friend struct protobuf_gs_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class S2G_Login : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:gs.S2G_Login) */ {
+ public:
+  S2G_Login();
+  virtual ~S2G_Login();
+
+  S2G_Login(const S2G_Login& from);
+
+  inline S2G_Login& operator=(const S2G_Login& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const S2G_Login& default_instance();
+
+  static inline const S2G_Login* internal_default_instance() {
+    return reinterpret_cast<const S2G_Login*>(
+               &_S2G_Login_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    3;
+
+  void Swap(S2G_Login* other);
+
+  // implements Message ----------------------------------------------
+
+  inline S2G_Login* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  S2G_Login* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const S2G_Login& from);
+  void MergeFrom(const S2G_Login& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(S2G_Login* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint32 ret = 1;
+  void clear_ret();
+  static const int kRetFieldNumber = 1;
+  ::google::protobuf::uint32 ret() const;
+  void set_ret(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:gs.S2G_Login)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint32 ret_;
+  mutable int _cached_size_;
+  friend struct protobuf_gs_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class S2G_Ping : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:gs.S2G_Ping) */ {
+ public:
+  S2G_Ping();
+  virtual ~S2G_Ping();
+
+  S2G_Ping(const S2G_Ping& from);
+
+  inline S2G_Ping& operator=(const S2G_Ping& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const S2G_Ping& default_instance();
+
+  static inline const S2G_Ping* internal_default_instance() {
+    return reinterpret_cast<const S2G_Ping*>(
+               &_S2G_Ping_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    4;
+
+  void Swap(S2G_Ping* other);
+
+  // implements Message ----------------------------------------------
+
+  inline S2G_Ping* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  S2G_Ping* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const S2G_Ping& from);
+  void MergeFrom(const S2G_Ping& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(S2G_Ping* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint32 now_time = 1;
+  void clear_now_time();
+  static const int kNowTimeFieldNumber = 1;
+  ::google::protobuf::uint32 now_time() const;
+  void set_now_time(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:gs.S2G_Ping)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint32 now_time_;
+  mutable int _cached_size_;
+  friend struct protobuf_gs_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -299,7 +551,67 @@ inline void G2S_RegisterServer::set_sid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:gs.G2S_RegisterServer.sid)
 }
 
+// -------------------------------------------------------------------
+
+// G2S_Login
+
+// uint64 uid = 1;
+inline void G2S_Login::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 G2S_Login::uid() const {
+  // @@protoc_insertion_point(field_get:gs.G2S_Login.uid)
+  return uid_;
+}
+inline void G2S_Login::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:gs.G2S_Login.uid)
+}
+
+// -------------------------------------------------------------------
+
+// S2G_Login
+
+// uint32 ret = 1;
+inline void S2G_Login::clear_ret() {
+  ret_ = 0u;
+}
+inline ::google::protobuf::uint32 S2G_Login::ret() const {
+  // @@protoc_insertion_point(field_get:gs.S2G_Login.ret)
+  return ret_;
+}
+inline void S2G_Login::set_ret(::google::protobuf::uint32 value) {
+  
+  ret_ = value;
+  // @@protoc_insertion_point(field_set:gs.S2G_Login.ret)
+}
+
+// -------------------------------------------------------------------
+
+// S2G_Ping
+
+// uint32 now_time = 1;
+inline void S2G_Ping::clear_now_time() {
+  now_time_ = 0u;
+}
+inline ::google::protobuf::uint32 S2G_Ping::now_time() const {
+  // @@protoc_insertion_point(field_get:gs.S2G_Ping.now_time)
+  return now_time_;
+}
+inline void S2G_Ping::set_now_time(::google::protobuf::uint32 value) {
+  
+  now_time_ = value;
+  // @@protoc_insertion_point(field_set:gs.S2G_Ping.now_time)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

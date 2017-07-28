@@ -28,6 +28,7 @@ void gameSession::SendToClient(std::string& msg) {
 }
 
 void gameSession::RegisterCmd() {
+    command_[gs::ProtoID::ID_S2G_Ping] = std::bind(&gameSession::HandlerPing, this, std::placeholders::_1);
     command_[gs::ProtoID::ID_S2G_RegisterServer] = std::bind(&gameSession::HandlerRegisterSid, this, std::placeholders::_1);
 }
 
@@ -44,7 +45,7 @@ void gameSession::SendPacket(uint32 cmd, std::string& msg) {
     pkt.len = PACKET_HEAD_LEN + msg.size();
     pkt.cmd = cmd;
     pkt.uid = 0;
-    pkt.sid = 0;
+    pkt.sid = sid_;
     pkt.msg = msg;
     SendPacket(pkt);
 }
@@ -52,6 +53,17 @@ void gameSession::SendPacket(uint32 cmd, std::string& msg) {
 void gameSession::SendPacket(struct PACKET& pkt) {
     std::string msg = Encode(pkt);
     conn_->send(msg.c_str(), msg.size());
+}
+
+bool gameSession::HandlerPing(struct PACKET& str) {
+    gs::S2G_Ping recv;
+    if ( !recv.ParseFromString(str.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", str.cmd);
+        return false;
+    }
+    uint32 now_time = recv.now_time();
+    //log4cppDebug(khaki::logger, "gameSession::HandlerPing : %d, time:%d", str.cmd, now_time);
 }
 
 bool gameSession::HandlerRegisterSid(struct PACKET& str) {
@@ -75,5 +87,6 @@ bool gameSession::HandlerRegisterSid(struct PACKET& str) {
 }
 
 bool gameSession::HandlerDirtyPacket(struct PACKET& str) {
+    //
     return false;
 }
