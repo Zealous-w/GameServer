@@ -1,6 +1,7 @@
 #include <iostream>
 #include <gateSession.h>
 #include <tinyxml.h>
+#include <world.h>
 
 int main(int argc, char* argv[]) {
 
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
         log4cppDebug(khaki::logger, "connect gateway failed !!");
         return 0;
     }
-
+    gWorld.Start();
     gSession->Loop();
     ////////////////////
     delete gSession;

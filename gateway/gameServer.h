@@ -21,12 +21,14 @@ public:
 	void OnConnClose(const khaki::TcpClientPtr& con);
 
     gameSessionPtr GetGameSessionBySid(uint32 sid);
-    void AddGameSession(uint32 sid, gameSessionPtr& gsp);
+    void AddAuthGameSession(uint32 sid, uint32 sockFd);
+    void RemoveAuthGameSession(uint32 sid);
 private:
     khaki::TcpThreadServer server_;
 	std::mutex mtx_;
 	std::unordered_map<uint32, gameSessionPtr> sessionLists_;
-    std::map<uint32/*sid*/, uint32/*fd*/> unauthList;
+    std::mutex authmtx_;
+    std::map<uint32/*sid*/, uint32/*fd*/> authList_;
 };
 
 #endif

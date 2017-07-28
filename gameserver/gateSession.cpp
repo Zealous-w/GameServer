@@ -1,20 +1,42 @@
 #include <gateSession.h>
 
 gateSession::gateSession(khaki::EventLoop* loop, std::string& host, uint16_t port) :
-        loop_(loop), conn_(loop_, host, port) {
+        loop_(loop), conn_(new khaki::Connector(loop_, host, port)) {
+    conn_->setConnectCallback(std::bind(&gateSession::OnConnected, this, std::placeholders::_1));
+    conn_->setCloseCallback(std::bind(&gateSession::OnConnectClose, this, std::placeholders::_1));
+    conn_->setReadCallback(std::bind(&gateSession::OnMessage, this, std::placeholders::_1));
     RegisterCmd();
 }
 gateSession::~gateSession(){}
 
 bool gateSession::ConnectGateway() {
-    return conn_.connectServer();
+    return conn_->connectServer();
 }
 
 void gateSession::Loop() {
     loop_->loop();
 }
 
-void gateSession::OnMessage(const khaki::TcpClientPtr& con) {
+void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
+    gs::S2G_RegisterServer msg;
+    log4cppDebug(khaki::logger, "OnConnected");
+    msg.set_sid(1);
+
+    std::string str = msg.SerializeAsString();
+    SendPacket(uint32(gs::ProtoID::ID_S2G_RegisterServer), str);
+}
+
+void gateSession::OnMessage(const khaki::TcpConnectorPtr& con) {
+    khaki::Buffer& buf = con->getReadBuf();
+    while( buf.size() > 0 ) {
+        if (!buf.checkInt32()) break;
+        struct PACKET pkt = Decode(buf);
+        DispatcherCmd(pkt);
+    }
+}
+
+void gateSession::OnConnectClose(const khaki::TcpConnectorPtr& con) {
+    log4cppDebug(khaki::logger, "OnConnectClose");
 }
 
 void gateSession::RegisterCmd() {
@@ -29,14 +51,6 @@ void gateSession::DispatcherCmd(struct PACKET& msg) {
     }
 }
 
-void gateSession::RegisterServer() {
-    gs::S2G_RegisterServer msg;
-
-    msg.set_sid(1);
-
-
-}
-
 void gateSession::SendPacket(uint32 cmd, std::string& msg) {
     struct PACKET pkt;
     pkt.len = PACKET_HEAD_LEN + msg.size();
@@ -49,10 +63,11 @@ void gateSession::SendPacket(uint32 cmd, std::string& msg) {
 
 void gateSession::SendPacket(struct PACKET& pkt) {
     std::string msg = Encode(pkt);
-    conn_.send(msg.c_str(), msg.size());
+    conn_->send(msg.c_str(), msg.size());
 }
 
 bool gateSession::HandlerRegisterSid(struct PACKET& str) {
+    log4cppDebug(khaki::logger, "gameserver, HandlerRegisterSid Success %d", str.cmd);
     return false;
 }
 

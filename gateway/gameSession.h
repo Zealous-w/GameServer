@@ -25,9 +25,12 @@ public:
     void SendToGameServer(std::string& msg);
 
     void SendToClient(std::string& msg);
+    void SendPacket(struct PACKET& pkt);
+    void SendPacket(uint32 cmd, std::string& msg);
+    uint32 GetSid() { return sid_; }
 private:
 	std::mutex mtx_;
-    uint64 sid;
+    uint32 sid_;
     khaki::TcpClientPtr conn_;
     gameServer* server_;
     std::map<uint32, ServiceFunc> command_;

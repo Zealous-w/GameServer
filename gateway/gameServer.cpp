@@ -22,6 +22,7 @@ void gameServer::OnConnection(const khaki::TcpClientPtr& con) {
 void gameServer::OnConnClose(const khaki::TcpClientPtr& con) {
     std::unique_lock<std::mutex> lck(mtx_);
     assert(sessionLists_.find(con->getFd()) != sessionLists_.end());
+    RemoveAuthGameSession(sessionLists_[con->getFd()]->GetSid());
     sessionLists_.erase(con->getFd());
     log4cppDebug(khaki::logger, "gametSession fd : %d closed", con->getFd());
 }
@@ -35,6 +36,12 @@ gameSessionPtr gameServer::GetGameSessionBySid(uint32 sid) {
     return gs;
 }
 
-void gameServer::AddGameSession(uint32 sid, gameSessionPtr& gsp) {
-    std::unique_lock<std::mutex> lck(mtx_);
+void gameServer::AddAuthGameSession(uint32 sid, uint32 sockFd) {
+    std::unique_lock<std::mutex> lck(authmtx_);
+    authList_.insert(std::make_pair(sid, sockFd));
+}
+
+void gameServer::RemoveAuthGameSession(uint32 sid) {
+    std::unique_lock<std::mutex> lck(authmtx_);
+    authList_.erase(sid);
 }

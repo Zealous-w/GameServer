@@ -18,18 +18,20 @@ public:
 
     bool ConnectGateway();
     void Loop();
-	void OnMessage(const khaki::TcpClientPtr& con);
+
+    void OnConnected(const khaki::TcpConnectorPtr& con);
+	void OnMessage(const khaki::TcpConnectorPtr& con);
+    void OnConnectClose(const khaki::TcpConnectorPtr& con);
 
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
 
-    void RegisterServer();
     void SendPacket(struct PACKET& pkt);
     void SendPacket(uint32 cmd, std::string& msg);
 private:
 	std::mutex mtx_;
     khaki::EventLoop* loop_;
-    khaki::Connector conn_;
+    khaki::TcpConnectorPtr conn_;
     std::map<uint32, ServiceFunc> command_;
     khaki::queue<struct PACKET> msgQueue_;
 
