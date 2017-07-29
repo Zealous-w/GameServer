@@ -10,12 +10,10 @@ enum ProtoID {
 }
 
 message C2S_Ping {
-    uint32 send_time = 1;
+    uint32 now_time = 1;
 }
 
 message S2C_Ping {
-    uint32 send_time = 1;
-    uint32 recv_time = 2;
 }
 
 message C2S_Login {

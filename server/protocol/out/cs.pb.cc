@@ -60,14 +60,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(C2S_Ping, send_time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(C2S_Ping, now_time_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2C_Ping, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2C_Ping, send_time_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2C_Ping, recv_time_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(C2S_Login, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -85,8 +83,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(C2S_Ping)},
   { 6, -1, sizeof(S2C_Ping)},
-  { 13, -1, sizeof(C2S_Login)},
-  { 19, -1, sizeof(S2C_Login)},
+  { 11, -1, sizeof(C2S_Login)},
+  { 17, -1, sizeof(S2C_Login)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -147,16 +145,15 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\010cs.proto\022\002cs\"\035\n\010C2S_Ping\022\021\n\tsend_time\030"
-      "\001 \001(\r\"0\n\010S2C_Ping\022\021\n\tsend_time\030\001 \001(\r\022\021\n\t"
-      "recv_time\030\002 \001(\r\"\030\n\tC2S_Login\022\013\n\003uid\030\001 \001("
-      "\004\"\030\n\tS2C_Login\022\013\n\003ret\030\001 \001(\r*`\n\007ProtoID\022\013"
-      "\n\007ID_NULL\020\000\022\020\n\013ID_C2S_Ping\020\221N\022\020\n\013ID_S2C_"
-      "Ping\020\222N\022\021\n\014ID_C2S_Login\020\223N\022\021\n\014ID_S2C_Log"
-      "in\020\224Nb\006proto3"
+      "\n\010cs.proto\022\002cs\"\034\n\010C2S_Ping\022\020\n\010now_time\030\001"
+      " \001(\r\"\n\n\010S2C_Ping\"\030\n\tC2S_Login\022\013\n\003uid\030\001 \001"
+      "(\004\"\030\n\tS2C_Login\022\013\n\003ret\030\001 \001(\r*`\n\007ProtoID\022"
+      "\013\n\007ID_NULL\020\000\022\020\n\013ID_C2S_Ping\020\221N\022\020\n\013ID_S2C"
+      "_Ping\020\222N\022\021\n\014ID_C2S_Login\020\223N\022\021\n\014ID_S2C_Lo"
+      "gin\020\224Nb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 253);
+      descriptor, 214);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "cs.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -196,7 +193,7 @@ bool ProtoID_IsValid(int value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int C2S_Ping::kSendTimeFieldNumber;
+const int C2S_Ping::kNowTimeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 C2S_Ping::C2S_Ping()
@@ -212,12 +209,12 @@ C2S_Ping::C2S_Ping(const C2S_Ping& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  send_time_ = from.send_time_;
+  now_time_ = from.now_time_;
   // @@protoc_insertion_point(copy_constructor:cs.C2S_Ping)
 }
 
 void C2S_Ping::SharedCtor() {
-  send_time_ = 0u;
+  now_time_ = 0u;
   _cached_size_ = 0;
 }
 
@@ -254,7 +251,7 @@ C2S_Ping* C2S_Ping::New(::google::protobuf::Arena* arena) const {
 
 void C2S_Ping::Clear() {
 // @@protoc_insertion_point(message_clear_start:cs.C2S_Ping)
-  send_time_ = 0u;
+  now_time_ = 0u;
 }
 
 bool C2S_Ping::MergePartialFromCodedStream(
@@ -267,14 +264,14 @@ bool C2S_Ping::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint32 send_time = 1;
+      // uint32 now_time = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &send_time_)));
+                 input, &now_time_)));
         } else {
           goto handle_unusual;
         }
@@ -308,9 +305,9 @@ void C2S_Ping::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 send_time = 1;
-  if (this->send_time() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->send_time(), output);
+  // uint32 now_time = 1;
+  if (this->now_time() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->now_time(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:cs.C2S_Ping)
@@ -322,9 +319,9 @@ void C2S_Ping::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 send_time = 1;
-  if (this->send_time() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->send_time(), target);
+  // uint32 now_time = 1;
+  if (this->now_time() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->now_time(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:cs.C2S_Ping)
@@ -335,11 +332,11 @@ size_t C2S_Ping::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cs.C2S_Ping)
   size_t total_size = 0;
 
-  // uint32 send_time = 1;
-  if (this->send_time() != 0) {
+  // uint32 now_time = 1;
+  if (this->now_time() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->send_time());
+        this->now_time());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -371,8 +368,8 @@ void C2S_Ping::MergeFrom(const C2S_Ping& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.send_time() != 0) {
-    set_send_time(from.send_time());
+  if (from.now_time() != 0) {
+    set_now_time(from.now_time());
   }
 }
 
@@ -399,7 +396,7 @@ void C2S_Ping::Swap(C2S_Ping* other) {
   InternalSwap(other);
 }
 void C2S_Ping::InternalSwap(C2S_Ping* other) {
-  std::swap(send_time_, other->send_time_);
+  std::swap(now_time_, other->now_time_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -411,18 +408,18 @@ void C2S_Ping::InternalSwap(C2S_Ping* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // C2S_Ping
 
-// uint32 send_time = 1;
-void C2S_Ping::clear_send_time() {
-  send_time_ = 0u;
+// uint32 now_time = 1;
+void C2S_Ping::clear_now_time() {
+  now_time_ = 0u;
 }
-::google::protobuf::uint32 C2S_Ping::send_time() const {
-  // @@protoc_insertion_point(field_get:cs.C2S_Ping.send_time)
-  return send_time_;
+::google::protobuf::uint32 C2S_Ping::now_time() const {
+  // @@protoc_insertion_point(field_get:cs.C2S_Ping.now_time)
+  return now_time_;
 }
-void C2S_Ping::set_send_time(::google::protobuf::uint32 value) {
+void C2S_Ping::set_now_time(::google::protobuf::uint32 value) {
   
-  send_time_ = value;
-  // @@protoc_insertion_point(field_set:cs.C2S_Ping.send_time)
+  now_time_ = value;
+  // @@protoc_insertion_point(field_set:cs.C2S_Ping.now_time)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -430,8 +427,6 @@ void C2S_Ping::set_send_time(::google::protobuf::uint32 value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int S2C_Ping::kSendTimeFieldNumber;
-const int S2C_Ping::kRecvTimeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 S2C_Ping::S2C_Ping()
@@ -447,15 +442,10 @@ S2C_Ping::S2C_Ping(const S2C_Ping& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&send_time_, &from.send_time_,
-    reinterpret_cast<char*>(&recv_time_) -
-    reinterpret_cast<char*>(&send_time_) + sizeof(recv_time_));
   // @@protoc_insertion_point(copy_constructor:cs.S2C_Ping)
 }
 
 void S2C_Ping::SharedCtor() {
-  ::memset(&send_time_, 0, reinterpret_cast<char*>(&recv_time_) -
-    reinterpret_cast<char*>(&send_time_) + sizeof(recv_time_));
   _cached_size_ = 0;
 }
 
@@ -492,8 +482,6 @@ S2C_Ping* S2C_Ping::New(::google::protobuf::Arena* arena) const {
 
 void S2C_Ping::Clear() {
 // @@protoc_insertion_point(message_clear_start:cs.S2C_Ping)
-  ::memset(&send_time_, 0, reinterpret_cast<char*>(&recv_time_) -
-    reinterpret_cast<char*>(&send_time_) + sizeof(recv_time_));
 }
 
 bool S2C_Ping::MergePartialFromCodedStream(
@@ -505,46 +493,13 @@ bool S2C_Ping::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint32 send_time = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &send_time_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // uint32 recv_time = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &recv_time_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
+  handle_unusual:
+    if (tag == 0 ||
+        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+      goto success;
     }
+    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
   // @@protoc_insertion_point(parse_success:cs.S2C_Ping)
@@ -561,16 +516,6 @@ void S2C_Ping::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 send_time = 1;
-  if (this->send_time() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->send_time(), output);
-  }
-
-  // uint32 recv_time = 2;
-  if (this->recv_time() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->recv_time(), output);
-  }
-
   // @@protoc_insertion_point(serialize_end:cs.S2C_Ping)
 }
 
@@ -580,16 +525,6 @@ void S2C_Ping::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 send_time = 1;
-  if (this->send_time() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->send_time(), target);
-  }
-
-  // uint32 recv_time = 2;
-  if (this->recv_time() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->recv_time(), target);
-  }
-
   // @@protoc_insertion_point(serialize_to_array_end:cs.S2C_Ping)
   return target;
 }
@@ -597,20 +532,6 @@ void S2C_Ping::SerializeWithCachedSizes(
 size_t S2C_Ping::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cs.S2C_Ping)
   size_t total_size = 0;
-
-  // uint32 send_time = 1;
-  if (this->send_time() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->send_time());
-  }
-
-  // uint32 recv_time = 2;
-  if (this->recv_time() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->recv_time());
-  }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -641,12 +562,6 @@ void S2C_Ping::MergeFrom(const S2C_Ping& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.send_time() != 0) {
-    set_send_time(from.send_time());
-  }
-  if (from.recv_time() != 0) {
-    set_recv_time(from.recv_time());
-  }
 }
 
 void S2C_Ping::CopyFrom(const ::google::protobuf::Message& from) {
@@ -672,8 +587,6 @@ void S2C_Ping::Swap(S2C_Ping* other) {
   InternalSwap(other);
 }
 void S2C_Ping::InternalSwap(S2C_Ping* other) {
-  std::swap(send_time_, other->send_time_);
-  std::swap(recv_time_, other->recv_time_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -684,34 +597,6 @@ void S2C_Ping::InternalSwap(S2C_Ping* other) {
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // S2C_Ping
-
-// uint32 send_time = 1;
-void S2C_Ping::clear_send_time() {
-  send_time_ = 0u;
-}
-::google::protobuf::uint32 S2C_Ping::send_time() const {
-  // @@protoc_insertion_point(field_get:cs.S2C_Ping.send_time)
-  return send_time_;
-}
-void S2C_Ping::set_send_time(::google::protobuf::uint32 value) {
-  
-  send_time_ = value;
-  // @@protoc_insertion_point(field_set:cs.S2C_Ping.send_time)
-}
-
-// uint32 recv_time = 2;
-void S2C_Ping::clear_recv_time() {
-  recv_time_ = 0u;
-}
-::google::protobuf::uint32 S2C_Ping::recv_time() const {
-  // @@protoc_insertion_point(field_get:cs.S2C_Ping.recv_time)
-  return recv_time_;
-}
-void S2C_Ping::set_recv_time(::google::protobuf::uint32 value) {
-  
-  recv_time_ = value;
-  // @@protoc_insertion_point(field_set:cs.S2C_Ping.recv_time)
-}
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

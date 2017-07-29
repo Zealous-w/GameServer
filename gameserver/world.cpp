@@ -4,6 +4,7 @@
 
 World::World():thread_(&World::Run, this) {
     running_ = false;
+    RegisterCmd();
 }
 
 World::~World() {
@@ -12,8 +13,15 @@ World::~World() {
 
 void World::Run() {
     while ( running_ ) {
-        //log4cppDebug(khaki::logger, "World::Run");
-        usleep(50000);
+        if ( msgQueue_.size() > 0 ) {
+            std::queue<struct PACKET> tmpQueue = msgQueue_.popAll();
+            while ( !tmpQueue.empty() ) {
+                struct PACKET pkt = tmpQueue.front();
+                DispatcherCmd(pkt);
+                tmpQueue.pop();
+            }
+        }
+        usleep(10000);
     }
 }
 
@@ -30,5 +38,5 @@ void World::DispatcherCmd(struct PACKET& msg) {
 }
 
 bool World::HandlerLogin(struct PACKET& str) {
-
+    log4cppDebug(khaki::logger, "HandlerLogin proto : %d", str.cmd);
 }

@@ -5,6 +5,7 @@
 #include <base/basic.h>
 #include <base/common.h>
 #include <player.h>
+#include <Queue.h>
 
 #define REGISTER_CMD_CALLBACK(cmdId, func) \
     command_[uint32(cmdId)]  = std::bind(&World::func, this, std::placeholders::_1)
@@ -27,10 +28,12 @@ private:
     std::thread thread_;
     MapUsers users_;
     std::map<uint32, ServiceFunc> command_;
+    khaki::queue<struct PACKET> msgQueue_;
 public:
     void Start() { running_ = true; }
     void Stop() { running_ = false; }
     void Run();
+    void Push(struct PACKET& t) { msgQueue_.push(t); }
 
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);

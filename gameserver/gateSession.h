@@ -28,14 +28,15 @@ public:
 
     void SendPacket(struct PACKET& pkt);
     void SendPacket(uint32 cmd, std::string& msg);
+    void SendPacket(uint32 cmd, uint64 uid, std::string& msg);
 private:
+    uint32 sid_;
 	std::mutex mtx_;
     khaki::EventLoop* loop_;
     khaki::TcpConnectorPtr conn_;
     std::map<uint32, ServiceFunc> command_;
-    khaki::queue<struct PACKET> msgQueue_;
 
-    std::unordered_map<uint64, player*> clientLists;
+    std::unordered_map<uint64, player*> clientLists_;
 public:
     bool HandlerRegisterSid(struct PACKET& str);
     bool HandlerDirtyPacket(struct PACKET& str);

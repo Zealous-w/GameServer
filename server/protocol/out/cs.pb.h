@@ -152,17 +152,17 @@ class C2S_Ping : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // uint32 send_time = 1;
-  void clear_send_time();
-  static const int kSendTimeFieldNumber = 1;
-  ::google::protobuf::uint32 send_time() const;
-  void set_send_time(::google::protobuf::uint32 value);
+  // uint32 now_time = 1;
+  void clear_now_time();
+  static const int kNowTimeFieldNumber = 1;
+  ::google::protobuf::uint32 now_time() const;
+  void set_now_time(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:cs.C2S_Ping)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::uint32 send_time_;
+  ::google::protobuf::uint32 now_time_;
   mutable int _cached_size_;
   friend struct protobuf_cs_2eproto::TableStruct;
 };
@@ -232,24 +232,10 @@ class S2C_Ping : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // uint32 send_time = 1;
-  void clear_send_time();
-  static const int kSendTimeFieldNumber = 1;
-  ::google::protobuf::uint32 send_time() const;
-  void set_send_time(::google::protobuf::uint32 value);
-
-  // uint32 recv_time = 2;
-  void clear_recv_time();
-  static const int kRecvTimeFieldNumber = 2;
-  ::google::protobuf::uint32 recv_time() const;
-  void set_recv_time(::google::protobuf::uint32 value);
-
   // @@protoc_insertion_point(class_scope:cs.S2C_Ping)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::uint32 send_time_;
-  ::google::protobuf::uint32 recv_time_;
   mutable int _cached_size_;
   friend struct protobuf_cs_2eproto::TableStruct;
 };
@@ -421,51 +407,23 @@ class S2C_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // C2S_Ping
 
-// uint32 send_time = 1;
-inline void C2S_Ping::clear_send_time() {
-  send_time_ = 0u;
+// uint32 now_time = 1;
+inline void C2S_Ping::clear_now_time() {
+  now_time_ = 0u;
 }
-inline ::google::protobuf::uint32 C2S_Ping::send_time() const {
-  // @@protoc_insertion_point(field_get:cs.C2S_Ping.send_time)
-  return send_time_;
+inline ::google::protobuf::uint32 C2S_Ping::now_time() const {
+  // @@protoc_insertion_point(field_get:cs.C2S_Ping.now_time)
+  return now_time_;
 }
-inline void C2S_Ping::set_send_time(::google::protobuf::uint32 value) {
+inline void C2S_Ping::set_now_time(::google::protobuf::uint32 value) {
   
-  send_time_ = value;
-  // @@protoc_insertion_point(field_set:cs.C2S_Ping.send_time)
+  now_time_ = value;
+  // @@protoc_insertion_point(field_set:cs.C2S_Ping.now_time)
 }
 
 // -------------------------------------------------------------------
 
 // S2C_Ping
-
-// uint32 send_time = 1;
-inline void S2C_Ping::clear_send_time() {
-  send_time_ = 0u;
-}
-inline ::google::protobuf::uint32 S2C_Ping::send_time() const {
-  // @@protoc_insertion_point(field_get:cs.S2C_Ping.send_time)
-  return send_time_;
-}
-inline void S2C_Ping::set_send_time(::google::protobuf::uint32 value) {
-  
-  send_time_ = value;
-  // @@protoc_insertion_point(field_set:cs.S2C_Ping.send_time)
-}
-
-// uint32 recv_time = 2;
-inline void S2C_Ping::clear_recv_time() {
-  recv_time_ = 0u;
-}
-inline ::google::protobuf::uint32 S2C_Ping::recv_time() const {
-  // @@protoc_insertion_point(field_get:cs.S2C_Ping.recv_time)
-  return recv_time_;
-}
-inline void S2C_Ping::set_recv_time(::google::protobuf::uint32 value) {
-  
-  recv_time_ = value;
-  // @@protoc_insertion_point(field_set:cs.S2C_Ping.recv_time)
-}
 
 // -------------------------------------------------------------------
 

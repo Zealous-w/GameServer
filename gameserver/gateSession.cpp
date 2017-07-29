@@ -1,5 +1,7 @@
 #include <gateSession.h>
 #include <Util.h>
+#include <world.h>
+
 gateSession::gateSession(khaki::EventLoop* loop, std::string& host, uint16_t port) :
         loop_(loop), conn_(new khaki::Connector(loop_, host, port)) {
     conn_->setConnectCallback(std::bind(&gateSession::OnConnected, this, std::placeholders::_1));
@@ -51,13 +53,15 @@ void gateSession::OnConnectClose(const khaki::TcpConnectorPtr& con) {
 
 void gateSession::RegisterCmd() {
     command_[gs::ProtoID::ID_G2S_RegisterServer] = std::bind(&gateSession::HandlerRegisterSid, this, std::placeholders::_1);
+    ///////////////////////////
 }
 
 void gateSession::DispatcherCmd(struct PACKET& msg) {
     if ( command_.find(msg.cmd) != command_.end() ) {
         command_[msg.cmd](msg);
     } else {
-        log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
+        HandlerDirtyPacket(msg);
+        //log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
     }
 }
 
@@ -66,7 +70,17 @@ void gateSession::SendPacket(uint32 cmd, std::string& msg) {
     pkt.len = PACKET_HEAD_LEN + msg.size();
     pkt.cmd = cmd;
     pkt.uid = 0;
-    pkt.sid = 0;
+    pkt.sid = sid_;
+    pkt.msg = msg;
+    SendPacket(pkt);
+}
+
+void gateSession::SendPacket(uint32 cmd, uint64 uid, std::string& msg) {
+    struct PACKET pkt;
+    pkt.len = PACKET_HEAD_LEN + msg.size();
+    pkt.cmd = cmd;
+    pkt.uid = uid;
+    pkt.sid = sid_;
     pkt.msg = msg;
     SendPacket(pkt);
 }
@@ -82,5 +96,6 @@ bool gateSession::HandlerRegisterSid(struct PACKET& str) {
 }
 
 bool gateSession::HandlerDirtyPacket(struct PACKET& str) {
-    return false;
+    gWorld.Push(str);
+    return true;
 }

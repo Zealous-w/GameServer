@@ -1,5 +1,5 @@
-#ifndef GAME_CLIENT_SESSION_H
-#define GAME_CLIENT_SESSION_H
+#ifndef GAME_SESSION_H
+#define GAME_SESSION_H
 #include <khaki.h>
 #include <unordered_map>
 #include <Queue.h>
@@ -7,32 +7,25 @@
 #include <base/common.h>
 #include <protocol/out/cs.pb.h>
 
-class gameSession;
-class clientServer;
-class clientSession {
+class dbServer;
+class gameSession {
 public:
-    enum {
-        E_CLIENT_NONE = 0,
-        E_CLIENT_RUNNING = 1,
-    };
     typedef std::function<bool(struct PACKET&)> ServiceFunc;
-    clientSession(clientServer* server, const khaki::TcpClientPtr& conn);
-    ~clientSession();
+    gameSession(dbServer* server, const khaki::TcpClientPtr& conn);
+    ~gameSession();
 
 	void OnMessage(const khaki::TcpClientPtr& con);
 
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
 
-    void SendToServer(struct PACKET& msg);
-    void UnAuthSendToServer(struct PACKET& msg);
 private:
     uint8 status_;
     uint64 uid;
     std::map<uint32, ServiceFunc> command_;
     khaki::TcpClientPtr conn_;
-    clientServer* server_;
-    std::weak_ptr<gameSession> gameSession_;
+    dbServer* server_;
+    std::weak_ptr<dbServer> dbSession_;
     khaki::queue<struct PACKET> msgQueue_;
 public:
     bool HandlerPing(struct PACKET& str);
@@ -40,5 +33,5 @@ public:
     bool HandlerDirtyPacket(struct PACKET& str);
 };
 
-typedef std::shared_ptr<clientSession> clientSessionPtr;
+typedef std::shared_ptr<gameSession> gameSessionPtr;
 #endif

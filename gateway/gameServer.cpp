@@ -28,10 +28,10 @@ void gameServer::OnConnClose(const khaki::TcpClientPtr& con) {
 }
 
 gameSessionPtr gameServer::GetGameSessionBySid(uint32 sid) {
-    std::unique_lock<std::mutex> lck(mtx_);
+    std::unique_lock<std::mutex> lck(authmtx_);
     gameSessionPtr gs;
-    if ( sessionLists_.find(sid) != sessionLists_.end() ) {
-        gs = sessionLists_[sid];
+    if ( authList_.find(sid) != authList_.end() ) {
+        gs = sessionLists_[authList_[sid]];
     }
     return gs;
 }
