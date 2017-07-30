@@ -19,11 +19,11 @@ void dbServer::start() {
 void dbServer::OnConnection(const khaki::TcpClientPtr& con) {
     std::unique_lock<std::mutex> lck(mtx_);
     sessionLists_[con->getFd()] = gameSessionPtr(new gameSession(this, con));
-    log4cppDebug(khaki::logger, "clientServer fd : %d add sessionlists", con->getFd());
+    log4cppDebug(khaki::logger, "dbServer fd : %d add sessionlists", con->getFd());
 }
 void dbServer::OnConnClose(const khaki::TcpClientPtr& con) {
     std::unique_lock<std::mutex> lck(mtx_);
     assert(sessionLists_.find(con->getFd()) != sessionLists_.end());
     sessionLists_.erase(con->getFd());
-    log4cppDebug(khaki::logger, "clientSession fd : %d closed", con->getFd());
+    log4cppDebug(khaki::logger, "dbServer fd : %d closed", con->getFd());
 }

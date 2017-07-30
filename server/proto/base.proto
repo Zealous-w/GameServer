@@ -1,0 +1,9 @@
+syntax = "proto3";
+package base;
+
+message user {
+    uint32 uid = 1;
+    string naem = 2;
+    uint32 level = 3;
+    uint32 money = 4;
+}
