@@ -40,7 +40,7 @@ public:
 
 public:
     bool HandlerLogin(struct PACKET& str);
-
+    
 };
 
 #define gdbMaster dbMaster::getInstance()

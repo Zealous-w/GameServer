@@ -91,7 +91,7 @@ void gateSession::SendPacket(struct PACKET& pkt) {
 }
 
 bool gateSession::HandlerRegisterSid(struct PACKET& str) {
-    log4cppDebug(khaki::logger, "gameserver, HandlerRegisterSid Success %d", str.cmd);
+    log4cppDebug(khaki::logger, "gateway, HandlerRegisterSid Success %d", str.cmd);
     return false;
 }
 

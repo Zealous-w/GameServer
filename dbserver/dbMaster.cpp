@@ -1,6 +1,6 @@
 #include <dbMaster.h>
 #include <Log.h>
-#include <protocol/out/cs.pb.h>
+#include <protocol/in/sr.pb.h>
 
 dbMaster::dbMaster():thread_(&dbMaster::Run, this) {
     running_ = false;
@@ -26,7 +26,7 @@ void dbMaster::Run() {
 }
 
 void dbMaster::RegisterCmd() {
-    REGISTER_CMD_CALLBACK(cs::ProtoID::ID_C2S_Login, HandlerLogin);
+    REGISTER_CMD_CALLBACK(sr::ProtoID::ID_S2R_Login, HandlerLogin);
 }
 
 void dbMaster::DispatcherCmd(struct PACKET& msg) {
@@ -37,6 +37,12 @@ void dbMaster::DispatcherCmd(struct PACKET& msg) {
     }
 }
 
-bool dbMaster::HandlerLogin(struct PACKET& str) {
-    log4cppDebug(khaki::logger, "HandlerLogin proto : %d", str.cmd);
+bool dbMaster::HandlerLogin(struct PACKET& pkt) {
+    sr::S2R_Login recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }

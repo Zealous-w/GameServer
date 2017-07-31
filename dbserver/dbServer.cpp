@@ -27,3 +27,22 @@ void dbServer::OnConnClose(const khaki::TcpClientPtr& con) {
     sessionLists_.erase(con->getFd());
     log4cppDebug(khaki::logger, "dbServer fd : %d closed", con->getFd());
 }
+
+gameSessionPtr dbServer::GetGameSessionBySid(uint32 sid) {
+    std::unique_lock<std::mutex> lck(authmtx_);
+    gameSessionPtr gs;
+    if ( authList_.find(sid) != authList_.end() ) {
+        gs = sessionLists_[authList_[sid]];
+    }
+    return gs;
+}
+
+void dbServer::AddAuthGameSession(uint32 sid, uint32 sockFd) {
+    std::unique_lock<std::mutex> lck(authmtx_);
+    authList_.insert(std::make_pair(sid, sockFd));
+}
+
+void dbServer::RemoveAuthGameSession(uint32 sid) {
+    std::unique_lock<std::mutex> lck(authmtx_);
+    authList_.erase(sid);
+}

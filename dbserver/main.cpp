@@ -18,22 +18,26 @@ int main(int argc, char* argv[]) {
 	TiXmlElement *mysql_dbname = mysql_port->NextSiblingElement();
 	TiXmlElement *mysql_user = mysql_dbname->NextSiblingElement();
 	TiXmlElement *mysql_pwd = mysql_user->NextSiblingElement();
+	TiXmlElement *listen_host = mysql_pwd->NextSiblingElement();
+	TiXmlElement *listen_port = listen_host->NextSiblingElement();
 
     std::string mysqlHost = mysql_host->FirstChild()->Value();
     std::string mysqlPort = mysql_port->FirstChild()->Value();
 	std::string mysqldbName = mysql_dbname->FirstChild()->Value();
 	std::string mysqlUser = mysql_user->FirstChild()->Value();
 	std::string mysqlPwd = mysql_pwd->FirstChild()->Value();
+	std::string listenHost = mysql_pwd->FirstChild()->Value();
+	std::string listenPort = listen_host->FirstChild()->Value();
 
 	DbSQL* db = new DbSQL(mysqlHost, atoi(mysqlPort.c_str()), mysqldbName, mysqlUser, mysqlPwd);
-	if ( !db->ConnectionDatabase() ) {
-		log4cppDebug(khaki::logger, "connect mysql error");
-		return 0;
-	} else {
-		log4cppDebug(khaki::logger, "connect mysql success");
-	}
+	// if ( !db->ConnectionDatabase() ) {
+	// 	log4cppDebug(khaki::logger, "connect mysql error");
+	// 	return 0;
+	// } else {
+	// 	log4cppDebug(khaki::logger, "connect mysql success");
+	// }
 
-	gdbMaster.SetDbSQL(db);
+	gdbMaster.SetDbSQL(db);//atoi(listenPort.c_str())
 	dbServer* g_dbServer = new dbServer(&loop, "127.0.0.1", 9529, 4);
 	
 	gdbMaster.Start();
