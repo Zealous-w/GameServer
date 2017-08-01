@@ -1,6 +1,8 @@
 syntax = "proto3";
 package sr;
 
+import "base.proto";
+
 enum ProtoID {
     ID_NULL = 0;
     ID_S2R_RegisterServer = 30001;
@@ -25,8 +27,19 @@ message S2R_Login {
 
 message R2S_Login {
     uint32 ret = 1;
+    base.User user = 2;
 }
 
 message S2R_Ping {
     uint32 now_time = 1;
+}
+
+message S2R_Create {
+    
+}
+
+message R2S_Create {
+    uint32 ret      = 1;
+    uint64 uid      = 2;
+    base.User user  = 3;
 }

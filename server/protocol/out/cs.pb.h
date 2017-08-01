@@ -32,12 +32,18 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace cs {
+class C2S_Create;
+class C2S_CreateDefaultTypeInternal;
+extern C2S_CreateDefaultTypeInternal _C2S_Create_default_instance_;
 class C2S_Login;
 class C2S_LoginDefaultTypeInternal;
 extern C2S_LoginDefaultTypeInternal _C2S_Login_default_instance_;
 class C2S_Ping;
 class C2S_PingDefaultTypeInternal;
 extern C2S_PingDefaultTypeInternal _C2S_Ping_default_instance_;
+class S2C_Create;
+class S2C_CreateDefaultTypeInternal;
+extern S2C_CreateDefaultTypeInternal _S2C_Create_default_instance_;
 class S2C_Login;
 class S2C_LoginDefaultTypeInternal;
 extern S2C_LoginDefaultTypeInternal _S2C_Login_default_instance_;
@@ -68,12 +74,14 @@ enum ProtoID {
   ID_S2C_Ping = 10002,
   ID_C2S_Login = 10003,
   ID_S2C_Login = 10004,
+  ID_C2S_Create = 10005,
+  ID_S2C_Create = 10006,
   ProtoID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ProtoID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ProtoID_IsValid(int value);
 const ProtoID ProtoID_MIN = ID_NULL;
-const ProtoID ProtoID_MAX = ID_S2C_Login;
+const ProtoID ProtoID_MAX = ID_S2C_Create;
 const int ProtoID_ARRAYSIZE = ProtoID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ProtoID_descriptor();
@@ -399,6 +407,166 @@ class S2C_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
   mutable int _cached_size_;
   friend struct protobuf_cs_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class C2S_Create : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cs.C2S_Create) */ {
+ public:
+  C2S_Create();
+  virtual ~C2S_Create();
+
+  C2S_Create(const C2S_Create& from);
+
+  inline C2S_Create& operator=(const C2S_Create& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const C2S_Create& default_instance();
+
+  static inline const C2S_Create* internal_default_instance() {
+    return reinterpret_cast<const C2S_Create*>(
+               &_C2S_Create_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    4;
+
+  void Swap(C2S_Create* other);
+
+  // implements Message ----------------------------------------------
+
+  inline C2S_Create* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  C2S_Create* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const C2S_Create& from);
+  void MergeFrom(const C2S_Create& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(C2S_Create* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:cs.C2S_Create)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_cs_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class S2C_Create : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cs.S2C_Create) */ {
+ public:
+  S2C_Create();
+  virtual ~S2C_Create();
+
+  S2C_Create(const S2C_Create& from);
+
+  inline S2C_Create& operator=(const S2C_Create& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const S2C_Create& default_instance();
+
+  static inline const S2C_Create* internal_default_instance() {
+    return reinterpret_cast<const S2C_Create*>(
+               &_S2C_Create_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    5;
+
+  void Swap(S2C_Create* other);
+
+  // implements Message ----------------------------------------------
+
+  inline S2C_Create* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  S2C_Create* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const S2C_Create& from);
+  void MergeFrom(const S2C_Create& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(S2C_Create* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint64 uid = 2;
+  void clear_uid();
+  static const int kUidFieldNumber = 2;
+  ::google::protobuf::uint64 uid() const;
+  void set_uid(::google::protobuf::uint64 value);
+
+  // uint32 ret = 1;
+  void clear_ret();
+  static const int kRetFieldNumber = 1;
+  ::google::protobuf::uint32 ret() const;
+  void set_ret(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:cs.S2C_Create)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 uid_;
+  ::google::protobuf::uint32 ret_;
+  mutable int _cached_size_;
+  friend struct protobuf_cs_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -461,7 +629,47 @@ inline void S2C_Login::set_ret(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:cs.S2C_Login.ret)
 }
 
+// -------------------------------------------------------------------
+
+// C2S_Create
+
+// -------------------------------------------------------------------
+
+// S2C_Create
+
+// uint32 ret = 1;
+inline void S2C_Create::clear_ret() {
+  ret_ = 0u;
+}
+inline ::google::protobuf::uint32 S2C_Create::ret() const {
+  // @@protoc_insertion_point(field_get:cs.S2C_Create.ret)
+  return ret_;
+}
+inline void S2C_Create::set_ret(::google::protobuf::uint32 value) {
+  
+  ret_ = value;
+  // @@protoc_insertion_point(field_set:cs.S2C_Create.ret)
+}
+
+// uint64 uid = 2;
+inline void S2C_Create::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 S2C_Create::uid() const {
+  // @@protoc_insertion_point(field_get:cs.S2C_Create.uid)
+  return uid_;
+}
+inline void S2C_Create::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:cs.S2C_Create.uid)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

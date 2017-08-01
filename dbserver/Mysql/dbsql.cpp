@@ -1,6 +1,7 @@
 #include "dbsql.h"
 #include <Util.h>
 #include <Log.h>
+#include <protocol/in/base.pb.h>
 
 DbSQL::DbSQL(std::string host, uint16_t port, std::string dbName, std::string user, std::string pwd):
         host_(host),port_(port),dbName_(dbName),user_(user),pwd_(pwd), db_(false),query_(db_.query()) {
@@ -55,42 +56,26 @@ mysqlpp::StoreQueryResult DbSQL::GetData(std::string& sql) {
     return ret;
 }
 
-bool DbSQL::SaveData() {
-
-}
-
-bool DbSQL::ExectueSql(std::string& sql) {
-
-}
 void DbSQL::CloseMysql() {
 
 }
 
-bool DbSQL::LoadUser(uint64 uid) {
-    return false;
-}
-
-bool DbSQL::SaveUser(uint64 uid) {
-    return false;
-}
-
-bool DbSQL::SaveBaseInfo(base::user& user) {
-    return false;
-}
-
-base::user DbSQL::GetUserBaseInfo(uint64 uid) {
-    base::user uInfo;
+bool DbSQL::GetUserBaseInfo(base::User& user, uint64 uid) {
     std::string sql = khaki::util::string_format("select * from user where uid=%d", uid);
     mysqlpp::StoreQueryResult res;
     mysqlpp::StoreQueryResult  ret = query_.store(sql.c_str());
     if (res) {
         for (auto iter = res.begin(); iter != res.end(); ++iter) {
-
+            mysqlpp::Row row = *iter;
+            user.set_name(row["name"]);
+            user.set_level(row["level"]);
+            user.set_money(row["money"]);
         }
+        return true;
     } else {
         log4cppDebug(khaki::logger, "GetUserBaseInfo, query failed, %s", sql.c_str());
+        return false;
     }
-    return uInfo;
 }
 
 bool DbSQL::CreateGameTable() {
@@ -103,6 +88,13 @@ bool DbSQL::CreateGameTable() {
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
     if (!CreateDbTable(user)) {
         log4cppError(khaki::logger, "create table user error");
+        return false;
+    }
+}
+
+bool DbSQL::LoadUser(base::User& user, uint64 uid) {
+    if (GetUserBaseInfo(user, uid)) {
+        log4cppError(khaki::logger, "LoadUser, load base user error %d", uid);
         return false;
     }
 }

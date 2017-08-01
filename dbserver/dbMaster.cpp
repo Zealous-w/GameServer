@@ -45,5 +45,19 @@ bool dbMaster::HandlerLogin(struct PACKET& pkt) {
         log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
         return false;
     }
+    uint64 uid = recv.uid();
+    base::User user;
+    sr::R2S_Login msg;
+    uint32 msgId = uint32(sr::ProtoID::ID_R2S_Login);
+    if (mysql_->LoadUser(user, uid)) {
+        msg.set_ret(2);
+
+    }
     log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    return true;
+}
+
+bool dbMaster::HandlerCreate(struct PACKET& pkt) {
+
+    return true;
 }

@@ -1,9 +1,9 @@
 syntax = "proto3";
 package base;
 
-message user {
+message User {
     uint32 uid = 1;
-    string naem = 2;
+    string name = 2;
     uint32 level = 3;
     uint32 money = 4;
 }

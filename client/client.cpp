@@ -94,6 +94,7 @@ private:
     khaki::EventLoop* loop_;
     khaki::TcpConnectorPtr conn_;
     std::map<uint32, ServiceFunc> command_;
+
 public:
     bool HandlerLogin(struct PACKET& msg) {
         cs::S2C_Login recv;

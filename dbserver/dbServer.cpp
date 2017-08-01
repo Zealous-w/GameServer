@@ -1,4 +1,5 @@
 #include <dbServer.h>
+#include <dbMaster.h>
 
 dbServer::dbServer(khaki::EventLoop* loop, std::string host, int port, int threadNum) :
         server_(loop, host, port, threadNum) {
@@ -40,6 +41,8 @@ gameSessionPtr dbServer::GetGameSessionBySid(uint32 sid) {
 void dbServer::AddAuthGameSession(uint32 sid, uint32 sockFd) {
     std::unique_lock<std::mutex> lck(authmtx_);
     authList_.insert(std::make_pair(sid, sockFd));
+    //gameSessionPtr gsp = GetGameSessionBySid(sid);
+    //gdbMaster.SetGameConn(gsp);
 }
 
 void dbServer::RemoveAuthGameSession(uint32 sid) {

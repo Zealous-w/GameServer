@@ -18,8 +18,8 @@
 // @@protoc_insertion_point(includes)
 
 namespace base {
-class userDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<user> {
-} _user_default_instance_;
+class UserDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<User> {
+} _User_default_instance_;
 
 namespace protobuf_base_2eproto {
 
@@ -46,22 +46,22 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
 
 const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(user, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(user, uid_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(user, naem_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(user, level_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(user, money_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, uid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, level_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, money_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
-  { 0, -1, sizeof(user)},
+  { 0, -1, sizeof(User)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&_user_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_User_default_instance_),
 };
 
 namespace {
@@ -88,7 +88,7 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void TableStruct::Shutdown() {
-  _user_default_instance_.Shutdown();
+  _User_default_instance_.Shutdown();
   delete file_level_metadata[0].reflection;
 }
 
@@ -96,7 +96,7 @@ void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::InitProtobufDefaults();
-  _user_default_instance_.DefaultConstruct();
+  _User_default_instance_.DefaultConstruct();
 }
 
 void InitDefaults() {
@@ -106,8 +106,8 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\nbase.proto\022\004base\"\?\n\004user\022\013\n\003uid\030\001 \001(\r\022"
-      "\014\n\004naem\030\002 \001(\t\022\r\n\005level\030\003 \001(\r\022\r\n\005money\030\004 "
+      "\n\nbase.proto\022\004base\"\?\n\004User\022\013\n\003uid\030\001 \001(\r\022"
+      "\014\n\004name\030\002 \001(\t\022\r\n\005level\030\003 \001(\r\022\r\n\005money\030\004 "
       "\001(\rb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
@@ -134,86 +134,86 @@ struct StaticDescriptorInitializer {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int user::kUidFieldNumber;
-const int user::kNaemFieldNumber;
-const int user::kLevelFieldNumber;
-const int user::kMoneyFieldNumber;
+const int User::kUidFieldNumber;
+const int User::kNameFieldNumber;
+const int User::kLevelFieldNumber;
+const int User::kMoneyFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-user::user()
+User::User()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
     protobuf_base_2eproto::InitDefaults();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:base.user)
+  // @@protoc_insertion_point(constructor:base.User)
 }
-user::user(const user& from)
+User::User(const User& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  naem_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.naem().size() > 0) {
-    naem_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.naem_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   ::memcpy(&uid_, &from.uid_,
     reinterpret_cast<char*>(&money_) -
     reinterpret_cast<char*>(&uid_) + sizeof(money_));
-  // @@protoc_insertion_point(copy_constructor:base.user)
+  // @@protoc_insertion_point(copy_constructor:base.User)
 }
 
-void user::SharedCtor() {
-  naem_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+void User::SharedCtor() {
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&uid_, 0, reinterpret_cast<char*>(&money_) -
     reinterpret_cast<char*>(&uid_) + sizeof(money_));
   _cached_size_ = 0;
 }
 
-user::~user() {
-  // @@protoc_insertion_point(destructor:base.user)
+User::~User() {
+  // @@protoc_insertion_point(destructor:base.User)
   SharedDtor();
 }
 
-void user::SharedDtor() {
-  naem_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+void User::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void user::SetCachedSize(int size) const {
+void User::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* user::descriptor() {
+const ::google::protobuf::Descriptor* User::descriptor() {
   protobuf_base_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_base_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const user& user::default_instance() {
+const User& User::default_instance() {
   protobuf_base_2eproto::InitDefaults();
   return *internal_default_instance();
 }
 
-user* user::New(::google::protobuf::Arena* arena) const {
-  user* n = new user;
+User* User::New(::google::protobuf::Arena* arena) const {
+  User* n = new User;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void user::Clear() {
-// @@protoc_insertion_point(message_clear_start:base.user)
-  naem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+void User::Clear() {
+// @@protoc_insertion_point(message_clear_start:base.User)
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&uid_, 0, reinterpret_cast<char*>(&money_) -
     reinterpret_cast<char*>(&uid_) + sizeof(money_));
 }
 
-bool user::MergePartialFromCodedStream(
+bool User::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:base.user)
+  // @@protoc_insertion_point(parse_start:base.User)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -233,16 +233,16 @@ bool user::MergePartialFromCodedStream(
         break;
       }
 
-      // string naem = 2;
+      // string name = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_naem()));
+                input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->naem().data(), this->naem().length(),
+            this->name().data(), this->name().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "base.user.naem"));
+            "base.User.name"));
         } else {
           goto handle_unusual;
         }
@@ -290,17 +290,17 @@ bool user::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:base.user)
+  // @@protoc_insertion_point(parse_success:base.User)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:base.user)
+  // @@protoc_insertion_point(parse_failure:base.User)
   return false;
 #undef DO_
 }
 
-void user::SerializeWithCachedSizes(
+void User::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:base.user)
+  // @@protoc_insertion_point(serialize_start:base.User)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -309,14 +309,14 @@ void user::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->uid(), output);
   }
 
-  // string naem = 2;
-  if (this->naem().size() > 0) {
+  // string name = 2;
+  if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->naem().data(), this->naem().length(),
+      this->name().data(), this->name().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "base.user.naem");
+      "base.User.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->naem(), output);
+      2, this->name(), output);
   }
 
   // uint32 level = 3;
@@ -329,12 +329,12 @@ void user::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->money(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:base.user)
+  // @@protoc_insertion_point(serialize_end:base.User)
 }
 
-::google::protobuf::uint8* user::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* User::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:base.user)
+  // @@protoc_insertion_point(serialize_to_array_start:base.User)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -343,15 +343,15 @@ void user::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->uid(), target);
   }
 
-  // string naem = 2;
-  if (this->naem().size() > 0) {
+  // string name = 2;
+  if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->naem().data(), this->naem().length(),
+      this->name().data(), this->name().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "base.user.naem");
+      "base.User.name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->naem(), target);
+        2, this->name(), target);
   }
 
   // uint32 level = 3;
@@ -364,19 +364,19 @@ void user::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->money(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:base.user)
+  // @@protoc_insertion_point(serialize_to_array_end:base.User)
   return target;
 }
 
-size_t user::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:base.user)
+size_t User::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:base.User)
   size_t total_size = 0;
 
-  // string naem = 2;
-  if (this->naem().size() > 0) {
+  // string name = 2;
+  if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->naem());
+        this->name());
   }
 
   // uint32 uid = 1;
@@ -407,31 +407,31 @@ size_t user::ByteSizeLong() const {
   return total_size;
 }
 
-void user::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:base.user)
+void User::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:base.User)
   GOOGLE_DCHECK_NE(&from, this);
-  const user* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const user>(
+  const User* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const User>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:base.user)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:base.User)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:base.user)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:base.User)
     MergeFrom(*source);
   }
 }
 
-void user::MergeFrom(const user& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:base.user)
+void User::MergeFrom(const User& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:base.User)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.naem().size() > 0) {
+  if (from.name().size() > 0) {
 
-    naem_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.naem_);
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   if (from.uid() != 0) {
     set_uid(from.uid());
@@ -444,137 +444,137 @@ void user::MergeFrom(const user& from) {
   }
 }
 
-void user::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:base.user)
+void User::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:base.User)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void user::CopyFrom(const user& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:base.user)
+void User::CopyFrom(const User& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:base.User)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool user::IsInitialized() const {
+bool User::IsInitialized() const {
   return true;
 }
 
-void user::Swap(user* other) {
+void User::Swap(User* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void user::InternalSwap(user* other) {
-  naem_.Swap(&other->naem_);
+void User::InternalSwap(User* other) {
+  name_.Swap(&other->name_);
   std::swap(uid_, other->uid_);
   std::swap(level_, other->level_);
   std::swap(money_, other->money_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata user::GetMetadata() const {
+::google::protobuf::Metadata User::GetMetadata() const {
   protobuf_base_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_base_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// user
+// User
 
 // uint32 uid = 1;
-void user::clear_uid() {
+void User::clear_uid() {
   uid_ = 0u;
 }
-::google::protobuf::uint32 user::uid() const {
-  // @@protoc_insertion_point(field_get:base.user.uid)
+::google::protobuf::uint32 User::uid() const {
+  // @@protoc_insertion_point(field_get:base.User.uid)
   return uid_;
 }
-void user::set_uid(::google::protobuf::uint32 value) {
+void User::set_uid(::google::protobuf::uint32 value) {
   
   uid_ = value;
-  // @@protoc_insertion_point(field_set:base.user.uid)
+  // @@protoc_insertion_point(field_set:base.User.uid)
 }
 
-// string naem = 2;
-void user::clear_naem() {
-  naem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// string name = 2;
+void User::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& user::naem() const {
-  // @@protoc_insertion_point(field_get:base.user.naem)
-  return naem_.GetNoArena();
+const ::std::string& User::name() const {
+  // @@protoc_insertion_point(field_get:base.User.name)
+  return name_.GetNoArena();
 }
-void user::set_naem(const ::std::string& value) {
+void User::set_name(const ::std::string& value) {
   
-  naem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:base.user.naem)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:base.User.name)
 }
 #if LANG_CXX11
-void user::set_naem(::std::string&& value) {
+void User::set_name(::std::string&& value) {
   
-  naem_.SetNoArena(
+  name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:base.user.naem)
+  // @@protoc_insertion_point(field_set_rvalue:base.User.name)
 }
 #endif
-void user::set_naem(const char* value) {
+void User::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  naem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:base.user.naem)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:base.User.name)
 }
-void user::set_naem(const char* value, size_t size) {
+void User::set_name(const char* value, size_t size) {
   
-  naem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:base.user.naem)
+  // @@protoc_insertion_point(field_set_pointer:base.User.name)
 }
-::std::string* user::mutable_naem() {
+::std::string* User::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:base.user.naem)
-  return naem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:base.User.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* user::release_naem() {
-  // @@protoc_insertion_point(field_release:base.user.naem)
+::std::string* User::release_name() {
+  // @@protoc_insertion_point(field_release:base.User.name)
   
-  return naem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void user::set_allocated_naem(::std::string* naem) {
-  if (naem != NULL) {
+void User::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
     
   } else {
     
   }
-  naem_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), naem);
-  // @@protoc_insertion_point(field_set_allocated:base.user.naem)
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:base.User.name)
 }
 
 // uint32 level = 3;
-void user::clear_level() {
+void User::clear_level() {
   level_ = 0u;
 }
-::google::protobuf::uint32 user::level() const {
-  // @@protoc_insertion_point(field_get:base.user.level)
+::google::protobuf::uint32 User::level() const {
+  // @@protoc_insertion_point(field_get:base.User.level)
   return level_;
 }
-void user::set_level(::google::protobuf::uint32 value) {
+void User::set_level(::google::protobuf::uint32 value) {
   
   level_ = value;
-  // @@protoc_insertion_point(field_set:base.user.level)
+  // @@protoc_insertion_point(field_set:base.User.level)
 }
 
 // uint32 money = 4;
-void user::clear_money() {
+void User::clear_money() {
   money_ = 0u;
 }
-::google::protobuf::uint32 user::money() const {
-  // @@protoc_insertion_point(field_get:base.user.money)
+::google::protobuf::uint32 User::money() const {
+  // @@protoc_insertion_point(field_get:base.User.money)
   return money_;
 }
-void user::set_money(::google::protobuf::uint32 value) {
+void User::set_money(::google::protobuf::uint32 value) {
   
   money_ = value;
-  // @@protoc_insertion_point(field_set:base.user.money)
+  // @@protoc_insertion_point(field_set:base.User.money)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -31,9 +31,9 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace base {
-class user;
-class userDefaultTypeInternal;
-extern userDefaultTypeInternal _user_default_instance_;
+class User;
+class UserDefaultTypeInternal;
+extern UserDefaultTypeInternal _User_default_instance_;
 }  // namespace base
 
 namespace base {
@@ -54,39 +54,39 @@ void InitDefaults();
 
 // ===================================================================
 
-class user : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:base.user) */ {
+class User : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:base.User) */ {
  public:
-  user();
-  virtual ~user();
+  User();
+  virtual ~User();
 
-  user(const user& from);
+  User(const User& from);
 
-  inline user& operator=(const user& from) {
+  inline User& operator=(const User& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const user& default_instance();
+  static const User& default_instance();
 
-  static inline const user* internal_default_instance() {
-    return reinterpret_cast<const user*>(
-               &_user_default_instance_);
+  static inline const User* internal_default_instance() {
+    return reinterpret_cast<const User*>(
+               &_User_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     0;
 
-  void Swap(user* other);
+  void Swap(User* other);
 
   // implements Message ----------------------------------------------
 
-  inline user* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline User* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  user* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  User* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const user& from);
-  void MergeFrom(const user& from);
+  void CopyFrom(const User& from);
+  void MergeFrom(const User& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -102,7 +102,7 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(user* other);
+  void InternalSwap(User* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -118,19 +118,19 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  // string naem = 2;
-  void clear_naem();
-  static const int kNaemFieldNumber = 2;
-  const ::std::string& naem() const;
-  void set_naem(const ::std::string& value);
+  // string name = 2;
+  void clear_name();
+  static const int kNameFieldNumber = 2;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
   #if LANG_CXX11
-  void set_naem(::std::string&& value);
+  void set_name(::std::string&& value);
   #endif
-  void set_naem(const char* value);
-  void set_naem(const char* value, size_t size);
-  ::std::string* mutable_naem();
-  ::std::string* release_naem();
-  void set_allocated_naem(::std::string* naem);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
 
   // uint32 uid = 1;
   void clear_uid();
@@ -150,11 +150,11 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::google::protobuf::uint32 money() const;
   void set_money(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:base.user)
+  // @@protoc_insertion_point(class_scope:base.User)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr naem_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::uint32 uid_;
   ::google::protobuf::uint32 level_;
   ::google::protobuf::uint32 money_;
@@ -167,101 +167,101 @@ class user : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// user
+// User
 
 // uint32 uid = 1;
-inline void user::clear_uid() {
+inline void User::clear_uid() {
   uid_ = 0u;
 }
-inline ::google::protobuf::uint32 user::uid() const {
-  // @@protoc_insertion_point(field_get:base.user.uid)
+inline ::google::protobuf::uint32 User::uid() const {
+  // @@protoc_insertion_point(field_get:base.User.uid)
   return uid_;
 }
-inline void user::set_uid(::google::protobuf::uint32 value) {
+inline void User::set_uid(::google::protobuf::uint32 value) {
   
   uid_ = value;
-  // @@protoc_insertion_point(field_set:base.user.uid)
+  // @@protoc_insertion_point(field_set:base.User.uid)
 }
 
-// string naem = 2;
-inline void user::clear_naem() {
-  naem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// string name = 2;
+inline void User::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& user::naem() const {
-  // @@protoc_insertion_point(field_get:base.user.naem)
-  return naem_.GetNoArena();
+inline const ::std::string& User::name() const {
+  // @@protoc_insertion_point(field_get:base.User.name)
+  return name_.GetNoArena();
 }
-inline void user::set_naem(const ::std::string& value) {
+inline void User::set_name(const ::std::string& value) {
   
-  naem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:base.user.naem)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:base.User.name)
 }
 #if LANG_CXX11
-inline void user::set_naem(::std::string&& value) {
+inline void User::set_name(::std::string&& value) {
   
-  naem_.SetNoArena(
+  name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:base.user.naem)
+  // @@protoc_insertion_point(field_set_rvalue:base.User.name)
 }
 #endif
-inline void user::set_naem(const char* value) {
+inline void User::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  naem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:base.user.naem)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:base.User.name)
 }
-inline void user::set_naem(const char* value, size_t size) {
+inline void User::set_name(const char* value, size_t size) {
   
-  naem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:base.user.naem)
+  // @@protoc_insertion_point(field_set_pointer:base.User.name)
 }
-inline ::std::string* user::mutable_naem() {
+inline ::std::string* User::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:base.user.naem)
-  return naem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:base.User.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* user::release_naem() {
-  // @@protoc_insertion_point(field_release:base.user.naem)
+inline ::std::string* User::release_name() {
+  // @@protoc_insertion_point(field_release:base.User.name)
   
-  return naem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void user::set_allocated_naem(::std::string* naem) {
-  if (naem != NULL) {
+inline void User::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
     
   } else {
     
   }
-  naem_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), naem);
-  // @@protoc_insertion_point(field_set_allocated:base.user.naem)
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:base.User.name)
 }
 
 // uint32 level = 3;
-inline void user::clear_level() {
+inline void User::clear_level() {
   level_ = 0u;
 }
-inline ::google::protobuf::uint32 user::level() const {
-  // @@protoc_insertion_point(field_get:base.user.level)
+inline ::google::protobuf::uint32 User::level() const {
+  // @@protoc_insertion_point(field_get:base.User.level)
   return level_;
 }
-inline void user::set_level(::google::protobuf::uint32 value) {
+inline void User::set_level(::google::protobuf::uint32 value) {
   
   level_ = value;
-  // @@protoc_insertion_point(field_set:base.user.level)
+  // @@protoc_insertion_point(field_set:base.User.level)
 }
 
 // uint32 money = 4;
-inline void user::clear_money() {
+inline void User::clear_money() {
   money_ = 0u;
 }
-inline ::google::protobuf::uint32 user::money() const {
-  // @@protoc_insertion_point(field_get:base.user.money)
+inline ::google::protobuf::uint32 User::money() const {
+  // @@protoc_insertion_point(field_get:base.User.money)
   return money_;
 }
-inline void user::set_money(::google::protobuf::uint32 value) {
+inline void User::set_money(::google::protobuf::uint32 value) {
   
   money_ = value;
-  // @@protoc_insertion_point(field_set:base.user.money)
+  // @@protoc_insertion_point(field_set:base.User.money)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

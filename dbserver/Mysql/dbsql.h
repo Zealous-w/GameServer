@@ -14,20 +14,16 @@ public:
     bool CreateDbDatabase(std::string& dbName);
     bool CreateDbTable(std::string& dbTable);
     mysqlpp::StoreQueryResult GetData(std::string& sql);
-    bool SaveData();
-    bool ExectueSql(std::string& sql);
     void CloseMysql();
     ////////////////////////
-    bool LoadUser(uint64 uid);
-    bool SaveUser(uint64 uid);
-    ////////////////////////
+    bool CreateGameTable();
 
     ////////////////////////
-    bool SaveBaseInfo(base::user& user);
+    bool LoadUser(base::User& user, uint64 uid);
     ////////////////////////
-    bool CreateGameTable();
+
     ////////RESULT/////////
-    base::user GetUserBaseInfo(uint64 uid);
+    bool GetUserBaseInfo(base::User& user, uint64 uid);
 private:
     std::string host_; 
     uint16_t port_; 

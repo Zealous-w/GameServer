@@ -30,14 +30,26 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "base.pb.h"
 // @@protoc_insertion_point(includes)
+namespace base {
+class User;
+class UserDefaultTypeInternal;
+extern UserDefaultTypeInternal _User_default_instance_;
+}  // namespace base
 namespace sr {
+class R2S_Create;
+class R2S_CreateDefaultTypeInternal;
+extern R2S_CreateDefaultTypeInternal _R2S_Create_default_instance_;
 class R2S_Login;
 class R2S_LoginDefaultTypeInternal;
 extern R2S_LoginDefaultTypeInternal _R2S_Login_default_instance_;
 class R2S_RegisterServer;
 class R2S_RegisterServerDefaultTypeInternal;
 extern R2S_RegisterServerDefaultTypeInternal _R2S_RegisterServer_default_instance_;
+class S2R_Create;
+class S2R_CreateDefaultTypeInternal;
+extern S2R_CreateDefaultTypeInternal _S2R_Create_default_instance_;
 class S2R_Login;
 class S2R_LoginDefaultTypeInternal;
 extern S2R_LoginDefaultTypeInternal _S2R_Login_default_instance_;
@@ -403,6 +415,15 @@ class R2S_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // accessors -------------------------------------------------------
 
+  // .base.User user = 2;
+  bool has_user() const;
+  void clear_user();
+  static const int kUserFieldNumber = 2;
+  const ::base::User& user() const;
+  ::base::User* mutable_user();
+  ::base::User* release_user();
+  void set_allocated_user(::base::User* user);
+
   // uint32 ret = 1;
   void clear_ret();
   static const int kRetFieldNumber = 1;
@@ -413,6 +434,7 @@ class R2S_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::base::User* user_;
   ::google::protobuf::uint32 ret_;
   mutable int _cached_size_;
   friend struct protobuf_sr_2eproto::TableStruct;
@@ -494,6 +516,176 @@ class S2R_Ping : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::uint32 now_time_;
+  mutable int _cached_size_;
+  friend struct protobuf_sr_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class S2R_Create : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sr.S2R_Create) */ {
+ public:
+  S2R_Create();
+  virtual ~S2R_Create();
+
+  S2R_Create(const S2R_Create& from);
+
+  inline S2R_Create& operator=(const S2R_Create& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const S2R_Create& default_instance();
+
+  static inline const S2R_Create* internal_default_instance() {
+    return reinterpret_cast<const S2R_Create*>(
+               &_S2R_Create_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    5;
+
+  void Swap(S2R_Create* other);
+
+  // implements Message ----------------------------------------------
+
+  inline S2R_Create* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  S2R_Create* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const S2R_Create& from);
+  void MergeFrom(const S2R_Create& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(S2R_Create* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:sr.S2R_Create)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_sr_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class R2S_Create : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sr.R2S_Create) */ {
+ public:
+  R2S_Create();
+  virtual ~R2S_Create();
+
+  R2S_Create(const R2S_Create& from);
+
+  inline R2S_Create& operator=(const R2S_Create& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const R2S_Create& default_instance();
+
+  static inline const R2S_Create* internal_default_instance() {
+    return reinterpret_cast<const R2S_Create*>(
+               &_R2S_Create_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    6;
+
+  void Swap(R2S_Create* other);
+
+  // implements Message ----------------------------------------------
+
+  inline R2S_Create* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  R2S_Create* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const R2S_Create& from);
+  void MergeFrom(const R2S_Create& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(R2S_Create* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .base.User user = 3;
+  bool has_user() const;
+  void clear_user();
+  static const int kUserFieldNumber = 3;
+  const ::base::User& user() const;
+  ::base::User* mutable_user();
+  ::base::User* release_user();
+  void set_allocated_user(::base::User* user);
+
+  // uint64 uid = 2;
+  void clear_uid();
+  static const int kUidFieldNumber = 2;
+  ::google::protobuf::uint64 uid() const;
+  void set_uid(::google::protobuf::uint64 value);
+
+  // uint32 ret = 1;
+  void clear_ret();
+  static const int kRetFieldNumber = 1;
+  ::google::protobuf::uint32 ret() const;
+  void set_ret(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:sr.R2S_Create)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::base::User* user_;
+  ::google::protobuf::uint64 uid_;
+  ::google::protobuf::uint32 ret_;
   mutable int _cached_size_;
   friend struct protobuf_sr_2eproto::TableStruct;
 };
@@ -587,6 +779,45 @@ inline void R2S_Login::set_ret(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:sr.R2S_Login.ret)
 }
 
+// .base.User user = 2;
+inline bool R2S_Login::has_user() const {
+  return this != internal_default_instance() && user_ != NULL;
+}
+inline void R2S_Login::clear_user() {
+  if (GetArenaNoVirtual() == NULL && user_ != NULL) delete user_;
+  user_ = NULL;
+}
+inline const ::base::User& R2S_Login::user() const {
+  // @@protoc_insertion_point(field_get:sr.R2S_Login.user)
+  return user_ != NULL ? *user_
+                         : *::base::User::internal_default_instance();
+}
+inline ::base::User* R2S_Login::mutable_user() {
+  
+  if (user_ == NULL) {
+    user_ = new ::base::User;
+  }
+  // @@protoc_insertion_point(field_mutable:sr.R2S_Login.user)
+  return user_;
+}
+inline ::base::User* R2S_Login::release_user() {
+  // @@protoc_insertion_point(field_release:sr.R2S_Login.user)
+  
+  ::base::User* temp = user_;
+  user_ = NULL;
+  return temp;
+}
+inline void R2S_Login::set_allocated_user(::base::User* user) {
+  delete user_;
+  user_ = user;
+  if (user) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:sr.R2S_Login.user)
+}
+
 // -------------------------------------------------------------------
 
 // S2R_Ping
@@ -605,7 +836,86 @@ inline void S2R_Ping::set_now_time(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:sr.S2R_Ping.now_time)
 }
 
+// -------------------------------------------------------------------
+
+// S2R_Create
+
+// -------------------------------------------------------------------
+
+// R2S_Create
+
+// uint32 ret = 1;
+inline void R2S_Create::clear_ret() {
+  ret_ = 0u;
+}
+inline ::google::protobuf::uint32 R2S_Create::ret() const {
+  // @@protoc_insertion_point(field_get:sr.R2S_Create.ret)
+  return ret_;
+}
+inline void R2S_Create::set_ret(::google::protobuf::uint32 value) {
+  
+  ret_ = value;
+  // @@protoc_insertion_point(field_set:sr.R2S_Create.ret)
+}
+
+// uint64 uid = 2;
+inline void R2S_Create::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 R2S_Create::uid() const {
+  // @@protoc_insertion_point(field_get:sr.R2S_Create.uid)
+  return uid_;
+}
+inline void R2S_Create::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:sr.R2S_Create.uid)
+}
+
+// .base.User user = 3;
+inline bool R2S_Create::has_user() const {
+  return this != internal_default_instance() && user_ != NULL;
+}
+inline void R2S_Create::clear_user() {
+  if (GetArenaNoVirtual() == NULL && user_ != NULL) delete user_;
+  user_ = NULL;
+}
+inline const ::base::User& R2S_Create::user() const {
+  // @@protoc_insertion_point(field_get:sr.R2S_Create.user)
+  return user_ != NULL ? *user_
+                         : *::base::User::internal_default_instance();
+}
+inline ::base::User* R2S_Create::mutable_user() {
+  
+  if (user_ == NULL) {
+    user_ = new ::base::User;
+  }
+  // @@protoc_insertion_point(field_mutable:sr.R2S_Create.user)
+  return user_;
+}
+inline ::base::User* R2S_Create::release_user() {
+  // @@protoc_insertion_point(field_release:sr.R2S_Create.user)
+  
+  ::base::User* temp = user_;
+  user_ = NULL;
+  return temp;
+}
+inline void R2S_Create::set_allocated_user(::base::User* user) {
+  delete user_;
+  user_ = user;
+  if (user) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:sr.R2S_Create.user)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
