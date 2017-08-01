@@ -30,12 +30,12 @@ int main(int argc, char* argv[]) {
 	std::string listenPort = listen_host->FirstChild()->Value();
 
 	DbSQL* db = new DbSQL(mysqlHost, atoi(mysqlPort.c_str()), mysqldbName, mysqlUser, mysqlPwd);
-	// if ( !db->ConnectionDatabase() ) {
-	// 	log4cppDebug(khaki::logger, "connect mysql error");
-	// 	return 0;
-	// } else {
-	// 	log4cppDebug(khaki::logger, "connect mysql success");
-	// }
+	if ( !db->ConnectionDatabase() ) {
+		log4cppDebug(khaki::logger, "connect mysql error");
+		return 0;
+	} else {
+		log4cppDebug(khaki::logger, "connect mysql success");
+	}
 
 	gdbMaster.SetDbSQL(db);//atoi(listenPort.c_str())
 	dbServer* g_dbServer = new dbServer(&loop, "127.0.0.1", 9529, 4);

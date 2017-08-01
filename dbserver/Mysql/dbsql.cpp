@@ -1,4 +1,5 @@
 #include "dbsql.h"
+#include <Util.h>
 #include <Log.h>
 
 DbSQL::DbSQL(std::string host, uint16_t port, std::string dbName, std::string user, std::string pwd):
@@ -13,6 +14,10 @@ bool DbSQL::ConnectionDatabase() {
     bool ret = db_.connect(dbName_.c_str(), host_.c_str(), user_.c_str(), pwd_.c_str(), port_);
     if (ret == false) {
         log4cppDebug(khaki::logger, "mysql connect failed, h:%s, p:%d, db:%s", host_.c_str(), port_, dbName_.c_str());
+        return false;
+    }
+    
+    if (!CreateGameTable()) {
         return false;
     }
     return true;
@@ -34,7 +39,7 @@ bool DbSQL::CreateDbTable(std::string& dbTable) {
     if (ret) {
         return true;
     } else {
-        log4cppDebug(khaki::logger, "CreateDbTable, query failed, %s", dbTable.c_str());
+        log4cppDebug(khaki::logger, "CreateDbTable, query failed, %s", query_.error());
         return false;
     }
 }
@@ -86,4 +91,18 @@ base::user DbSQL::GetUserBaseInfo(uint64 uid) {
         log4cppDebug(khaki::logger, "GetUserBaseInfo, query failed, %s", sql.c_str());
     }
     return uInfo;
+}
+
+bool DbSQL::CreateGameTable() {
+    std::string user = "CREATE TABLE IF NOT EXISTS user ("
+        "userId  BIGINT UNSIGNED NOT NULL PRIMARY KEY,"
+        "name VARCHAR(2048) NOT NULL,"
+        "level INT UNSIGNED NOT NULL DEFAULT 0,"
+        "sid INT UNSIGNED NOT NULL DEFAULT 0,"
+        "money BIGINT UNSIGNED NOT NULL DEFAULT 0"
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+    if (!CreateDbTable(user)) {
+        log4cppError(khaki::logger, "create table user error");
+        return false;
+    }
 }

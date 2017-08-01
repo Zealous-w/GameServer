@@ -70,11 +70,11 @@ bool gameSession::HandlerRegisterSid(struct PACKET& str) {
     sid_ = recv.sid();
     server_->AddAuthGameSession(sid_, conn_->getFd());
     sr::R2S_RegisterServer msg;
-    uint32 msgId = sr::ProtoID::ID_S2R_RegisterServer;
+    uint32 msgId = sr::ProtoID::ID_R2S_RegisterServer;
     msg.set_ret(1);
     msg.set_sid(sid_);
     std::string msgStr = msg.SerializeAsString();
     SendPacket(msgId, msgStr);
-    log4cppDebug(khaki::logger, "dbServer HandlerRegisterSid : %d", str.cmd);
+    log4cppDebug(khaki::logger, "dbServer HandlerRegisterSid, sid:%d cmd:%d", sid_, str.cmd);
     return false;
 }

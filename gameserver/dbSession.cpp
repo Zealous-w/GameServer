@@ -3,7 +3,7 @@
 #include <world.h>
 
 dbSession::dbSession(khaki::EventLoop* loop, std::string& host, uint16_t port) :
-        loop_(loop), conn_(new khaki::Connector(loop_, host, port)) {
+        loop_(loop), conn_(new khaki::Connector(loop_, host, port)), sid_(0) {
     conn_->setConnectCallback(std::bind(&dbSession::OnConnected, this, std::placeholders::_1));
     conn_->setCloseCallback(std::bind(&dbSession::OnConnectClose, this, std::placeholders::_1));
     conn_->setReadCallback(std::bind(&dbSession::OnMessage, this, std::placeholders::_1));
@@ -89,7 +89,16 @@ void dbSession::SendPacket(struct PACKET& pkt) {
 }
 
 bool dbSession::HandlerRegisterSid(struct PACKET& str) {
-    log4cppDebug(khaki::logger, "dbserver, HandlerRegisterSid Success %d", str.cmd);
+    sr::R2S_RegisterServer recv;
+    if ( !recv.ParseFromString(str.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", str.cmd);
+        return false;
+    }
+
+    uint32 ret = recv.ret();
+    sid_ = recv.sid();
+    log4cppDebug(khaki::logger, "dbserver, HandlerRegisterSid Success %d %d %d", str.cmd, ret, sid_);
     return false;
 }
 

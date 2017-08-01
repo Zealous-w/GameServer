@@ -25,7 +25,7 @@ public:
     ////////////////////////
     bool SaveBaseInfo(base::user& user);
     ////////////////////////
-
+    bool CreateGameTable();
     ////////RESULT/////////
     base::user GetUserBaseInfo(uint64 uid);
 private:

@@ -21,11 +21,11 @@ int main(int argc, char* argv[]) {
     std::string gatePort = port->FirstChild()->Value();
 
     khaki::EventLoop loop;
-    // gateSession* gSession = new gateSession(&loop, gateHost, uint16_t(atoi(gatePort.c_str())));
-    // if ( !gSession->ConnectGateway() ) {
-    //     log4cppDebug(khaki::logger, "connect gateway failed !!");
-    //     return 0;
-    // }
+    gateSession* gSession = new gateSession(&loop, gateHost, uint16_t(atoi(gatePort.c_str())));
+    if ( !gSession->ConnectGateway() ) {
+        log4cppDebug(khaki::logger, "connect gateway failed !!");
+        return 0;
+    }
 
     dbSession* dSession = new dbSession(&loop, gateHost, uint16_t(9529));
     if ( !dSession->ConnectDB() ) {
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     gWorld.Start();
     loop.loop();
     ////////////////////
-    //delete gSession;
+    delete gSession;
     delete dSession;
     log4cpp::Category::shutdown();
 	google::protobuf::ShutdownProtobufLibrary();
