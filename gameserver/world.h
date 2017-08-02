@@ -7,6 +7,9 @@
 #include <player.h>
 #include <Queue.h>
 
+#include <gateSession.h>
+#include <dbSession.h>
+
 #define REGISTER_CMD_CALLBACK(cmdId, func) \
     command_[uint32(cmdId)]  = std::bind(&World::func, this, std::placeholders::_1)
 
@@ -27,20 +30,28 @@ private:
     bool running_;
     std::thread thread_;
     MapUsers users_;
+    gateSession* gSession_;
+    dbSession* dSession_;
     std::map<uint32, ServiceFunc> command_;
     khaki::queue<struct PACKET> msgQueue_;
+    khaki::queue<struct PACKET> dbMsgQueue_;
 public:
     void Start() { running_ = true; }
     void Stop() { running_ = false; }
+    void SetSession(gateSession* gSession, dbSession* dSession) { gSession_ = gSession; dSession_ = dSession; }
     void Run();
-    void Push(struct PACKET& t) { msgQueue_.push(t); }
-
+    void PushGateMsg(struct PACKET& t) { msgQueue_.push(t); }
+    void PushDbMsg(struct PACKET& t) { dbMsgQueue_.push(t); }
+    void MsgProcess(khaki::queue<struct PACKET>& msg);
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
 
 public:
-    bool HandlerLogin(struct PACKET& str);
+    bool HandlerLogin(struct PACKET& pkt);
 
+public:
+    ///////dbs -> gs
+    bool HandlerRSLogin(struct PACKET& pkt);
 };
 
 #define gWorld World::getInstance()

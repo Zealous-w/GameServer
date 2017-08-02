@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
     khaki::InitLog(khaki::logger, "./gameserver.log", log4cpp::Priority::DEBUG);
-    std::string filename = "./config.xml";
+    std::string filename = "../../gameserver/config.xml";
     TiXmlDocument config;
     if ( !config.LoadFile(filename.c_str()) ) {
         log4cppDebug(khaki::logger, "Load config xml error");
@@ -32,10 +32,11 @@ int main(int argc, char* argv[]) {
         log4cppDebug(khaki::logger, "connect DB failed !!");
         return 0;
     }
-
+    gWorld.SetSession(gSession, dSession);
     gWorld.Start();
     loop.loop();
     ////////////////////
+    gWorld.Stop();
     delete gSession;
     delete dSession;
     log4cpp::Category::shutdown();

@@ -1,8 +1,7 @@
 #include <dbServer.h>
-#include <dbMaster.h>
 
-dbServer::dbServer(khaki::EventLoop* loop, std::string host, int port, int threadNum) :
-        server_(loop, host, port, threadNum) {
+dbServer::dbServer(khaki::EventLoop* loop, DbSQL* dbMysql, std::string host, int port, int threadNum) :
+        dbMysql_(dbMysql), server_(loop, host, port, threadNum) {
     server_.setConnectionCallback(std::bind(&dbServer::OnConnection, 
                         this, std::placeholders::_1));
     server_.setConnCloseCallback(std::bind(&dbServer::OnConnClose,
@@ -10,7 +9,7 @@ dbServer::dbServer(khaki::EventLoop* loop, std::string host, int port, int threa
 }
 
 dbServer::~dbServer() {
-
+    if (dbMysql_ != NULL) delete dbMysql_;
 }
 
 void dbServer::start() {
@@ -22,6 +21,7 @@ void dbServer::OnConnection(const khaki::TcpClientPtr& con) {
     sessionLists_[con->getFd()] = gameSessionPtr(new gameSession(this, con));
     log4cppDebug(khaki::logger, "dbServer fd : %d add sessionlists", con->getFd());
 }
+
 void dbServer::OnConnClose(const khaki::TcpClientPtr& con) {
     std::unique_lock<std::mutex> lck(mtx_);
     assert(sessionLists_.find(con->getFd()) != sessionLists_.end());

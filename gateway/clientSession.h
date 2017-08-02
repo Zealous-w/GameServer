@@ -11,9 +11,12 @@ class gameSession;
 class clientServer;
 class clientSession {
 public:
-    enum {
-        E_CLIENT_NONE = 0,
-        E_CLIENT_RUNNING = 1,
+    enum status {
+        E_STATUS_NONE   = 0,
+        E_STATUS_LOGIN  = 1,
+        E_STATUS_CREATE = 2,
+        E_STATUS_VALID  = 3,
+        E_STATUS_LOGOUT = 4,
     };
     typedef std::function<bool(struct PACKET&)> ServiceFunc;
     clientSession(clientServer* server, const khaki::TcpClientPtr& conn);

@@ -5,13 +5,14 @@
 #include <unordered_map>
 #include <gameSession.h>
 #include <base/common.h>
+#include <Mysql/dbsql.h>
 
 #include <map>
 #include <functional>
 
 class dbServer {
 public: 
-    dbServer(khaki::EventLoop* loop, std::string host, int port, int threadNum);
+    dbServer(khaki::EventLoop* loop, DbSQL* dbMysql, std::string host, int port, int threadNum);
     ~dbServer();
 
     void start();
@@ -21,7 +22,10 @@ public:
     gameSessionPtr GetGameSessionBySid(uint32 sid);
     void AddAuthGameSession(uint32 sid, uint32 sockFd);
     void RemoveAuthGameSession(uint32 sid);
+
+    DbSQL* GetDb() { return dbMysql_; }
 private:
+    DbSQL* dbMysql_;
     khaki::TcpThreadServer server_;
 	std::mutex mtx_;
 	std::unordered_map<uint32/*sid*/, gameSessionPtr> sessionLists_;

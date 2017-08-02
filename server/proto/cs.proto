@@ -27,7 +27,7 @@ message S2C_Login {
 }
 
 message C2S_Create {
-
+    
 }
 
 message S2C_Create {

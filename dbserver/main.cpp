@@ -1,5 +1,4 @@
 #include <dbServer.h>
-#include <dbMaster.h>
 #include <tinyxml.h>
 
 int main(int argc, char* argv[]) {
@@ -33,16 +32,12 @@ int main(int argc, char* argv[]) {
 	if ( !db->ConnectionDatabase() ) {
 		log4cppDebug(khaki::logger, "connect mysql error");
 		return 0;
-	} else {
-		log4cppDebug(khaki::logger, "connect mysql success");
 	}
-
-	gdbMaster.SetDbSQL(db);//atoi(listenPort.c_str())
-	dbServer* g_dbServer = new dbServer(&loop, "127.0.0.1", 9529, 4);
 	
-	gdbMaster.Start();
-	g_dbServer->start();
+	log4cppDebug(khaki::logger, "connect mysql success");
 
+	dbServer* g_dbServer = new dbServer(&loop, db, "127.0.0.1", 9529, 4);
+	g_dbServer->start();
 	loop.loop();
 	//////
 	delete g_dbServer;

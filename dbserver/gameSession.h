@@ -7,6 +7,10 @@
 #include <base/common.h>
 #include <protocol/in/sr.pb.h>
 
+#define REGISTER_GAME_CMD_CALLBACK(cmdId, func) \
+    command_[uint32(cmdId)]  = std::bind(&gameSession::func, this, std::placeholders::_1)
+
+
 class dbServer;
 class gameSession {
 public:
@@ -28,10 +32,11 @@ private:
     std::map<uint32, ServiceFunc> command_;
     khaki::TcpClientPtr conn_;
     dbServer* server_;
-    std::weak_ptr<dbServer> dbSession_;
 public:
     bool HandlerPing(struct PACKET& str);
     bool HandlerRegisterSid(struct PACKET& str);
+    bool HandlerLogin(struct PACKET& pkt);
+    bool HandlerCreate(struct PACKET& pkt);
 };
 
 typedef std::shared_ptr<gameSession> gameSessionPtr;

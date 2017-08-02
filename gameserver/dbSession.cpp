@@ -103,6 +103,6 @@ bool dbSession::HandlerRegisterSid(struct PACKET& str) {
 }
 
 bool dbSession::HandlerDirtyPacket(struct PACKET& str) {
-    gWorld.Push(str);
+    gWorld.PushDbMsg(str);
     return true;
 }

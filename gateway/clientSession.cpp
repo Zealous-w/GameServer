@@ -21,7 +21,7 @@ void clientSession::RegisterCmd() {
 void clientSession::DispatcherCmd(struct PACKET& msg) {
     if ( command_.find(msg.cmd) != command_.end() ) {
         command_[msg.cmd](msg);
-    } else if (status_ == E_CLIENT_RUNNING) {
+    } else if (status_ == E_STATUS_NONE) {
         switch ( msg.cmd ) {
             case cs::ProtoID::ID_C2S_Login:
                 UnAuthSendToServer(msg);

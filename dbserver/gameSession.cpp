@@ -1,5 +1,4 @@
 #include <gameSession.h>
-#include <dbMaster.h>
 #include <dbServer.h>
 gameSession::gameSession(dbServer* server, const khaki::TcpClientPtr& conn):
     server_(server), conn_(conn) {
@@ -13,15 +12,16 @@ gameSession::~gameSession() {
 }
 
 void gameSession::RegisterCmd() {
-    command_[sr::ProtoID::ID_S2R_Ping] = std::bind(&gameSession::HandlerPing, this, std::placeholders::_1);
-    command_[sr::ProtoID::ID_S2R_RegisterServer] = std::bind(&gameSession::HandlerRegisterSid, this, std::placeholders::_1);
+    REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Ping, HandlerPing);
+    REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_RegisterServer, HandlerRegisterSid);
+    REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Login, HandlerLogin);
 }
 
 void gameSession::DispatcherCmd(struct PACKET& msg) {
     if ( command_.find(msg.cmd) != command_.end() ) {
         command_[msg.cmd](msg);
     } else {
-        gdbMaster.Push(msg);
+        log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
     }
 }
 
@@ -77,4 +77,33 @@ bool gameSession::HandlerRegisterSid(struct PACKET& str) {
     SendPacket(msgId, msgStr);
     log4cppDebug(khaki::logger, "dbServer HandlerRegisterSid, sid:%d cmd:%d", sid_, str.cmd);
     return false;
+}
+
+bool gameSession::HandlerLogin(struct PACKET& pkt) {
+    sr::S2R_Login recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+    uint64 uid = recv.uid();
+
+    base::User user;
+    sr::R2S_Login msg;
+    uint32 msgId = uint32(sr::ProtoID::ID_R2S_Login);
+    msg.set_ret(1);
+
+    if (!server_->GetDb()->LoadUser(user, uid)) {
+        msg.set_ret(2);
+    }
+    
+    std::string msgStr = msg.SerializeAsString();
+    SendPacket(msgId, msgStr);
+    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    return true;
+}
+
+bool gameSession::HandlerCreate(struct PACKET& pkt) {
+
+    return true;
 }

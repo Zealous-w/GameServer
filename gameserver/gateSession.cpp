@@ -9,7 +9,9 @@ gateSession::gateSession(khaki::EventLoop* loop, std::string& host, uint16_t por
     conn_->setReadCallback(std::bind(&gateSession::OnMessage, this, std::placeholders::_1));
     RegisterCmd();
 }
-gateSession::~gateSession(){}
+gateSession::~gateSession() {
+    conn_.reset();
+}
 
 bool gateSession::ConnectGateway() {
     return conn_->connectServer();
@@ -25,12 +27,11 @@ void gateSession::Heartbeat() {
     std::string str = msg.SerializeAsString();
     
     SendPacket(uint32(gs::ProtoID::ID_S2G_Ping), str);
-    //log4cppDebug(khaki::logger, "gateSession::Heartbeat()");
 }
 
 void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
     gs::S2G_RegisterServer msg;
-    log4cppDebug(khaki::logger, "OnConnected");
+    log4cppDebug(khaki::logger, "gateSession::OnConnected");
     msg.set_sid(1);
 
     std::string str = msg.SerializeAsString();
@@ -96,6 +97,6 @@ bool gateSession::HandlerRegisterSid(struct PACKET& str) {
 }
 
 bool gateSession::HandlerDirtyPacket(struct PACKET& str) {
-    gWorld.Push(str);
+    gWorld.PushGateMsg(str);
     return true;
 }
