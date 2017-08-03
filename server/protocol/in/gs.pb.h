@@ -331,9 +331,15 @@ class G2S_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // accessors -------------------------------------------------------
 
-  // uint64 uid = 1;
+  // uint64 tokenId = 1;
+  void clear_tokenid();
+  static const int kTokenIdFieldNumber = 1;
+  ::google::protobuf::uint64 tokenid() const;
+  void set_tokenid(::google::protobuf::uint64 value);
+
+  // uint64 uid = 2;
   void clear_uid();
-  static const int kUidFieldNumber = 1;
+  static const int kUidFieldNumber = 2;
   ::google::protobuf::uint64 uid() const;
   void set_uid(::google::protobuf::uint64 value);
 
@@ -341,6 +347,7 @@ class G2S_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 tokenid_;
   ::google::protobuf::uint64 uid_;
   mutable int _cached_size_;
   friend struct protobuf_gs_2eproto::TableStruct;
@@ -411,9 +418,15 @@ class S2G_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // accessors -------------------------------------------------------
 
-  // uint32 ret = 1;
+  // uint64 tokenId = 1;
+  void clear_tokenid();
+  static const int kTokenIdFieldNumber = 1;
+  ::google::protobuf::uint64 tokenid() const;
+  void set_tokenid(::google::protobuf::uint64 value);
+
+  // uint32 ret = 2;
   void clear_ret();
-  static const int kRetFieldNumber = 1;
+  static const int kRetFieldNumber = 2;
   ::google::protobuf::uint32 ret() const;
   void set_ret(::google::protobuf::uint32 value);
 
@@ -421,6 +434,7 @@ class S2G_Login : public ::google::protobuf::Message /* @@protoc_insertion_point
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 tokenid_;
   ::google::protobuf::uint32 ret_;
   mutable int _cached_size_;
   friend struct protobuf_gs_2eproto::TableStruct;
@@ -571,9 +585,15 @@ class G2S_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // uint64 uid = 1;
+  // uint64 tokenId = 1;
+  void clear_tokenid();
+  static const int kTokenIdFieldNumber = 1;
+  ::google::protobuf::uint64 tokenid() const;
+  void set_tokenid(::google::protobuf::uint64 value);
+
+  // uint64 uid = 2;
   void clear_uid();
-  static const int kUidFieldNumber = 1;
+  static const int kUidFieldNumber = 2;
   ::google::protobuf::uint64 uid() const;
   void set_uid(::google::protobuf::uint64 value);
 
@@ -581,6 +601,7 @@ class G2S_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 tokenid_;
   ::google::protobuf::uint64 uid_;
   mutable int _cached_size_;
   friend struct protobuf_gs_2eproto::TableStruct;
@@ -651,9 +672,15 @@ class S2G_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // uint32 ret = 1;
+  // uint64 tokenId = 1;
+  void clear_tokenid();
+  static const int kTokenIdFieldNumber = 1;
+  ::google::protobuf::uint64 tokenid() const;
+  void set_tokenid(::google::protobuf::uint64 value);
+
+  // uint32 ret = 2;
   void clear_ret();
-  static const int kRetFieldNumber = 1;
+  static const int kRetFieldNumber = 2;
   ::google::protobuf::uint32 ret() const;
   void set_ret(::google::protobuf::uint32 value);
 
@@ -661,6 +688,7 @@ class S2G_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 tokenid_;
   ::google::protobuf::uint32 ret_;
   mutable int _cached_size_;
   friend struct protobuf_gs_2eproto::TableStruct;
@@ -723,7 +751,21 @@ inline void G2S_RegisterServer::set_sid(::google::protobuf::uint32 value) {
 
 // G2S_Login
 
-// uint64 uid = 1;
+// uint64 tokenId = 1;
+inline void G2S_Login::clear_tokenid() {
+  tokenid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 G2S_Login::tokenid() const {
+  // @@protoc_insertion_point(field_get:gs.G2S_Login.tokenId)
+  return tokenid_;
+}
+inline void G2S_Login::set_tokenid(::google::protobuf::uint64 value) {
+  
+  tokenid_ = value;
+  // @@protoc_insertion_point(field_set:gs.G2S_Login.tokenId)
+}
+
+// uint64 uid = 2;
 inline void G2S_Login::clear_uid() {
   uid_ = GOOGLE_ULONGLONG(0);
 }
@@ -741,7 +783,21 @@ inline void G2S_Login::set_uid(::google::protobuf::uint64 value) {
 
 // S2G_Login
 
-// uint32 ret = 1;
+// uint64 tokenId = 1;
+inline void S2G_Login::clear_tokenid() {
+  tokenid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 S2G_Login::tokenid() const {
+  // @@protoc_insertion_point(field_get:gs.S2G_Login.tokenId)
+  return tokenid_;
+}
+inline void S2G_Login::set_tokenid(::google::protobuf::uint64 value) {
+  
+  tokenid_ = value;
+  // @@protoc_insertion_point(field_set:gs.S2G_Login.tokenId)
+}
+
+// uint32 ret = 2;
 inline void S2G_Login::clear_ret() {
   ret_ = 0u;
 }
@@ -777,7 +833,21 @@ inline void S2G_Ping::set_now_time(::google::protobuf::uint32 value) {
 
 // G2S_Create
 
-// uint64 uid = 1;
+// uint64 tokenId = 1;
+inline void G2S_Create::clear_tokenid() {
+  tokenid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 G2S_Create::tokenid() const {
+  // @@protoc_insertion_point(field_get:gs.G2S_Create.tokenId)
+  return tokenid_;
+}
+inline void G2S_Create::set_tokenid(::google::protobuf::uint64 value) {
+  
+  tokenid_ = value;
+  // @@protoc_insertion_point(field_set:gs.G2S_Create.tokenId)
+}
+
+// uint64 uid = 2;
 inline void G2S_Create::clear_uid() {
   uid_ = GOOGLE_ULONGLONG(0);
 }
@@ -795,7 +865,21 @@ inline void G2S_Create::set_uid(::google::protobuf::uint64 value) {
 
 // S2G_Create
 
-// uint32 ret = 1;
+// uint64 tokenId = 1;
+inline void S2G_Create::clear_tokenid() {
+  tokenid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 S2G_Create::tokenid() const {
+  // @@protoc_insertion_point(field_get:gs.S2G_Create.tokenId)
+  return tokenid_;
+}
+inline void S2G_Create::set_tokenid(::google::protobuf::uint64 value) {
+  
+  tokenid_ = value;
+  // @@protoc_insertion_point(field_set:gs.S2G_Create.tokenId)
+}
+
+// uint32 ret = 2;
 inline void S2G_Create::clear_ret() {
   ret_ = 0u;
 }

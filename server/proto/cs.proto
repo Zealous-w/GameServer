@@ -19,7 +19,8 @@ message S2C_Ping {
 }
 
 message C2S_Login {
-    uint64 uid = 1;
+    uint64 tokenId = 1;
+    uint64 uid = 2;
 }
 
 message S2C_Login {
@@ -27,7 +28,8 @@ message S2C_Login {
 }
 
 message C2S_Create {
-    uint64 uid = 1;
+    uint64 tokenId = 1;
+    uint64 uid = 2;
 }
 
 message S2C_Create {

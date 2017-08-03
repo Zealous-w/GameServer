@@ -93,7 +93,7 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
     sr::R2S_Login msg;
     uint32 msgId = uint32(sr::ProtoID::ID_R2S_Login);
     msg.set_ret(1);
-
+    msg.set_tokenid(recv.tokenid());
     if (!server_->GetDb()->LoadUser(user, uid)) {
         msg.set_ret(2);
     }
@@ -115,6 +115,7 @@ bool gameSession::HandlerCreate(struct PACKET& pkt) {
     sr::R2S_Create msg;
     uint32 msgId = uint32(sr::ProtoID::ID_R2S_Create);
     msg.set_ret(1);
+    msg.set_tokenid(recv.tokenid());
     base::User user = recv.user();
     if (!server_->GetDb()->SaveUserBaseInfo(user)) {
         msg.set_ret(2);

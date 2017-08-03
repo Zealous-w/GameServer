@@ -28,7 +28,8 @@ public:
 
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
-
+    void SendPacket(struct PACKET& pkt);
+    void SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
     void SendToServer(struct PACKET& msg);
     void UnAuthSendToServer(struct PACKET& msg);
 private:

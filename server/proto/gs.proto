@@ -22,11 +22,13 @@ message G2S_RegisterServer {
 }
 
 message G2S_Login {
-    uint64 uid = 1;
+    uint64 tokenId = 1;
+    uint64 uid = 2;
 }
 
 message S2G_Login {
-    uint32 ret = 1;
+    uint64 tokenId = 1;
+    uint32 ret = 2;
 }
 
 message S2G_Ping {
@@ -34,9 +36,11 @@ message S2G_Ping {
 }
 
 message G2S_Create {
-    uint64 uid = 1;
+    uint64 tokenId = 1;
+    uint64 uid = 2;
 }
 
 message S2G_Create {
-    uint32 ret = 1;
+    uint64 tokenId = 1;
+    uint32 ret = 2;
 }

@@ -42,6 +42,21 @@ void clientSession::OnMessage(const khaki::TcpClientPtr& con) {
     }
 }   
 
+void clientSession::SendPacket(struct PACKET& pkt) {
+    std::string msg = Encode(pkt);
+    conn_->send(msg.c_str(), msg.size());
+}
+
+void clientSession::SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg) {
+    struct PACKET pkt;
+    pkt.len = PACKET_HEAD_LEN + msg.size();
+    pkt.cmd = cmd;
+    pkt.uid = uid;
+    pkt.sid = sid;
+    pkt.msg = msg;
+    SendPacket(pkt);
+}
+
 void clientSession::SendToServer(struct PACKET& msg) {
     std::shared_ptr<gameSession> gsp = gameSession_.lock();
     if ( gsp ) {
@@ -82,6 +97,7 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
 
     gs::G2S_Login msg;
     uint32 msgId = uint32(gs::ProtoID::ID_G2S_Login);
+    msg.set_tokenid(recv.tokenid());
     msg.set_uid(recv.uid());
     std::string msgStr = msg.SerializeAsString();
     struct PACKET data;
@@ -89,6 +105,8 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
     data.cmd = msgId;
     data.sid = pkt.sid;
     data.msg = msgStr;
+
+    g_cServer->AddTokenSession(recv.tokenid(), conn_->getFd());
     gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
 }
@@ -103,6 +121,7 @@ bool clientSession::HandlerCreate(struct PACKET& pkt) {
 
     gs::G2S_Create msg;
     uint32 msgId = uint32(gs::ProtoID::ID_G2S_Create);
+    msg.set_tokenid(recv.tokenid());
     msg.set_uid(recv.uid());
     std::string msgStr = msg.SerializeAsString();
     struct PACKET data;

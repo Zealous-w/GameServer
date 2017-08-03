@@ -62,6 +62,7 @@ bool World::HandlerLogin(struct PACKET& pkt) {
 
     sr::S2R_Login msg;
     uint32 msgId = uint32(sr::ProtoID::ID_S2R_Login);
+    msg.set_tokenid(recv.tokenid());
     msg.set_uid(uid);
     std::string msgStr = msg.SerializeAsString();
     dSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
@@ -80,8 +81,9 @@ bool World::HandlerCreate(struct PACKET& pkt) {
 
     sr::S2R_Create msg;
     uint32 msgId = uint32(sr::ProtoID::ID_S2R_Create);
+    msg.set_tokenid(recv.tokenid());
     base::User* user = msg.mutable_user();
-    /////////////////
+    ///////////////// create new role
     user->set_uid(123456);
     user->set_sid(pkt.sid);
     user->set_name("wkw");
@@ -89,13 +91,26 @@ bool World::HandlerCreate(struct PACKET& pkt) {
     user->set_money(100);
     ////////////////
     std::string msgStr = msg.SerializeAsString();
-    dSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
+    dSession_->SendPacket(msgId, user->uid(), pkt.sid, msgStr);
     log4cppDebug(khaki::logger, "HandlerCreate proto : %d %d", pkt.cmd, uid);
 }
 
 ///////////RS///////////
 bool World::HandlerRSLogin(struct PACKET& pkt) {
+    sr::R2S_Login recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+    uint32 ret = recv.ret();
 
+    gs::S2G_Login msg;
+    uint32 msgId = uint32(gs::ProtoID::ID_S2G_Login);
+    msg.set_tokenid(recv.tokenid());
+    msg.set_ret(ret);
+    std::string msgStr = msg.SerializeAsString();
+    gSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
     log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d", pkt.cmd, pkt.uid);
     return true;
 }
@@ -111,6 +126,7 @@ bool World::HandlerRSCreate(struct PACKET& pkt) {
 
     gs::S2G_Create msg;
     uint32 msgId = uint32(gs::ProtoID::ID_S2G_Create);
+    msg.set_tokenid(recv.tokenid());
     msg.set_ret(ret);
     std::string msgStr = msg.SerializeAsString();
     gSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);

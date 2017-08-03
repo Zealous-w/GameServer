@@ -26,8 +26,9 @@ public:
 
     void SendToClient(std::string& msg);
     void SendPacket(struct PACKET& pkt);
-    void SendPacket(uint32 cmd, std::string& msg);
+    void SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
     uint32 GetSid() { return sid_; }
+    struct PACKET BuildPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
 private:
 	std::mutex mtx_;
     uint32 sid_;
@@ -38,9 +39,11 @@ private:
 
     std::unordered_map<uint32, std::shared_ptr<clientSession>> clientLists;
 public:
-    bool HandlerPing(struct PACKET& str);
-    bool HandlerRegisterSid(struct PACKET& str);
-    bool HandlerDirtyPacket(struct PACKET& str);
+    bool HandlerPing(struct PACKET& pkt);
+    bool HandlerRegisterSid(struct PACKET& pkt);
+    bool HandlerLogin(struct PACKET& pkt);
+    bool HandlerCreate(struct PACKET& pkt);
+    bool HandlerDirtyPacket(struct PACKET& pkt);
 };
 
 typedef std::shared_ptr<gameSession> gameSessionPtr;
