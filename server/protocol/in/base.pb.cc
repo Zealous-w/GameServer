@@ -51,6 +51,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, uid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, sid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, name_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, level_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(User, money_),
@@ -106,12 +107,12 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\nbase.proto\022\004base\"\?\n\004User\022\013\n\003uid\030\001 \001(\r\022"
-      "\014\n\004name\030\002 \001(\t\022\r\n\005level\030\003 \001(\r\022\r\n\005money\030\004 "
-      "\001(\rb\006proto3"
+      "\n\nbase.proto\022\004base\"L\n\004User\022\013\n\003uid\030\001 \001(\004\022"
+      "\013\n\003sid\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\r\n\005level\030\004 \001("
+      "\r\022\r\n\005money\030\005 \001(\rb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 91);
+      descriptor, 104);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "base.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -135,6 +136,7 @@ struct StaticDescriptorInitializer {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int User::kUidFieldNumber;
+const int User::kSidFieldNumber;
 const int User::kNameFieldNumber;
 const int User::kLevelFieldNumber;
 const int User::kMoneyFieldNumber;
@@ -219,13 +221,13 @@ bool User::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint32 uid = 1;
+      // uint64 uid = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &uid_)));
         } else {
           goto handle_unusual;
@@ -233,10 +235,24 @@ bool User::MergePartialFromCodedStream(
         break;
       }
 
-      // string name = 2;
+      // uint32 sid = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u)) {
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &sid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string name = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -249,10 +265,10 @@ bool User::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 level = 3;
-      case 3: {
+      // uint32 level = 4;
+      case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u)) {
+            static_cast< ::google::protobuf::uint8>(32u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -263,10 +279,10 @@ bool User::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 money = 4;
-      case 4: {
+      // uint32 money = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(32u)) {
+            static_cast< ::google::protobuf::uint8>(40u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -304,29 +320,34 @@ void User::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 uid = 1;
+  // uint64 uid = 1;
   if (this->uid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->uid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->uid(), output);
   }
 
-  // string name = 2;
+  // uint32 sid = 2;
+  if (this->sid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->sid(), output);
+  }
+
+  // string name = 3;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "base.User.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->name(), output);
+      3, this->name(), output);
   }
 
-  // uint32 level = 3;
+  // uint32 level = 4;
   if (this->level() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->level(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->level(), output);
   }
 
-  // uint32 money = 4;
+  // uint32 money = 5;
   if (this->money() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->money(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->money(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:base.User)
@@ -338,12 +359,17 @@ void User::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 uid = 1;
+  // uint64 uid = 1;
   if (this->uid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->uid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->uid(), target);
   }
 
-  // string name = 2;
+  // uint32 sid = 2;
+  if (this->sid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->sid(), target);
+  }
+
+  // string name = 3;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -351,17 +377,17 @@ void User::SerializeWithCachedSizes(
       "base.User.name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->name(), target);
+        3, this->name(), target);
   }
 
-  // uint32 level = 3;
+  // uint32 level = 4;
   if (this->level() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->level(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->level(), target);
   }
 
-  // uint32 money = 4;
+  // uint32 money = 5;
   if (this->money() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->money(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->money(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:base.User)
@@ -372,28 +398,35 @@ size_t User::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:base.User)
   size_t total_size = 0;
 
-  // string name = 2;
+  // string name = 3;
   if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
   }
 
-  // uint32 uid = 1;
+  // uint64 uid = 1;
   if (this->uid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
         this->uid());
   }
 
-  // uint32 level = 3;
+  // uint32 sid = 2;
+  if (this->sid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->sid());
+  }
+
+  // uint32 level = 4;
   if (this->level() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->level());
   }
 
-  // uint32 money = 4;
+  // uint32 money = 5;
   if (this->money() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -436,6 +469,9 @@ void User::MergeFrom(const User& from) {
   if (from.uid() != 0) {
     set_uid(from.uid());
   }
+  if (from.sid() != 0) {
+    set_sid(from.sid());
+  }
   if (from.level() != 0) {
     set_level(from.level());
   }
@@ -469,6 +505,7 @@ void User::Swap(User* other) {
 void User::InternalSwap(User* other) {
   name_.Swap(&other->name_);
   std::swap(uid_, other->uid_);
+  std::swap(sid_, other->sid_);
   std::swap(level_, other->level_);
   std::swap(money_, other->money_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -482,21 +519,35 @@ void User::InternalSwap(User* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // User
 
-// uint32 uid = 1;
+// uint64 uid = 1;
 void User::clear_uid() {
-  uid_ = 0u;
+  uid_ = GOOGLE_ULONGLONG(0);
 }
-::google::protobuf::uint32 User::uid() const {
+::google::protobuf::uint64 User::uid() const {
   // @@protoc_insertion_point(field_get:base.User.uid)
   return uid_;
 }
-void User::set_uid(::google::protobuf::uint32 value) {
+void User::set_uid(::google::protobuf::uint64 value) {
   
   uid_ = value;
   // @@protoc_insertion_point(field_set:base.User.uid)
 }
 
-// string name = 2;
+// uint32 sid = 2;
+void User::clear_sid() {
+  sid_ = 0u;
+}
+::google::protobuf::uint32 User::sid() const {
+  // @@protoc_insertion_point(field_get:base.User.sid)
+  return sid_;
+}
+void User::set_sid(::google::protobuf::uint32 value) {
+  
+  sid_ = value;
+  // @@protoc_insertion_point(field_set:base.User.sid)
+}
+
+// string name = 3;
 void User::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -549,7 +600,7 @@ void User::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:base.User.name)
 }
 
-// uint32 level = 3;
+// uint32 level = 4;
 void User::clear_level() {
   level_ = 0u;
 }
@@ -563,7 +614,7 @@ void User::set_level(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:base.User.level)
 }
 
-// uint32 money = 4;
+// uint32 money = 5;
 void User::clear_money() {
   money_ = 0u;
 }

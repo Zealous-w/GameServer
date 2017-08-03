@@ -24,6 +24,7 @@ public:
 
     ////////RESULT/////////
     bool GetUserBaseInfo(base::User& user, uint64 uid);
+    bool SaveUserBaseInfo(base::User& user);
 private:
     std::string host_; 
     uint16_t port_; 

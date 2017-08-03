@@ -15,6 +15,7 @@ void gameSession::RegisterCmd() {
     REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Ping, HandlerPing);
     REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_RegisterServer, HandlerRegisterSid);
     REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Login, HandlerLogin);
+    REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Create, HandlerCreate);
 }
 
 void gameSession::DispatcherCmd(struct PACKET& msg) {
@@ -34,11 +35,11 @@ void gameSession::OnMessage(const khaki::TcpClientPtr& con) {
     }
 }
 
-void gameSession::SendPacket(uint32 cmd, std::string& msg) {
+void gameSession::SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg) {
     struct PACKET pkt;
     pkt.len = PACKET_HEAD_LEN + msg.size();
     pkt.cmd = cmd;
-    pkt.uid = 0;
+    pkt.uid = uid;
     pkt.sid = sid_;
     pkt.msg = msg;
     SendPacket(pkt);
@@ -74,7 +75,7 @@ bool gameSession::HandlerRegisterSid(struct PACKET& str) {
     msg.set_ret(1);
     msg.set_sid(sid_);
     std::string msgStr = msg.SerializeAsString();
-    SendPacket(msgId, msgStr);
+    SendPacket(msgId, 0, 0, msgStr);
     log4cppDebug(khaki::logger, "dbServer HandlerRegisterSid, sid:%d cmd:%d", sid_, str.cmd);
     return false;
 }
@@ -98,12 +99,29 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
     }
     
     std::string msgStr = msg.SerializeAsString();
-    SendPacket(msgId, msgStr);
+    SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
     log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
     return true;
 }
 
 bool gameSession::HandlerCreate(struct PACKET& pkt) {
+    sr::S2R_Create recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
 
+    sr::R2S_Create msg;
+    uint32 msgId = uint32(sr::ProtoID::ID_R2S_Create);
+    msg.set_ret(1);
+    base::User user = recv.user();
+    if (!server_->GetDb()->SaveUserBaseInfo(user)) {
+        msg.set_ret(2);
+    }
+
+    std::string msgStr = msg.SerializeAsString();
+    SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
+    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
     return true;
 }

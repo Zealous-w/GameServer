@@ -101,14 +101,13 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2R_Create, user_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(R2S_Create, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(R2S_Create, ret_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(R2S_Create, uid_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(R2S_Create, user_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -118,7 +117,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 19, -1, sizeof(R2S_Login)},
   { 26, -1, sizeof(S2R_Ping)},
   { 32, -1, sizeof(S2R_Create)},
-  { 37, -1, sizeof(R2S_Create)},
+  { 38, -1, sizeof(R2S_Create)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -185,7 +184,7 @@ void TableStruct::InitDefaultsImpl() {
   _R2S_Create_default_instance_.DefaultConstruct();
   _R2S_Login_default_instance_.get_mutable()->user_ = const_cast< ::base::User*>(
       ::base::User::internal_default_instance());
-  _R2S_Create_default_instance_.get_mutable()->user_ = const_cast< ::base::User*>(
+  _S2R_Create_default_instance_.get_mutable()->user_ = const_cast< ::base::User*>(
       ::base::User::internal_default_instance());
 }
 
@@ -201,16 +200,16 @@ void AddDescriptorsImpl() {
       "ver\022\013\n\003ret\030\001 \001(\r\022\013\n\003sid\030\002 \001(\r\"\030\n\tS2R_Log"
       "in\022\013\n\003uid\030\001 \001(\004\"2\n\tR2S_Login\022\013\n\003ret\030\001 \001("
       "\r\022\030\n\004user\030\002 \001(\0132\n.base.User\"\034\n\010S2R_Ping\022"
-      "\020\n\010now_time\030\001 \001(\r\"\014\n\nS2R_Create\"@\n\nR2S_C"
-      "reate\022\013\n\003ret\030\001 \001(\r\022\013\n\003uid\030\002 \001(\004\022\030\n\004user\030"
-      "\003 \001(\0132\n.base.User*\213\001\n\007ProtoID\022\013\n\007ID_NULL"
-      "\020\000\022\033\n\025ID_S2R_RegisterServer\020\261\352\001\022\033\n\025ID_R2"
-      "S_RegisterServer\020\262\352\001\022\022\n\014ID_S2R_Login\020\263\352\001"
-      "\022\022\n\014ID_R2S_Login\020\264\352\001\022\021\n\013ID_S2R_Ping\020\265\352\001b"
-      "\006proto3"
+      "\020\n\010now_time\030\001 \001(\r\"&\n\nS2R_Create\022\030\n\004user\030"
+      "\001 \001(\0132\n.base.User\"\031\n\nR2S_Create\022\013\n\003ret\030\001"
+      " \001(\r*\265\001\n\007ProtoID\022\013\n\007ID_NULL\020\000\022\033\n\025ID_S2R_"
+      "RegisterServer\020\261\352\001\022\033\n\025ID_R2S_RegisterSer"
+      "ver\020\262\352\001\022\022\n\014ID_S2R_Login\020\263\352\001\022\022\n\014ID_R2S_Lo"
+      "gin\020\264\352\001\022\021\n\013ID_S2R_Ping\020\265\352\001\022\023\n\rID_S2R_Cre"
+      "ate\020\267\352\001\022\023\n\rID_R2S_Create\020\270\352\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 447);
+      descriptor, 476);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "sr.proto", &protobuf_RegisterTypes);
   ::base::protobuf_base_2eproto::AddDescriptors();
@@ -242,6 +241,8 @@ bool ProtoID_IsValid(int value) {
     case 30003:
     case 30004:
     case 30005:
+    case 30007:
+    case 30008:
       return true;
     default:
       return false;
@@ -1565,6 +1566,7 @@ void S2R_Ping::set_now_time(::google::protobuf::uint32 value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int S2R_Create::kUserFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 S2R_Create::S2R_Create()
@@ -1580,10 +1582,16 @@ S2R_Create::S2R_Create(const S2R_Create& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_user()) {
+    user_ = new ::base::User(*from.user_);
+  } else {
+    user_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:sr.S2R_Create)
 }
 
 void S2R_Create::SharedCtor() {
+  user_ = NULL;
   _cached_size_ = 0;
 }
 
@@ -1593,6 +1601,9 @@ S2R_Create::~S2R_Create() {
 }
 
 void S2R_Create::SharedDtor() {
+  if (this != internal_default_instance()) {
+    delete user_;
+  }
 }
 
 void S2R_Create::SetCachedSize(int size) const {
@@ -1620,6 +1631,10 @@ S2R_Create* S2R_Create::New(::google::protobuf::Arena* arena) const {
 
 void S2R_Create::Clear() {
 // @@protoc_insertion_point(message_clear_start:sr.S2R_Create)
+  if (GetArenaNoVirtual() == NULL && user_ != NULL) {
+    delete user_;
+  }
+  user_ = NULL;
 }
 
 bool S2R_Create::MergePartialFromCodedStream(
@@ -1631,13 +1646,30 @@ bool S2R_Create::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .base.User user = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_user()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
   // @@protoc_insertion_point(parse_success:sr.S2R_Create)
@@ -1654,6 +1686,12 @@ void S2R_Create::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // .base.User user = 1;
+  if (this->has_user()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->user_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:sr.S2R_Create)
 }
 
@@ -1663,6 +1701,13 @@ void S2R_Create::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // .base.User user = 1;
+  if (this->has_user()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->user_, deterministic, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:sr.S2R_Create)
   return target;
 }
@@ -1670,6 +1715,13 @@ void S2R_Create::SerializeWithCachedSizes(
 size_t S2R_Create::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:sr.S2R_Create)
   size_t total_size = 0;
+
+  // .base.User user = 1;
+  if (this->has_user()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->user_);
+  }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1700,6 +1752,9 @@ void S2R_Create::MergeFrom(const S2R_Create& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.has_user()) {
+    mutable_user()->::base::User::MergeFrom(from.user());
+  }
 }
 
 void S2R_Create::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1725,6 +1780,7 @@ void S2R_Create::Swap(S2R_Create* other) {
   InternalSwap(other);
 }
 void S2R_Create::InternalSwap(S2R_Create* other) {
+  std::swap(user_, other->user_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -1736,14 +1792,51 @@ void S2R_Create::InternalSwap(S2R_Create* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // S2R_Create
 
+// .base.User user = 1;
+bool S2R_Create::has_user() const {
+  return this != internal_default_instance() && user_ != NULL;
+}
+void S2R_Create::clear_user() {
+  if (GetArenaNoVirtual() == NULL && user_ != NULL) delete user_;
+  user_ = NULL;
+}
+const ::base::User& S2R_Create::user() const {
+  // @@protoc_insertion_point(field_get:sr.S2R_Create.user)
+  return user_ != NULL ? *user_
+                         : *::base::User::internal_default_instance();
+}
+::base::User* S2R_Create::mutable_user() {
+  
+  if (user_ == NULL) {
+    user_ = new ::base::User;
+  }
+  // @@protoc_insertion_point(field_mutable:sr.S2R_Create.user)
+  return user_;
+}
+::base::User* S2R_Create::release_user() {
+  // @@protoc_insertion_point(field_release:sr.S2R_Create.user)
+  
+  ::base::User* temp = user_;
+  user_ = NULL;
+  return temp;
+}
+void S2R_Create::set_allocated_user(::base::User* user) {
+  delete user_;
+  user_ = user;
+  if (user) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:sr.S2R_Create.user)
+}
+
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int R2S_Create::kRetFieldNumber;
-const int R2S_Create::kUidFieldNumber;
-const int R2S_Create::kUserFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 R2S_Create::R2S_Create()
@@ -1759,20 +1852,12 @@ R2S_Create::R2S_Create(const R2S_Create& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_user()) {
-    user_ = new ::base::User(*from.user_);
-  } else {
-    user_ = NULL;
-  }
-  ::memcpy(&uid_, &from.uid_,
-    reinterpret_cast<char*>(&ret_) -
-    reinterpret_cast<char*>(&uid_) + sizeof(ret_));
+  ret_ = from.ret_;
   // @@protoc_insertion_point(copy_constructor:sr.R2S_Create)
 }
 
 void R2S_Create::SharedCtor() {
-  ::memset(&user_, 0, reinterpret_cast<char*>(&ret_) -
-    reinterpret_cast<char*>(&user_) + sizeof(ret_));
+  ret_ = 0u;
   _cached_size_ = 0;
 }
 
@@ -1782,9 +1867,6 @@ R2S_Create::~R2S_Create() {
 }
 
 void R2S_Create::SharedDtor() {
-  if (this != internal_default_instance()) {
-    delete user_;
-  }
 }
 
 void R2S_Create::SetCachedSize(int size) const {
@@ -1812,12 +1894,7 @@ R2S_Create* R2S_Create::New(::google::protobuf::Arena* arena) const {
 
 void R2S_Create::Clear() {
 // @@protoc_insertion_point(message_clear_start:sr.R2S_Create)
-  if (GetArenaNoVirtual() == NULL && user_ != NULL) {
-    delete user_;
-  }
-  user_ = NULL;
-  ::memset(&uid_, 0, reinterpret_cast<char*>(&ret_) -
-    reinterpret_cast<char*>(&uid_) + sizeof(ret_));
+  ret_ = 0u;
 }
 
 bool R2S_Create::MergePartialFromCodedStream(
@@ -1838,32 +1915,6 @@ bool R2S_Create::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &ret_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // uint64 uid = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
-                 input, &uid_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .base.User user = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_user()));
         } else {
           goto handle_unusual;
         }
@@ -1902,17 +1953,6 @@ void R2S_Create::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->ret(), output);
   }
 
-  // uint64 uid = 2;
-  if (this->uid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->uid(), output);
-  }
-
-  // .base.User user = 3;
-  if (this->has_user()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->user_, output);
-  }
-
   // @@protoc_insertion_point(serialize_end:sr.R2S_Create)
 }
 
@@ -1927,18 +1967,6 @@ void R2S_Create::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->ret(), target);
   }
 
-  // uint64 uid = 2;
-  if (this->uid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->uid(), target);
-  }
-
-  // .base.User user = 3;
-  if (this->has_user()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        3, *this->user_, deterministic, target);
-  }
-
   // @@protoc_insertion_point(serialize_to_array_end:sr.R2S_Create)
   return target;
 }
@@ -1946,20 +1974,6 @@ void R2S_Create::SerializeWithCachedSizes(
 size_t R2S_Create::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:sr.R2S_Create)
   size_t total_size = 0;
-
-  // .base.User user = 3;
-  if (this->has_user()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->user_);
-  }
-
-  // uint64 uid = 2;
-  if (this->uid() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt64Size(
-        this->uid());
-  }
 
   // uint32 ret = 1;
   if (this->ret() != 0) {
@@ -1997,12 +2011,6 @@ void R2S_Create::MergeFrom(const R2S_Create& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_user()) {
-    mutable_user()->::base::User::MergeFrom(from.user());
-  }
-  if (from.uid() != 0) {
-    set_uid(from.uid());
-  }
   if (from.ret() != 0) {
     set_ret(from.ret());
   }
@@ -2031,8 +2039,6 @@ void R2S_Create::Swap(R2S_Create* other) {
   InternalSwap(other);
 }
 void R2S_Create::InternalSwap(R2S_Create* other) {
-  std::swap(user_, other->user_);
-  std::swap(uid_, other->uid_);
   std::swap(ret_, other->ret_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -2057,59 +2063,6 @@ void R2S_Create::set_ret(::google::protobuf::uint32 value) {
   
   ret_ = value;
   // @@protoc_insertion_point(field_set:sr.R2S_Create.ret)
-}
-
-// uint64 uid = 2;
-void R2S_Create::clear_uid() {
-  uid_ = GOOGLE_ULONGLONG(0);
-}
-::google::protobuf::uint64 R2S_Create::uid() const {
-  // @@protoc_insertion_point(field_get:sr.R2S_Create.uid)
-  return uid_;
-}
-void R2S_Create::set_uid(::google::protobuf::uint64 value) {
-  
-  uid_ = value;
-  // @@protoc_insertion_point(field_set:sr.R2S_Create.uid)
-}
-
-// .base.User user = 3;
-bool R2S_Create::has_user() const {
-  return this != internal_default_instance() && user_ != NULL;
-}
-void R2S_Create::clear_user() {
-  if (GetArenaNoVirtual() == NULL && user_ != NULL) delete user_;
-  user_ = NULL;
-}
-const ::base::User& R2S_Create::user() const {
-  // @@protoc_insertion_point(field_get:sr.R2S_Create.user)
-  return user_ != NULL ? *user_
-                         : *::base::User::internal_default_instance();
-}
-::base::User* R2S_Create::mutable_user() {
-  
-  if (user_ == NULL) {
-    user_ = new ::base::User;
-  }
-  // @@protoc_insertion_point(field_mutable:sr.R2S_Create.user)
-  return user_;
-}
-::base::User* R2S_Create::release_user() {
-  // @@protoc_insertion_point(field_release:sr.R2S_Create.user)
-  
-  ::base::User* temp = user_;
-  user_ = NULL;
-  return temp;
-}
-void R2S_Create::set_allocated_user(::base::User* user) {
-  delete user_;
-  user_ = user;
-  if (user) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:sr.R2S_Create.user)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

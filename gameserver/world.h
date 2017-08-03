@@ -48,10 +48,11 @@ public:
 
 public:
     bool HandlerLogin(struct PACKET& pkt);
-
+    bool HandlerCreate(struct PACKET& pkt);
 public:
     ///////dbs -> gs
     bool HandlerRSLogin(struct PACKET& pkt);
+    bool HandlerRSCreate(struct PACKET& pkt);
 };
 
 #define gWorld World::getInstance()

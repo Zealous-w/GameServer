@@ -78,6 +78,17 @@ bool DbSQL::GetUserBaseInfo(base::User& user, uint64 uid) {
     }
 }
 
+bool DbSQL::SaveUserBaseInfo(base::User& user) {
+    std::string sql = khaki::util::string_format("insert into user(userId, name, level, sid, money) values(%d, '%s', %d, %d, %d)", 
+                user.uid(), user.name().c_str(), user.level(), user.sid(), user.money());
+    bool ret = query_.exec(sql.c_str());
+    if (!ret) {
+        log4cppDebug(khaki::logger, "SaveUserBaseInfo, insert failed, %s",  query_.error());
+        return false;
+    }
+    return true;
+}
+
 bool DbSQL::CreateGameTable() {
     std::string user = "CREATE TABLE IF NOT EXISTS user ("
         "userId  BIGINT UNSIGNED NOT NULL PRIMARY KEY,"

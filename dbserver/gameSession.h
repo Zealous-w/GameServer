@@ -24,7 +24,7 @@ public:
     void DispatcherCmd(struct PACKET& msg);
 
     void SendPacket(struct PACKET& pkt);
-    void SendPacket(uint32 cmd, std::string& msg);
+    void SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
     uint32 GetSid() { return sid_; }
 private:
     uint8 status_;

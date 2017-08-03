@@ -118,9 +118,9 @@ class User : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  // string name = 2;
+  // string name = 3;
   void clear_name();
-  static const int kNameFieldNumber = 2;
+  static const int kNameFieldNumber = 3;
   const ::std::string& name() const;
   void set_name(const ::std::string& value);
   #if LANG_CXX11
@@ -132,21 +132,27 @@ class User : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // uint32 uid = 1;
+  // uint64 uid = 1;
   void clear_uid();
   static const int kUidFieldNumber = 1;
-  ::google::protobuf::uint32 uid() const;
-  void set_uid(::google::protobuf::uint32 value);
+  ::google::protobuf::uint64 uid() const;
+  void set_uid(::google::protobuf::uint64 value);
 
-  // uint32 level = 3;
+  // uint32 sid = 2;
+  void clear_sid();
+  static const int kSidFieldNumber = 2;
+  ::google::protobuf::uint32 sid() const;
+  void set_sid(::google::protobuf::uint32 value);
+
+  // uint32 level = 4;
   void clear_level();
-  static const int kLevelFieldNumber = 3;
+  static const int kLevelFieldNumber = 4;
   ::google::protobuf::uint32 level() const;
   void set_level(::google::protobuf::uint32 value);
 
-  // uint32 money = 4;
+  // uint32 money = 5;
   void clear_money();
-  static const int kMoneyFieldNumber = 4;
+  static const int kMoneyFieldNumber = 5;
   ::google::protobuf::uint32 money() const;
   void set_money(::google::protobuf::uint32 value);
 
@@ -155,7 +161,8 @@ class User : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
-  ::google::protobuf::uint32 uid_;
+  ::google::protobuf::uint64 uid_;
+  ::google::protobuf::uint32 sid_;
   ::google::protobuf::uint32 level_;
   ::google::protobuf::uint32 money_;
   mutable int _cached_size_;
@@ -169,21 +176,35 @@ class User : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // User
 
-// uint32 uid = 1;
+// uint64 uid = 1;
 inline void User::clear_uid() {
-  uid_ = 0u;
+  uid_ = GOOGLE_ULONGLONG(0);
 }
-inline ::google::protobuf::uint32 User::uid() const {
+inline ::google::protobuf::uint64 User::uid() const {
   // @@protoc_insertion_point(field_get:base.User.uid)
   return uid_;
 }
-inline void User::set_uid(::google::protobuf::uint32 value) {
+inline void User::set_uid(::google::protobuf::uint64 value) {
   
   uid_ = value;
   // @@protoc_insertion_point(field_set:base.User.uid)
 }
 
-// string name = 2;
+// uint32 sid = 2;
+inline void User::clear_sid() {
+  sid_ = 0u;
+}
+inline ::google::protobuf::uint32 User::sid() const {
+  // @@protoc_insertion_point(field_get:base.User.sid)
+  return sid_;
+}
+inline void User::set_sid(::google::protobuf::uint32 value) {
+  
+  sid_ = value;
+  // @@protoc_insertion_point(field_set:base.User.sid)
+}
+
+// string name = 3;
 inline void User::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -236,7 +257,7 @@ inline void User::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:base.User.name)
 }
 
-// uint32 level = 3;
+// uint32 level = 4;
 inline void User::clear_level() {
   level_ = 0u;
 }
@@ -250,7 +271,7 @@ inline void User::set_level(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:base.User.level)
 }
 
-// uint32 money = 4;
+// uint32 money = 5;
 inline void User::clear_money() {
   money_ = 0u;
 }

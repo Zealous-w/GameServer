@@ -10,6 +10,8 @@ enum ProtoID {
     ID_S2R_Login = 30003;
     ID_R2S_Login = 30004;
     ID_S2R_Ping = 30005;
+    ID_S2R_Create = 30007;
+    ID_R2S_Create = 30008;
 }
 
 message S2R_RegisterServer {
@@ -35,11 +37,9 @@ message S2R_Ping {
 }
 
 message S2R_Create {
-    
+    base.User user  = 1;
 }
 
 message R2S_Create {
     uint32 ret      = 1;
-    uint64 uid      = 2;
-    base.User user  = 3;
 }

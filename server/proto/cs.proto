@@ -27,7 +27,7 @@ message S2C_Login {
 }
 
 message C2S_Create {
-    
+    uint64 uid = 1;
 }
 
 message S2C_Create {

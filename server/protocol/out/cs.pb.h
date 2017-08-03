@@ -473,10 +473,17 @@ class C2S_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
+  // uint64 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::uint64 uid() const;
+  void set_uid(::google::protobuf::uint64 value);
+
   // @@protoc_insertion_point(class_scope:cs.C2S_Create)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 uid_;
   mutable int _cached_size_;
   friend struct protobuf_cs_2eproto::TableStruct;
 };
@@ -632,6 +639,20 @@ inline void S2C_Login::set_ret(::google::protobuf::uint32 value) {
 // -------------------------------------------------------------------
 
 // C2S_Create
+
+// uint64 uid = 1;
+inline void C2S_Create::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 C2S_Create::uid() const {
+  // @@protoc_insertion_point(field_get:cs.C2S_Create.uid)
+  return uid_;
+}
+inline void C2S_Create::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:cs.C2S_Create.uid)
+}
 
 // -------------------------------------------------------------------
 

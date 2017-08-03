@@ -24,7 +24,7 @@ void dbSession::Heartbeat() {
     msg.set_now_time(khaki::util::getTime());
     std::string str = msg.SerializeAsString();
     
-    SendPacket(uint32(sr::ProtoID::ID_S2R_Ping), str);
+    SendPacket(uint32(sr::ProtoID::ID_S2R_Ping), 0, sid_, str);
 }
 
 void dbSession::OnConnected(const khaki::TcpConnectorPtr& con) {
@@ -33,7 +33,7 @@ void dbSession::OnConnected(const khaki::TcpConnectorPtr& con) {
     msg.set_sid(1);
 
     std::string str = msg.SerializeAsString();
-    SendPacket(uint32(sr::ProtoID::ID_S2R_RegisterServer), str);
+    SendPacket(uint32(sr::ProtoID::ID_S2R_RegisterServer), 0, sid_, str);
     loop_->getTimer()->AddTimer(std::bind(&dbSession::Heartbeat, this), khaki::util::getTime(), 10);/*10s tick*/
 }
 
@@ -63,22 +63,12 @@ void dbSession::DispatcherCmd(struct PACKET& msg) {
     }
 }
 
-void dbSession::SendPacket(uint32 cmd, std::string& msg) {
-    struct PACKET pkt;
-    pkt.len = PACKET_HEAD_LEN + msg.size();
-    pkt.cmd = cmd;
-    pkt.uid = 0;
-    pkt.sid = sid_;
-    pkt.msg = msg;
-    SendPacket(pkt);
-}
-
-void dbSession::SendPacket(uint32 cmd, uint64 uid, std::string& msg) {
+void dbSession::SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg) {
     struct PACKET pkt;
     pkt.len = PACKET_HEAD_LEN + msg.size();
     pkt.cmd = cmd;
     pkt.uid = uid;
-    pkt.sid = sid_;
+    pkt.sid = sid;
     pkt.msg = msg;
     SendPacket(pkt);
 }

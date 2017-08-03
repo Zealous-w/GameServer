@@ -16,6 +16,7 @@ clientSession::~clientSession() {
 void clientSession::RegisterCmd() {
     command_[cs::ProtoID::ID_C2S_Ping] = std::bind(&clientSession::HandlerPing, this, std::placeholders::_1);
     command_[cs::ProtoID::ID_C2S_Login] = std::bind(&clientSession::HandlerLogin, this, std::placeholders::_1);
+    command_[cs::ProtoID::ID_C2S_Create] = std::bind(&clientSession::HandlerCreate, this, std::placeholders::_1);
 }
 
 void clientSession::DispatcherCmd(struct PACKET& msg) {
@@ -79,8 +80,38 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
         return false;
     }
 
-    gameSession_ = g_gServer->GetGameSessionBySid(pkt.sid);
-    SendToServer(pkt);
+    gs::G2S_Login msg;
+    uint32 msgId = uint32(gs::ProtoID::ID_G2S_Login);
+    msg.set_uid(recv.uid());
+    std::string msgStr = msg.SerializeAsString();
+    struct PACKET data;
+    data.len = PACKET_HEAD_LEN + msgStr.size();
+    data.cmd = msgId;
+    data.sid = pkt.sid;
+    data.msg = msgStr;
+    gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
+    SendToServer(data);
+}
+
+bool clientSession::HandlerCreate(struct PACKET& pkt) {
+    cs::C2S_Create recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+
+    gs::G2S_Create msg;
+    uint32 msgId = uint32(gs::ProtoID::ID_G2S_Create);
+    msg.set_uid(recv.uid());
+    std::string msgStr = msg.SerializeAsString();
+    struct PACKET data;
+    data.len = PACKET_HEAD_LEN + msgStr.size();
+    data.cmd = msgId;
+    data.sid = pkt.sid;
+    data.msg = msgStr;
+    gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
+    SendToServer(data);
 }
 
 bool clientSession::HandlerDirtyPacket(struct PACKET& str) {

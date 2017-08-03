@@ -35,6 +35,12 @@ public:
         std::string str = msg.SerializeAsString();
         SendPacket(uint32(cs::ProtoID::ID_C2S_Login), str);
 
+        cs::C2S_Create msg2;
+        msg2.set_uid(uid_);
+
+        std::string str2 = msg2.SerializeAsString();
+        SendPacket(uint32(cs::ProtoID::ID_C2S_Create), str2);
+
         ///start tick
         loop_->getTimer()->AddTimer(std::bind(&Client::Heartbeat, this), khaki::util::getTime(), 20);/*10s tick*/
     }

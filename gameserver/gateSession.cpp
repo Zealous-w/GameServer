@@ -26,7 +26,7 @@ void gateSession::Heartbeat() {
     msg.set_now_time(khaki::util::getTime());
     std::string str = msg.SerializeAsString();
     
-    SendPacket(uint32(gs::ProtoID::ID_S2G_Ping), str);
+    SendPacket(uint32(gs::ProtoID::ID_S2G_Ping), 0, 0, str);
 }
 
 void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
@@ -35,7 +35,7 @@ void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
     msg.set_sid(1);
 
     std::string str = msg.SerializeAsString();
-    SendPacket(uint32(gs::ProtoID::ID_S2G_RegisterServer), str);
+    SendPacket(uint32(gs::ProtoID::ID_S2G_RegisterServer), 0, 0, str);
     loop_->getTimer()->AddTimer(std::bind(&gateSession::Heartbeat, this), khaki::util::getTime(), 10);/*10s tick*/
 }
 
@@ -66,22 +66,12 @@ void gateSession::DispatcherCmd(struct PACKET& msg) {
     }
 }
 
-void gateSession::SendPacket(uint32 cmd, std::string& msg) {
-    struct PACKET pkt;
-    pkt.len = PACKET_HEAD_LEN + msg.size();
-    pkt.cmd = cmd;
-    pkt.uid = 0;
-    pkt.sid = sid_;
-    pkt.msg = msg;
-    SendPacket(pkt);
-}
-
-void gateSession::SendPacket(uint32 cmd, uint64 uid, std::string& msg) {
+void gateSession::SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg) {
     struct PACKET pkt;
     pkt.len = PACKET_HEAD_LEN + msg.size();
     pkt.cmd = cmd;
     pkt.uid = uid;
-    pkt.sid = sid_;
+    pkt.sid = sid;
     pkt.msg = msg;
     SendPacket(pkt);
 }
