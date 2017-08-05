@@ -61,11 +61,10 @@ void DbSQL::CloseMysql() {
 }
 
 bool DbSQL::GetUserBaseInfo(base::User& user, uint64 uid) {
-    std::string sql = khaki::util::string_format("select * from user where uid=%d", uid);
-    mysqlpp::StoreQueryResult res;
-    mysqlpp::StoreQueryResult  ret = query_.store(sql.c_str());
-    if (res) {
-        for (auto iter = res.begin(); iter != res.end(); ++iter) {
+    std::string sql = khaki::util::string_format("select * from user where userId=%d", uid);
+    mysqlpp::StoreQueryResult ret = query_.store(sql.c_str());
+    if (ret) {
+        for (auto iter = ret.begin(); iter != ret.end(); ++iter) {
             mysqlpp::Row row = *iter;
             user.set_name(row["name"]);
             user.set_level(row["level"]);
@@ -104,8 +103,9 @@ bool DbSQL::CreateGameTable() {
 }
 
 bool DbSQL::LoadUser(base::User& user, uint64 uid) {
-    if (GetUserBaseInfo(user, uid)) {
+    if (!GetUserBaseInfo(user, uid)) {
         log4cppError(khaki::logger, "LoadUser, load base user error %d", uid);
         return false;
     }
+    return true;
 }

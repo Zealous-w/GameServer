@@ -1,5 +1,7 @@
 #include <gameSession.h>
 #include <dbServer.h>
+#include <base/error.h>
+
 gameSession::gameSession(dbServer* server, const khaki::TcpClientPtr& conn):
     server_(server), conn_(conn) {
     conn_->setReadCallback(std::bind(&gameSession::OnMessage, 
@@ -72,7 +74,7 @@ bool gameSession::HandlerRegisterSid(struct PACKET& str) {
     server_->AddAuthGameSession(sid_, conn_->getFd());
     sr::R2S_RegisterServer msg;
     uint32 msgId = sr::ProtoID::ID_R2S_RegisterServer;
-    msg.set_ret(1);
+    msg.set_ret(ERROR_LOGIN_SUCCESS);
     msg.set_sid(sid_);
     std::string msgStr = msg.SerializeAsString();
     SendPacket(msgId, 0, 0, msgStr);
@@ -92,10 +94,10 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
     base::User user;
     sr::R2S_Login msg;
     uint32 msgId = uint32(sr::ProtoID::ID_R2S_Login);
-    msg.set_ret(1);
+    msg.set_ret(ERROR_LOGIN_SUCCESS);
     msg.set_tokenid(recv.tokenid());
     if (!server_->GetDb()->LoadUser(user, uid)) {
-        msg.set_ret(2);
+        msg.set_ret(ERROR_LOGIN_FAILED);
     }
     
     std::string msgStr = msg.SerializeAsString();
@@ -114,11 +116,11 @@ bool gameSession::HandlerCreate(struct PACKET& pkt) {
 
     sr::R2S_Create msg;
     uint32 msgId = uint32(sr::ProtoID::ID_R2S_Create);
-    msg.set_ret(1);
+    msg.set_ret(ERROR_LOGIN_SUCCESS);
     msg.set_tokenid(recv.tokenid());
     base::User user = recv.user();
     if (!server_->GetDb()->SaveUserBaseInfo(user)) {
-        msg.set_ret(2);
+        msg.set_ret(ERROR_LOGIN_FAILED);
     }
 
     std::string msgStr = msg.SerializeAsString();

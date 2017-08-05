@@ -3,6 +3,7 @@
 #include <Log.h>
 #include <protocol/out/cs.pb.h>
 #include <protocol/in/base.pb.h>
+#include <error.h>
 
 World::World():thread_(&World::Run, this) {
     running_ = false;

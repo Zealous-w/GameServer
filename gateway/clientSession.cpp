@@ -22,12 +22,8 @@ void clientSession::RegisterCmd() {
 void clientSession::DispatcherCmd(struct PACKET& msg) {
     if ( command_.find(msg.cmd) != command_.end() ) {
         command_[msg.cmd](msg);
-    } else if (status_ == E_STATUS_NONE) {
-        switch ( msg.cmd ) {
-            case cs::ProtoID::ID_C2S_Login:
-                UnAuthSendToServer(msg);
-                break;
-        }
+    } else if (GetStatus() == E_STATUS_VALID) {
+        SendToServer(msg);
     } else {
         log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
     }
@@ -97,7 +93,7 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
 
     gs::G2S_Login msg;
     uint32 msgId = uint32(gs::ProtoID::ID_G2S_Login);
-    msg.set_tokenid(recv.tokenid());
+    msg.set_tokenid(conn_->getUniqueId());
     msg.set_uid(recv.uid());
     std::string msgStr = msg.SerializeAsString();
     struct PACKET data;
@@ -106,7 +102,6 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
     data.sid = pkt.sid;
     data.msg = msgStr;
 
-    g_cServer->AddTokenSession(recv.tokenid(), conn_->getFd());
     gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
 }
@@ -121,7 +116,7 @@ bool clientSession::HandlerCreate(struct PACKET& pkt) {
 
     gs::G2S_Create msg;
     uint32 msgId = uint32(gs::ProtoID::ID_G2S_Create);
-    msg.set_tokenid(recv.tokenid());
+    msg.set_tokenid(conn_->getUniqueId());
     msg.set_uid(recv.uid());
     std::string msgStr = msg.SerializeAsString();
     struct PACKET data;

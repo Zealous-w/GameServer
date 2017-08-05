@@ -2,9 +2,9 @@
 #include <Log.h>
 #include <base/basic.h>
 #include <base/common.h>
+#include <base/error.h>
 #include <protocol/out/cs.pb.h>
 #include <khaki.h>
-
 
 class Client {
 public:
@@ -35,12 +35,6 @@ public:
         std::string str = msg.SerializeAsString();
         SendPacket(uint32(cs::ProtoID::ID_C2S_Login), str);
 
-        cs::C2S_Create msg2;
-        msg2.set_uid(uid_);
-
-        std::string str2 = msg2.SerializeAsString();
-        SendPacket(uint32(cs::ProtoID::ID_C2S_Create), str2);
-
         ///start tick
         loop_->getTimer()->AddTimer(std::bind(&Client::Heartbeat, this), khaki::util::getTime(), 20);/*10s tick*/
     }
@@ -64,6 +58,7 @@ public:
     }
     void RegisterCmd() {
         command_[cs::ProtoID::ID_S2C_Login] = std::bind(&Client::HandlerLogin, this, std::placeholders::_1);
+        command_[cs::ProtoID::ID_S2C_Create] = std::bind(&Client::HandlerCreate, this, std::placeholders::_1);
     }
     void DispatcherCmd(struct PACKET& msg) {
         if ( command_.find(msg.cmd) != command_.end() ) {
@@ -112,7 +107,30 @@ public:
 
         uint32 ret = recv.ret();
 
+        if (ret == ERROR_LOGIN_FAILED) {
+            cs::C2S_Create msg2;
+            msg2.set_uid(uid_);
+
+            std::string str2 = msg2.SerializeAsString();
+            SendPacket(uint32(cs::ProtoID::ID_C2S_Create), str2);
+            log4cppDebug(khaki::logger, "Need Create Uid ret : %d", ret);
+        }
+
         log4cppDebug(khaki::logger, "HandlerLogin ret : %d", ret);
+        return true;
+    }
+
+    bool HandlerCreate(struct PACKET& msg) {
+        cs::S2C_Create recv;
+        if ( !recv.ParseFromString(msg.msg) )
+        {
+            log4cppDebug(khaki::logger, "proto parse error : %d", msg.cmd);
+            return false;
+        }
+
+        uint32 ret = recv.ret();
+        uint64 uid = recv.uid();
+        log4cppDebug(khaki::logger, "HandlerCreate ret : %d, uid : %d", ret, uid);
         return true;
     }
 };

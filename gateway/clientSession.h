@@ -32,6 +32,8 @@ public:
     void SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
     void SendToServer(struct PACKET& msg);
     void UnAuthSendToServer(struct PACKET& msg);
+    uint8 GetStatus() { return status_; }
+    void SetStatus(uint8 status) { status_ = status; }
 private:
     uint8 status_;
     uint64 uid;
