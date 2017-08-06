@@ -60,29 +60,42 @@ void DbSQL::CloseMysql() {
 
 }
 
-bool DbSQL::GetUserBaseInfo(base::User& user, uint64 uid) {
+bool DbSQL::GetUserBaseInfo(base::User* user, uint64 uid) {
     std::string sql = khaki::util::string_format("select * from user where userId=%d", uid);
     mysqlpp::StoreQueryResult ret = query_.store(sql.c_str());
-    if (ret) {
+    if (ret && ret.size()) {
         for (auto iter = ret.begin(); iter != ret.end(); ++iter) {
             mysqlpp::Row row = *iter;
-            user.set_name(row["name"]);
-            user.set_level(row["level"]);
-            user.set_money(row["money"]);
+            user->set_uid(row["userId"]);
+            user->set_sid(row["sid"]);
+            user->set_name(row["name"]);
+            user->set_level(row["level"]);
+            user->set_money(row["money"]);
         }
         return true;
-    } else {
-        log4cppDebug(khaki::logger, "GetUserBaseInfo, query failed, %s", sql.c_str());
+    }
+    log4cppDebug(khaki::logger, "GetUserBaseInfo, query failed, retsize:%d", ret.size());
+    return false;
+}
+
+bool DbSQL::NewUserBaseInfo(base::User& user) {
+    std::string sql = khaki::util::string_format("insert into user(userId, name, level, sid, money) values(%d, '%s', %d, %d, %d)", 
+                user.uid(), user.name().c_str(), user.level(), user.sid(), user.money());
+
+    bool ret = query_.exec(sql.c_str());
+    if (!ret) {
+        log4cppDebug(khaki::logger, "NewUserBaseInfo, insert failed, %s",  query_.error());
         return false;
     }
+    return true;
 }
 
 bool DbSQL::SaveUserBaseInfo(base::User& user) {
-    std::string sql = khaki::util::string_format("insert into user(userId, name, level, sid, money) values(%d, '%s', %d, %d, %d)", 
-                user.uid(), user.name().c_str(), user.level(), user.sid(), user.money());
+    std::string sql = khaki::util::string_format("update user set name='%s', level=%d, sid=%d, money=%d where userId=%d", 
+                user.name().c_str(), user.level(), user.sid(), user.money(), user.uid());
     bool ret = query_.exec(sql.c_str());
     if (!ret) {
-        log4cppDebug(khaki::logger, "SaveUserBaseInfo, insert failed, %s",  query_.error());
+        log4cppDebug(khaki::logger, "SaveUserBaseInfo, update failed, %s",  query_.error());
         return false;
     }
     return true;
@@ -102,7 +115,7 @@ bool DbSQL::CreateGameTable() {
     }
 }
 
-bool DbSQL::LoadUser(base::User& user, uint64 uid) {
+bool DbSQL::LoadUser(base::User* user, uint64 uid) {
     if (!GetUserBaseInfo(user, uid)) {
         log4cppError(khaki::logger, "LoadUser, load base user error %d", uid);
         return false;

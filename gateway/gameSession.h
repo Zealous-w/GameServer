@@ -2,7 +2,7 @@
 #define GAME_SESSION_H
 #include <khaki.h>
 #include <Queue.h>
-#include <unordered_map>
+#include <map>
 
 #include <base/basic.h>
 #include <base/common.h>
@@ -29,15 +29,16 @@ public:
     void SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
     uint32 GetSid() { return sid_; }
     struct PACKET BuildPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
+    void AddClient(uint64 uid, uint64 uniqueId);
+    void RemoveClient(uint64 uid);
 private:
-	std::mutex mtx_;
     uint32 sid_;
     khaki::TcpClientPtr conn_;
     gameServer* server_;
     std::map<uint32, ServiceFunc> command_;
     khaki::queue<struct PACKET> msgQueue_;
-
-    std::unordered_map<uint32, std::shared_ptr<clientSession>> clientLists;
+    std::mutex mtx_;
+    std::map<uint64/*uid*/, uint64/*uniqueId*/> clientLists_;
 public:
     bool HandlerPing(struct PACKET& pkt);
     bool HandlerRegisterSid(struct PACKET& pkt);

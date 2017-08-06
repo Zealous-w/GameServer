@@ -32,13 +32,15 @@ class G2S_CreateDefaultTypeInternal : public ::google::protobuf::internal::Expli
 } _G2S_Create_default_instance_;
 class S2G_CreateDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<S2G_Create> {
 } _S2G_Create_default_instance_;
+class G2S_LoginOfflineDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<G2S_LoginOffline> {
+} _G2S_LoginOffline_default_instance_;
 
 namespace protobuf_gs_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[7];
+::google::protobuf::Metadata file_level_metadata[8];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 }  // namespace
@@ -54,6 +56,7 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
 };
 PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
     TableStruct::schema[] = {
+  { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
@@ -111,6 +114,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2G_Create, tokenid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2G_Create, ret_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(G2S_LoginOffline, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(G2S_LoginOffline, uid_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -121,6 +130,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 27, -1, sizeof(S2G_Ping)},
   { 33, -1, sizeof(G2S_Create)},
   { 40, -1, sizeof(S2G_Create)},
+  { 47, -1, sizeof(G2S_LoginOffline)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -131,6 +141,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_S2G_Ping_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_G2S_Create_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_S2G_Create_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_G2S_LoginOffline_default_instance_),
 };
 
 namespace {
@@ -151,7 +162,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 7);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 8);
 }
 
 }  // namespace
@@ -171,6 +182,8 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[5].reflection;
   _S2G_Create_default_instance_.Shutdown();
   delete file_level_metadata[6].reflection;
+  _G2S_LoginOffline_default_instance_.Shutdown();
+  delete file_level_metadata[7].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
@@ -184,6 +197,7 @@ void TableStruct::InitDefaultsImpl() {
   _S2G_Ping_default_instance_.DefaultConstruct();
   _G2S_Create_default_instance_.DefaultConstruct();
   _S2G_Create_default_instance_.DefaultConstruct();
+  _G2S_LoginOffline_default_instance_.DefaultConstruct();
 }
 
 void InitDefaults() {
@@ -200,15 +214,16 @@ void AddDescriptorsImpl() {
       "enId\030\001 \001(\004\022\013\n\003ret\030\002 \001(\r\"\034\n\010S2G_Ping\022\020\n\010n"
       "ow_time\030\001 \001(\r\"*\n\nG2S_Create\022\017\n\007tokenId\030\001"
       " \001(\004\022\013\n\003uid\030\002 \001(\004\"*\n\nS2G_Create\022\017\n\007token"
-      "Id\030\001 \001(\004\022\013\n\003ret\030\002 \001(\r*\256\001\n\007ProtoID\022\013\n\007ID_"
-      "NULL\020\000\022\032\n\025ID_S2G_RegisterServer\020\251F\022\032\n\025ID"
-      "_G2S_RegisterServer\020\252F\022\021\n\014ID_G2S_Login\020\253"
-      "F\022\021\n\014ID_S2G_Login\020\254F\022\020\n\013ID_S2G_Ping\020\255F\022\022"
-      "\n\rID_G2S_Create\020\256F\022\022\n\rID_S2G_Create\020\257Fb\006"
-      "proto3"
+      "Id\030\001 \001(\004\022\013\n\003ret\030\002 \001(\r\"\037\n\020G2S_LoginOfflin"
+      "e\022\013\n\003uid\030\001 \001(\004*\310\001\n\007ProtoID\022\013\n\007ID_NULL\020\000\022"
+      "\032\n\025ID_S2G_RegisterServer\020\251F\022\032\n\025ID_G2S_Re"
+      "gisterServer\020\252F\022\021\n\014ID_G2S_Login\020\253F\022\021\n\014ID"
+      "_S2G_Login\020\254F\022\020\n\013ID_S2G_Ping\020\255F\022\022\n\rID_G2"
+      "S_Create\020\256F\022\022\n\rID_S2G_Create\020\257F\022\030\n\023ID_G2"
+      "S_LoginOffline\020\260Fb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 486);
+      descriptor, 545);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "gs.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -241,6 +256,7 @@ bool ProtoID_IsValid(int value) {
     case 9005:
     case 9006:
     case 9007:
+    case 9008:
       return true;
     default:
       return false;
@@ -2152,6 +2168,240 @@ void S2G_Create::set_ret(::google::protobuf::uint32 value) {
   
   ret_ = value;
   // @@protoc_insertion_point(field_set:gs.S2G_Create.ret)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int G2S_LoginOffline::kUidFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+G2S_LoginOffline::G2S_LoginOffline()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_gs_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:gs.G2S_LoginOffline)
+}
+G2S_LoginOffline::G2S_LoginOffline(const G2S_LoginOffline& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  uid_ = from.uid_;
+  // @@protoc_insertion_point(copy_constructor:gs.G2S_LoginOffline)
+}
+
+void G2S_LoginOffline::SharedCtor() {
+  uid_ = GOOGLE_ULONGLONG(0);
+  _cached_size_ = 0;
+}
+
+G2S_LoginOffline::~G2S_LoginOffline() {
+  // @@protoc_insertion_point(destructor:gs.G2S_LoginOffline)
+  SharedDtor();
+}
+
+void G2S_LoginOffline::SharedDtor() {
+}
+
+void G2S_LoginOffline::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* G2S_LoginOffline::descriptor() {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const G2S_LoginOffline& G2S_LoginOffline::default_instance() {
+  protobuf_gs_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+G2S_LoginOffline* G2S_LoginOffline::New(::google::protobuf::Arena* arena) const {
+  G2S_LoginOffline* n = new G2S_LoginOffline;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void G2S_LoginOffline::Clear() {
+// @@protoc_insertion_point(message_clear_start:gs.G2S_LoginOffline)
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+
+bool G2S_LoginOffline::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:gs.G2S_LoginOffline)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint64 uid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &uid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:gs.G2S_LoginOffline)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:gs.G2S_LoginOffline)
+  return false;
+#undef DO_
+}
+
+void G2S_LoginOffline::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:gs.G2S_LoginOffline)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 uid = 1;
+  if (this->uid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->uid(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:gs.G2S_LoginOffline)
+}
+
+::google::protobuf::uint8* G2S_LoginOffline::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:gs.G2S_LoginOffline)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 uid = 1;
+  if (this->uid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->uid(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:gs.G2S_LoginOffline)
+  return target;
+}
+
+size_t G2S_LoginOffline::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:gs.G2S_LoginOffline)
+  size_t total_size = 0;
+
+  // uint64 uid = 1;
+  if (this->uid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
+        this->uid());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void G2S_LoginOffline::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:gs.G2S_LoginOffline)
+  GOOGLE_DCHECK_NE(&from, this);
+  const G2S_LoginOffline* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const G2S_LoginOffline>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:gs.G2S_LoginOffline)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:gs.G2S_LoginOffline)
+    MergeFrom(*source);
+  }
+}
+
+void G2S_LoginOffline::MergeFrom(const G2S_LoginOffline& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:gs.G2S_LoginOffline)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.uid() != 0) {
+    set_uid(from.uid());
+  }
+}
+
+void G2S_LoginOffline::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:gs.G2S_LoginOffline)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void G2S_LoginOffline::CopyFrom(const G2S_LoginOffline& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:gs.G2S_LoginOffline)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool G2S_LoginOffline::IsInitialized() const {
+  return true;
+}
+
+void G2S_LoginOffline::Swap(G2S_LoginOffline* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void G2S_LoginOffline::InternalSwap(G2S_LoginOffline* other) {
+  std::swap(uid_, other->uid_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata G2S_LoginOffline::GetMetadata() const {
+  protobuf_gs_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_gs_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// G2S_LoginOffline
+
+// uint64 uid = 1;
+void G2S_LoginOffline::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+::google::protobuf::uint64 G2S_LoginOffline::uid() const {
+  // @@protoc_insertion_point(field_get:gs.G2S_LoginOffline.uid)
+  return uid_;
+}
+void G2S_LoginOffline::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:gs.G2S_LoginOffline.uid)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

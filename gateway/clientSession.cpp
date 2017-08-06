@@ -1,9 +1,10 @@
 #include <clientSession.h>
 #include <gameSession.h>
 #include <global.h>
+#include <base/error.h>
 
 clientSession::clientSession(clientServer* server, const khaki::TcpClientPtr& conn):
-    server_(server), conn_(conn) {
+    server_(server), conn_(conn), status_(0) {
     conn_->setReadCallback(std::bind(&clientSession::OnMessage, 
                         this, std::placeholders::_1));
     RegisterCmd();
@@ -73,6 +74,44 @@ void clientSession::UnAuthSendToServer(struct PACKET& msg) {
     }
 }
 
+void clientSession::StatusChange(uint8 status) {
+    if (status == ERROR_LOGIN_FAILED) {
+        SetStatus(E_STATUS_NONE);
+    } else if (status == ERROR_LOGIN_ROLE_NOT_FOUND) {
+        SetStatus(E_STATUS_CREATE);
+    } else if (status == ERROR_LOGIN_SUCCESS) {
+        SetStatus(E_STATUS_VALID);
+        std::shared_ptr<gameSession> gsp = gameSession_.lock();
+        if ( gsp ) {
+            gsp->AddClient(uid_, conn_->getUniqueId());
+        }
+    }
+}
+
+void clientSession::UserOffline() {
+    if (GetStatus() != E_STATUS_VALID) {
+        return;
+    }
+
+    std::shared_ptr<gameSession> gsp = gameSession_.lock();
+    if ( gsp ) {
+        gsp->RemoveClient(uid_);
+    }
+    
+    gs::G2S_LoginOffline msg;
+    uint32 msgId = uint32(gs::ProtoID::ID_G2S_LoginOffline);
+    msg.set_uid(uid_);
+    std::string msgStr = msg.SerializeAsString();
+    struct PACKET data;
+    data.len = PACKET_HEAD_LEN + msgStr.size();
+    data.cmd = msgId;
+    data.sid = sid_;
+    data.msg = msgStr;
+
+    SendToServer(data);
+    //log4cppDebug(khaki::logger, "UserOffline");
+}   
+
 bool clientSession::HandlerPing(struct PACKET& pkt) {
     cs::C2S_Ping recv;
     if ( !recv.ParseFromString(pkt.msg) )
@@ -95,6 +134,8 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
     uint32 msgId = uint32(gs::ProtoID::ID_G2S_Login);
     msg.set_tokenid(conn_->getUniqueId());
     msg.set_uid(recv.uid());
+    uid_ = recv.uid();
+    sid_ = pkt.sid;
     std::string msgStr = msg.SerializeAsString();
     struct PACKET data;
     data.len = PACKET_HEAD_LEN + msgStr.size();

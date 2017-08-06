@@ -38,6 +38,9 @@ extern G2S_CreateDefaultTypeInternal _G2S_Create_default_instance_;
 class G2S_Login;
 class G2S_LoginDefaultTypeInternal;
 extern G2S_LoginDefaultTypeInternal _G2S_Login_default_instance_;
+class G2S_LoginOffline;
+class G2S_LoginOfflineDefaultTypeInternal;
+extern G2S_LoginOfflineDefaultTypeInternal _G2S_LoginOffline_default_instance_;
 class G2S_RegisterServer;
 class G2S_RegisterServerDefaultTypeInternal;
 extern G2S_RegisterServerDefaultTypeInternal _G2S_RegisterServer_default_instance_;
@@ -80,12 +83,13 @@ enum ProtoID {
   ID_S2G_Ping = 9005,
   ID_G2S_Create = 9006,
   ID_S2G_Create = 9007,
+  ID_G2S_LoginOffline = 9008,
   ProtoID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ProtoID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ProtoID_IsValid(int value);
 const ProtoID ProtoID_MIN = ID_NULL;
-const ProtoID ProtoID_MAX = ID_S2G_Create;
+const ProtoID ProtoID_MAX = ID_G2S_LoginOffline;
 const int ProtoID_ARRAYSIZE = ProtoID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ProtoID_descriptor();
@@ -693,6 +697,86 @@ class S2G_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
   mutable int _cached_size_;
   friend struct protobuf_gs_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class G2S_LoginOffline : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:gs.G2S_LoginOffline) */ {
+ public:
+  G2S_LoginOffline();
+  virtual ~G2S_LoginOffline();
+
+  G2S_LoginOffline(const G2S_LoginOffline& from);
+
+  inline G2S_LoginOffline& operator=(const G2S_LoginOffline& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const G2S_LoginOffline& default_instance();
+
+  static inline const G2S_LoginOffline* internal_default_instance() {
+    return reinterpret_cast<const G2S_LoginOffline*>(
+               &_G2S_LoginOffline_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    7;
+
+  void Swap(G2S_LoginOffline* other);
+
+  // implements Message ----------------------------------------------
+
+  inline G2S_LoginOffline* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  G2S_LoginOffline* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const G2S_LoginOffline& from);
+  void MergeFrom(const G2S_LoginOffline& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(G2S_LoginOffline* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint64 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::uint64 uid() const;
+  void set_uid(::google::protobuf::uint64 value);
+
+  // @@protoc_insertion_point(class_scope:gs.G2S_LoginOffline)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 uid_;
+  mutable int _cached_size_;
+  friend struct protobuf_gs_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -893,7 +977,27 @@ inline void S2G_Create::set_ret(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:gs.S2G_Create.ret)
 }
 
+// -------------------------------------------------------------------
+
+// G2S_LoginOffline
+
+// uint64 uid = 1;
+inline void G2S_LoginOffline::clear_uid() {
+  uid_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 G2S_LoginOffline::uid() const {
+  // @@protoc_insertion_point(field_get:gs.G2S_LoginOffline.uid)
+  return uid_;
+}
+inline void G2S_LoginOffline::set_uid(::google::protobuf::uint64 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:gs.G2S_LoginOffline.uid)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

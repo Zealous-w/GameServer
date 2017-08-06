@@ -26,6 +26,8 @@ void clientServer::OnConnection(const khaki::TcpClientPtr& con) {
 void clientServer::OnConnClose(const khaki::TcpClientPtr& con) {
     std::unique_lock<std::mutex> lck(mtx_);
     assert(sessionLists_.find(con->getUniqueId()) != sessionLists_.end());
+    auto client = sessionLists_.find(con->getUniqueId());
+    client->second->UserOffline();
     sessionLists_.erase(con->getUniqueId());
     log4cppDebug(khaki::logger, "clientSession fd : %d closed", con->getFd());
 }
@@ -37,4 +39,13 @@ void clientServer::SendPacketByUniqueId(uint64 uniqueId, struct PACKET& pkt) {
     }
 
     client->second->SendPacket(pkt);
+}
+
+void clientServer::SetClientStatusByUniqueId(uint64 uniqueId, uint8 status) {
+    auto client = sessionLists_.find(uniqueId);
+    if (client == sessionLists_.end()) {
+        return;
+    }
+
+    client->second->StatusChange(status);
 }

@@ -35,7 +35,6 @@ private:
     khaki::TcpConnectorPtr conn_;
     std::map<uint32, ServiceFunc> command_;
 
-    std::unordered_map<uint64, player*> clientLists_;
 public:
     bool HandlerRegisterSid(struct PACKET& str);
     bool HandlerDirtyPacket(struct PACKET& str);

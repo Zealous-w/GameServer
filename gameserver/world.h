@@ -6,6 +6,7 @@
 #include <base/common.h>
 #include <player.h>
 #include <Queue.h>
+#include <Timer.h>
 
 #include <gateSession.h>
 #include <dbSession.h>
@@ -17,7 +18,7 @@
 class World {
 public:
     typedef std::function<bool(struct PACKET&)> ServiceFunc;
-    typedef std::map<uint64, player*>           MapUsers;
+    typedef std::map<uint64, Player*>           MapUsers;
     static World& getInstance() {
         static World w;
         return w;
@@ -30,6 +31,7 @@ private:
     bool running_;
     std::thread thread_;
     MapUsers users_;
+    khaki::TimerManager timerM_;
     gateSession* gSession_;
     dbSession* dSession_;
     std::map<uint32, ServiceFunc> command_;
@@ -45,10 +47,16 @@ public:
     void MsgProcess(khaki::queue<struct PACKET>& msg);
     void RegisterCmd();
     void DispatcherCmd(struct PACKET& msg);
-
+    void AddPlayer(Player* player);
+    void RemovePlayer(uint64 uid);
+    Player* GetPlayer(uint64 uid);
+    void ShowOnlineNumber();
 public:
     bool HandlerLogin(struct PACKET& pkt);
     bool HandlerCreate(struct PACKET& pkt);
+    bool HandlerOffline(struct PACKET& pkt);
+
+    bool HandlerGetMoney(struct PACKET& pkt);
 public:
     ///////dbs -> gs
     bool HandlerRSLogin(struct PACKET& pkt);

@@ -9,6 +9,8 @@ enum ProtoID {
     ID_S2C_Login = 10004;
     ID_C2S_Create = 10005;
     ID_S2C_Create = 10006;
+    ID_C2S_GetMoney = 10007;
+    ID_S2C_GetMoney = 10008;
 }
 
 message C2S_Ping {
@@ -35,4 +37,13 @@ message C2S_Create {
 message S2C_Create {
     uint32 ret  = 1;
     uint64 uid = 2;
+}
+
+message C2S_GetMoney {
+    uint32 addMoney = 1;
+}
+
+message S2C_GetMoney {
+    uint32 ret  = 1;
+    uint32 sumMoney = 2;
 }

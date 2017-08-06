@@ -18,6 +18,7 @@ void gameSession::RegisterCmd() {
     REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_RegisterServer, HandlerRegisterSid);
     REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Login, HandlerLogin);
     REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_Create, HandlerCreate);
+    REGISTER_GAME_CMD_CALLBACK(sr::ProtoID::ID_S2R_SaveUser, HandlerSaveUser);
 }
 
 void gameSession::DispatcherCmd(struct PACKET& msg) {
@@ -91,18 +92,18 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
     }
     uint64 uid = recv.uid();
 
-    base::User user;
     sr::R2S_Login msg;
     uint32 msgId = uint32(sr::ProtoID::ID_R2S_Login);
+    base::User* user = msg.mutable_user();
     msg.set_ret(ERROR_LOGIN_SUCCESS);
     msg.set_tokenid(recv.tokenid());
     if (!server_->GetDb()->LoadUser(user, uid)) {
         msg.set_ret(ERROR_LOGIN_FAILED);
     }
-    
+
     std::string msgStr = msg.SerializeAsString();
     SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", user->uid(), pkt.sid, pkt.cmd);
     return true;
 }
 
@@ -119,12 +120,25 @@ bool gameSession::HandlerCreate(struct PACKET& pkt) {
     msg.set_ret(ERROR_LOGIN_SUCCESS);
     msg.set_tokenid(recv.tokenid());
     base::User user = recv.user();
-    if (!server_->GetDb()->SaveUserBaseInfo(user)) {
+    if (!server_->GetDb()->NewUserBaseInfo(user)) {
         msg.set_ret(ERROR_LOGIN_FAILED);
     }
 
     std::string msgStr = msg.SerializeAsString();
     SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
     log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    return true;
+}
+
+bool gameSession::HandlerSaveUser(struct PACKET& pkt) {
+    sr::S2R_SaveUser recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+    base::User user = recv.user();
+    server_->GetDb()->SaveUserBaseInfo(user);
+    log4cppDebug(khaki::logger, "dbMaster HandlerSaveUser uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
     return true;
 }

@@ -35,6 +35,9 @@ namespace cs {
 class C2S_Create;
 class C2S_CreateDefaultTypeInternal;
 extern C2S_CreateDefaultTypeInternal _C2S_Create_default_instance_;
+class C2S_GetMoney;
+class C2S_GetMoneyDefaultTypeInternal;
+extern C2S_GetMoneyDefaultTypeInternal _C2S_GetMoney_default_instance_;
 class C2S_Login;
 class C2S_LoginDefaultTypeInternal;
 extern C2S_LoginDefaultTypeInternal _C2S_Login_default_instance_;
@@ -44,6 +47,9 @@ extern C2S_PingDefaultTypeInternal _C2S_Ping_default_instance_;
 class S2C_Create;
 class S2C_CreateDefaultTypeInternal;
 extern S2C_CreateDefaultTypeInternal _S2C_Create_default_instance_;
+class S2C_GetMoney;
+class S2C_GetMoneyDefaultTypeInternal;
+extern S2C_GetMoneyDefaultTypeInternal _S2C_GetMoney_default_instance_;
 class S2C_Login;
 class S2C_LoginDefaultTypeInternal;
 extern S2C_LoginDefaultTypeInternal _S2C_Login_default_instance_;
@@ -76,12 +82,14 @@ enum ProtoID {
   ID_S2C_Login = 10004,
   ID_C2S_Create = 10005,
   ID_S2C_Create = 10006,
+  ID_C2S_GetMoney = 10007,
+  ID_S2C_GetMoney = 10008,
   ProtoID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ProtoID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ProtoID_IsValid(int value);
 const ProtoID ProtoID_MIN = ID_NULL;
-const ProtoID ProtoID_MAX = ID_S2C_Create;
+const ProtoID ProtoID_MAX = ID_S2C_GetMoney;
 const int ProtoID_ARRAYSIZE = ProtoID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ProtoID_descriptor();
@@ -588,6 +596,173 @@ class S2C_Create : public ::google::protobuf::Message /* @@protoc_insertion_poin
   mutable int _cached_size_;
   friend struct protobuf_cs_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class C2S_GetMoney : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cs.C2S_GetMoney) */ {
+ public:
+  C2S_GetMoney();
+  virtual ~C2S_GetMoney();
+
+  C2S_GetMoney(const C2S_GetMoney& from);
+
+  inline C2S_GetMoney& operator=(const C2S_GetMoney& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const C2S_GetMoney& default_instance();
+
+  static inline const C2S_GetMoney* internal_default_instance() {
+    return reinterpret_cast<const C2S_GetMoney*>(
+               &_C2S_GetMoney_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    6;
+
+  void Swap(C2S_GetMoney* other);
+
+  // implements Message ----------------------------------------------
+
+  inline C2S_GetMoney* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  C2S_GetMoney* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const C2S_GetMoney& from);
+  void MergeFrom(const C2S_GetMoney& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(C2S_GetMoney* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint32 addMoney = 1;
+  void clear_addmoney();
+  static const int kAddMoneyFieldNumber = 1;
+  ::google::protobuf::uint32 addmoney() const;
+  void set_addmoney(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:cs.C2S_GetMoney)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint32 addmoney_;
+  mutable int _cached_size_;
+  friend struct protobuf_cs_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class S2C_GetMoney : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cs.S2C_GetMoney) */ {
+ public:
+  S2C_GetMoney();
+  virtual ~S2C_GetMoney();
+
+  S2C_GetMoney(const S2C_GetMoney& from);
+
+  inline S2C_GetMoney& operator=(const S2C_GetMoney& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const S2C_GetMoney& default_instance();
+
+  static inline const S2C_GetMoney* internal_default_instance() {
+    return reinterpret_cast<const S2C_GetMoney*>(
+               &_S2C_GetMoney_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    7;
+
+  void Swap(S2C_GetMoney* other);
+
+  // implements Message ----------------------------------------------
+
+  inline S2C_GetMoney* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  S2C_GetMoney* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const S2C_GetMoney& from);
+  void MergeFrom(const S2C_GetMoney& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(S2C_GetMoney* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint32 ret = 1;
+  void clear_ret();
+  static const int kRetFieldNumber = 1;
+  ::google::protobuf::uint32 ret() const;
+  void set_ret(::google::protobuf::uint32 value);
+
+  // uint32 sumMoney = 2;
+  void clear_summoney();
+  static const int kSumMoneyFieldNumber = 2;
+  ::google::protobuf::uint32 summoney() const;
+  void set_summoney(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:cs.S2C_GetMoney)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint32 ret_;
+  ::google::protobuf::uint32 summoney_;
+  mutable int _cached_size_;
+  friend struct protobuf_cs_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -728,7 +903,61 @@ inline void S2C_Create::set_uid(::google::protobuf::uint64 value) {
   // @@protoc_insertion_point(field_set:cs.S2C_Create.uid)
 }
 
+// -------------------------------------------------------------------
+
+// C2S_GetMoney
+
+// uint32 addMoney = 1;
+inline void C2S_GetMoney::clear_addmoney() {
+  addmoney_ = 0u;
+}
+inline ::google::protobuf::uint32 C2S_GetMoney::addmoney() const {
+  // @@protoc_insertion_point(field_get:cs.C2S_GetMoney.addMoney)
+  return addmoney_;
+}
+inline void C2S_GetMoney::set_addmoney(::google::protobuf::uint32 value) {
+  
+  addmoney_ = value;
+  // @@protoc_insertion_point(field_set:cs.C2S_GetMoney.addMoney)
+}
+
+// -------------------------------------------------------------------
+
+// S2C_GetMoney
+
+// uint32 ret = 1;
+inline void S2C_GetMoney::clear_ret() {
+  ret_ = 0u;
+}
+inline ::google::protobuf::uint32 S2C_GetMoney::ret() const {
+  // @@protoc_insertion_point(field_get:cs.S2C_GetMoney.ret)
+  return ret_;
+}
+inline void S2C_GetMoney::set_ret(::google::protobuf::uint32 value) {
+  
+  ret_ = value;
+  // @@protoc_insertion_point(field_set:cs.S2C_GetMoney.ret)
+}
+
+// uint32 sumMoney = 2;
+inline void S2C_GetMoney::clear_summoney() {
+  summoney_ = 0u;
+}
+inline ::google::protobuf::uint32 S2C_GetMoney::summoney() const {
+  // @@protoc_insertion_point(field_get:cs.S2C_GetMoney.sumMoney)
+  return summoney_;
+}
+inline void S2C_GetMoney::set_summoney(::google::protobuf::uint32 value) {
+  
+  summoney_ = value;
+  // @@protoc_insertion_point(field_set:cs.S2C_GetMoney.sumMoney)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -37,6 +37,7 @@ public:
     bool HandlerRegisterSid(struct PACKET& str);
     bool HandlerLogin(struct PACKET& pkt);
     bool HandlerCreate(struct PACKET& pkt);
+    bool HandlerSaveUser(struct PACKET& pkt);
 };
 
 typedef std::shared_ptr<gameSession> gameSessionPtr;

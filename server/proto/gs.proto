@@ -10,6 +10,7 @@ enum ProtoID {
     ID_S2G_Ping = 9005;
     ID_G2S_Create = 9006;
     ID_S2G_Create = 9007;
+    ID_G2S_LoginOffline = 9008;
 }
 
 message S2G_RegisterServer {
@@ -43,4 +44,8 @@ message G2S_Create {
 message S2G_Create {
     uint64 tokenId = 1;
     uint32 ret = 2;
+}
+
+message G2S_LoginOffline {
+    uint64 uid = 1;
 }

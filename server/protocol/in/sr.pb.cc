@@ -32,13 +32,15 @@ class S2R_CreateDefaultTypeInternal : public ::google::protobuf::internal::Expli
 } _S2R_Create_default_instance_;
 class R2S_CreateDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<R2S_Create> {
 } _R2S_Create_default_instance_;
+class S2R_SaveUserDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<S2R_SaveUser> {
+} _S2R_SaveUser_default_instance_;
 
 namespace protobuf_sr_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[7];
+::google::protobuf::Metadata file_level_metadata[8];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 }  // namespace
@@ -54,6 +56,7 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
 };
 PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
     TableStruct::schema[] = {
+  { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
@@ -112,6 +115,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(R2S_Create, ret_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(R2S_Create, tokenid_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2R_SaveUser, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(S2R_SaveUser, user_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -122,6 +131,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 28, -1, sizeof(S2R_Ping)},
   { 34, -1, sizeof(S2R_Create)},
   { 41, -1, sizeof(R2S_Create)},
+  { 48, -1, sizeof(S2R_SaveUser)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -132,6 +142,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_S2R_Ping_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_S2R_Create_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_R2S_Create_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_S2R_SaveUser_default_instance_),
 };
 
 namespace {
@@ -152,7 +163,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 7);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 8);
 }
 
 }  // namespace
@@ -172,6 +183,8 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[5].reflection;
   _R2S_Create_default_instance_.Shutdown();
   delete file_level_metadata[6].reflection;
+  _S2R_SaveUser_default_instance_.Shutdown();
+  delete file_level_metadata[7].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
@@ -186,9 +199,12 @@ void TableStruct::InitDefaultsImpl() {
   _S2R_Ping_default_instance_.DefaultConstruct();
   _S2R_Create_default_instance_.DefaultConstruct();
   _R2S_Create_default_instance_.DefaultConstruct();
+  _S2R_SaveUser_default_instance_.DefaultConstruct();
   _R2S_Login_default_instance_.get_mutable()->user_ = const_cast< ::base::User*>(
       ::base::User::internal_default_instance());
   _S2R_Create_default_instance_.get_mutable()->user_ = const_cast< ::base::User*>(
+      ::base::User::internal_default_instance());
+  _S2R_SaveUser_default_instance_.get_mutable()->user_ = const_cast< ::base::User*>(
       ::base::User::internal_default_instance());
 }
 
@@ -207,15 +223,17 @@ void AddDescriptorsImpl() {
       "ser\030\003 \001(\0132\n.base.User\"\034\n\010S2R_Ping\022\020\n\010now"
       "_time\030\001 \001(\r\"7\n\nS2R_Create\022\017\n\007tokenId\030\001 \001"
       "(\004\022\030\n\004user\030\002 \001(\0132\n.base.User\"*\n\nR2S_Crea"
-      "te\022\013\n\003ret\030\001 \001(\r\022\017\n\007tokenId\030\002 \001(\004*\265\001\n\007Pro"
-      "toID\022\013\n\007ID_NULL\020\000\022\033\n\025ID_S2R_RegisterServ"
-      "er\020\261\352\001\022\033\n\025ID_R2S_RegisterServer\020\262\352\001\022\022\n\014I"
-      "D_S2R_Login\020\263\352\001\022\022\n\014ID_R2S_Login\020\264\352\001\022\021\n\013I"
-      "D_S2R_Ping\020\265\352\001\022\023\n\rID_S2R_Create\020\267\352\001\022\023\n\rI"
-      "D_R2S_Create\020\270\352\001b\006proto3"
+      "te\022\013\n\003ret\030\001 \001(\r\022\017\n\007tokenId\030\002 \001(\004\"(\n\014S2R_"
+      "SaveUser\022\030\n\004user\030\001 \001(\0132\n.base.User*\314\001\n\007P"
+      "rotoID\022\013\n\007ID_NULL\020\000\022\033\n\025ID_S2R_RegisterSe"
+      "rver\020\261\352\001\022\033\n\025ID_R2S_RegisterServer\020\262\352\001\022\022\n"
+      "\014ID_S2R_Login\020\263\352\001\022\022\n\014ID_R2S_Login\020\264\352\001\022\021\n"
+      "\013ID_S2R_Ping\020\265\352\001\022\023\n\rID_S2R_Create\020\267\352\001\022\023\n"
+      "\rID_R2S_Create\020\270\352\001\022\025\n\017ID_S2R_SaveUser\020\271\352"
+      "\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 544);
+      descriptor, 609);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "sr.proto", &protobuf_RegisterTypes);
   ::base::protobuf_base_2eproto::AddDescriptors();
@@ -249,6 +267,7 @@ bool ProtoID_IsValid(int value) {
     case 30005:
     case 30007:
     case 30008:
+    case 30009:
       return true;
     default:
       return false;
@@ -2283,6 +2302,276 @@ void R2S_Create::set_tokenid(::google::protobuf::uint64 value) {
   
   tokenid_ = value;
   // @@protoc_insertion_point(field_set:sr.R2S_Create.tokenId)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int S2R_SaveUser::kUserFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+S2R_SaveUser::S2R_SaveUser()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_sr_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:sr.S2R_SaveUser)
+}
+S2R_SaveUser::S2R_SaveUser(const S2R_SaveUser& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_user()) {
+    user_ = new ::base::User(*from.user_);
+  } else {
+    user_ = NULL;
+  }
+  // @@protoc_insertion_point(copy_constructor:sr.S2R_SaveUser)
+}
+
+void S2R_SaveUser::SharedCtor() {
+  user_ = NULL;
+  _cached_size_ = 0;
+}
+
+S2R_SaveUser::~S2R_SaveUser() {
+  // @@protoc_insertion_point(destructor:sr.S2R_SaveUser)
+  SharedDtor();
+}
+
+void S2R_SaveUser::SharedDtor() {
+  if (this != internal_default_instance()) {
+    delete user_;
+  }
+}
+
+void S2R_SaveUser::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* S2R_SaveUser::descriptor() {
+  protobuf_sr_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_sr_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const S2R_SaveUser& S2R_SaveUser::default_instance() {
+  protobuf_sr_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+S2R_SaveUser* S2R_SaveUser::New(::google::protobuf::Arena* arena) const {
+  S2R_SaveUser* n = new S2R_SaveUser;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void S2R_SaveUser::Clear() {
+// @@protoc_insertion_point(message_clear_start:sr.S2R_SaveUser)
+  if (GetArenaNoVirtual() == NULL && user_ != NULL) {
+    delete user_;
+  }
+  user_ = NULL;
+}
+
+bool S2R_SaveUser::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:sr.S2R_SaveUser)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .base.User user = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_user()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:sr.S2R_SaveUser)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:sr.S2R_SaveUser)
+  return false;
+#undef DO_
+}
+
+void S2R_SaveUser::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:sr.S2R_SaveUser)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .base.User user = 1;
+  if (this->has_user()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->user_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:sr.S2R_SaveUser)
+}
+
+::google::protobuf::uint8* S2R_SaveUser::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sr.S2R_SaveUser)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .base.User user = 1;
+  if (this->has_user()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->user_, deterministic, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:sr.S2R_SaveUser)
+  return target;
+}
+
+size_t S2R_SaveUser::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:sr.S2R_SaveUser)
+  size_t total_size = 0;
+
+  // .base.User user = 1;
+  if (this->has_user()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->user_);
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void S2R_SaveUser::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:sr.S2R_SaveUser)
+  GOOGLE_DCHECK_NE(&from, this);
+  const S2R_SaveUser* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const S2R_SaveUser>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:sr.S2R_SaveUser)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:sr.S2R_SaveUser)
+    MergeFrom(*source);
+  }
+}
+
+void S2R_SaveUser::MergeFrom(const S2R_SaveUser& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:sr.S2R_SaveUser)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_user()) {
+    mutable_user()->::base::User::MergeFrom(from.user());
+  }
+}
+
+void S2R_SaveUser::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:sr.S2R_SaveUser)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void S2R_SaveUser::CopyFrom(const S2R_SaveUser& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sr.S2R_SaveUser)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S2R_SaveUser::IsInitialized() const {
+  return true;
+}
+
+void S2R_SaveUser::Swap(S2R_SaveUser* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void S2R_SaveUser::InternalSwap(S2R_SaveUser* other) {
+  std::swap(user_, other->user_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata S2R_SaveUser::GetMetadata() const {
+  protobuf_sr_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_sr_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// S2R_SaveUser
+
+// .base.User user = 1;
+bool S2R_SaveUser::has_user() const {
+  return this != internal_default_instance() && user_ != NULL;
+}
+void S2R_SaveUser::clear_user() {
+  if (GetArenaNoVirtual() == NULL && user_ != NULL) delete user_;
+  user_ = NULL;
+}
+const ::base::User& S2R_SaveUser::user() const {
+  // @@protoc_insertion_point(field_get:sr.S2R_SaveUser.user)
+  return user_ != NULL ? *user_
+                         : *::base::User::internal_default_instance();
+}
+::base::User* S2R_SaveUser::mutable_user() {
+  
+  if (user_ == NULL) {
+    user_ = new ::base::User;
+  }
+  // @@protoc_insertion_point(field_mutable:sr.S2R_SaveUser.user)
+  return user_;
+}
+::base::User* S2R_SaveUser::release_user() {
+  // @@protoc_insertion_point(field_release:sr.S2R_SaveUser.user)
+  
+  ::base::User* temp = user_;
+  user_ = NULL;
+  return temp;
+}
+void S2R_SaveUser::set_allocated_user(::base::User* user) {
+  delete user_;
+  user_ = user;
+  if (user) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:sr.S2R_SaveUser.user)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

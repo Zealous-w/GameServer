@@ -19,11 +19,12 @@ public:
     bool CreateGameTable();
 
     ////////////////////////
-    bool LoadUser(base::User& user, uint64 uid);
+    bool LoadUser(base::User* user, uint64 uid);
     ////////////////////////
 
     ////////RESULT/////////
-    bool GetUserBaseInfo(base::User& user, uint64 uid);
+    bool GetUserBaseInfo(base::User* user, uint64 uid);
+    bool NewUserBaseInfo(base::User& user);
     bool SaveUserBaseInfo(base::User& user);
 private:
     std::string host_; 

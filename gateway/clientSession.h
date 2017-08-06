@@ -8,6 +8,7 @@
 #include <protocol/out/cs.pb.h>
 #include <protocol/in/gs.pb.h>
 #include <protocol/in/base.pb.h>
+#include <atomic>
 
 class gameSession;
 class clientServer;
@@ -32,11 +33,14 @@ public:
     void SendPacket(uint32 cmd, uint64 uid, uint32 sid, std::string& msg);
     void SendToServer(struct PACKET& msg);
     void UnAuthSendToServer(struct PACKET& msg);
-    uint8 GetStatus() { return status_; }
-    void SetStatus(uint8 status) { status_ = status; }
+    uint8 GetStatus() { return status_.load(); }
+    void SetStatus(uint8 status) { status_.store(status); }
+    void StatusChange(uint8 status);
+    void UserOffline();
 private:
-    uint8 status_;
-    uint64 uid;
+    std::atomic<uint8_t> status_;
+    uint64 uid_;
+    uint32 sid_;
     std::map<uint32, ServiceFunc> command_;
     khaki::TcpClientPtr conn_;
     clientServer* server_;

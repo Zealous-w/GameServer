@@ -8,6 +8,7 @@
 World::World():thread_(&World::Run, this) {
     running_ = false;
     RegisterCmd();
+    timerM_.AddTimer(std::bind(&World::ShowOnlineNumber, this), khaki::util::getTime(), 10);
 }
 
 World::~World() {
@@ -18,6 +19,7 @@ void World::Run() {
     while ( running_ ) {
         MsgProcess(msgQueue_);
         MsgProcess(dbMsgQueue_);
+        timerM_.Run(khaki::util::getTime());
         usleep(10000);
     }
 }
@@ -33,10 +35,16 @@ void World::MsgProcess(khaki::queue<struct PACKET>& msg) {
     }
 }
 
+void World::ShowOnlineNumber() {
+    log4cppDebug(khaki::logger, "Online Numer : %d", users_.size());
+}
+
 void World::RegisterCmd() {
     ///////////GS///////////
     REGISTER_CMD_CALLBACK(gs::ProtoID::ID_G2S_Login, HandlerLogin);
     REGISTER_CMD_CALLBACK(gs::ProtoID::ID_G2S_Create, HandlerCreate);
+    REGISTER_CMD_CALLBACK(gs::ProtoID::ID_G2S_LoginOffline, HandlerOffline);
+    REGISTER_CMD_CALLBACK(cs::ProtoID::ID_C2S_GetMoney, HandlerGetMoney);
     ///////////RS///////////
     REGISTER_CMD_CALLBACK(sr::ProtoID::ID_R2S_Login, HandlerRSLogin);
     REGISTER_CMD_CALLBACK(sr::ProtoID::ID_R2S_Create, HandlerRSCreate);
@@ -48,6 +56,27 @@ void World::DispatcherCmd(struct PACKET& msg) {
     } else {
         log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
     }
+}
+
+void World::AddPlayer(Player* player) {
+    users_.insert(std::make_pair(player->uid, player));
+}
+
+void World::RemovePlayer(uint64 uid) {
+    auto player = users_.find(uid);
+    if (player != users_.end()) {
+        Player* p = player->second;
+        users_.erase(uid);
+        delete p;
+    }
+}
+
+Player* World::GetPlayer(uint64 uid) {
+    auto player = users_.find(uid);
+    if (player != users_.end()) {
+        return player->second;
+    }
+    return NULL;
 }
 
 ///////////GS///////////
@@ -96,6 +125,58 @@ bool World::HandlerCreate(struct PACKET& pkt) {
     log4cppDebug(khaki::logger, "HandlerCreate proto : %d %d", pkt.cmd, uid);
 }
 
+bool World::HandlerOffline(struct PACKET& pkt) {
+    gs::G2S_LoginOffline recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+    uint64 uid = recv.uid();
+    RemovePlayer(uid);
+    log4cppDebug(khaki::logger, "HandlerOffline uid : %d", uid);
+    return true;
+}
+
+bool World::HandlerGetMoney(struct PACKET& pkt) {
+    cs::C2S_GetMoney recv;
+    if ( !recv.ParseFromString(pkt.msg) )
+    {
+        log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
+        return false;
+    }
+    uint32 addMoney = recv.addmoney();
+    auto player = GetPlayer(pkt.uid);
+    if (player == NULL) {
+        log4cppDebug(khaki::logger, "Not Found user : %d", pkt.uid);
+        return false;
+    }
+
+    cs::S2C_GetMoney cmsg;
+    uint32 cMsgId = uint32(cs::ProtoID::ID_S2C_GetMoney);
+    cmsg.set_ret(1); //1:ok
+    cmsg.set_summoney(0);
+    if (addMoney > 10000) {
+        log4cppDebug(khaki::logger, "Limit Money : %d", addMoney);
+        cmsg.set_ret(2);//ERROR
+        std::string msgStr = cmsg.SerializeAsString();
+        gSession_->SendPacket(cMsgId, pkt.uid, pkt.sid, msgStr);
+        return false;
+    }
+    player->money += addMoney;
+    cmsg.set_summoney(player->money);
+    std::string cmsgStr = cmsg.SerializeAsString();
+    gSession_->SendPacket(cMsgId, pkt.uid, pkt.sid, cmsgStr);
+
+    sr::S2R_SaveUser msg;
+    uint32 msgId = uint32(sr::ProtoID::ID_S2R_SaveUser);
+    msg.set_allocated_user(player->SaveUser());
+    std::string msgStr = msg.SerializeAsString();
+    dSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
+    log4cppDebug(khaki::logger, "HandlerGetMoney proto : %d %d", pkt.cmd, pkt.uid);
+    return true;
+}
+
 ///////////RS///////////
 bool World::HandlerRSLogin(struct PACKET& pkt) {
     sr::R2S_Login recv;
@@ -105,14 +186,22 @@ bool World::HandlerRSLogin(struct PACKET& pkt) {
         return false;
     }
     uint32 ret = recv.ret();
-
+    base::User bUser = recv.user();
+    Player* user = new Player();
+    user->uid = bUser.uid();
+    user->sid = bUser.sid();
+    user->name = bUser.name();
+    user->level = bUser.level();
+    user->money = bUser.money();
+    AddPlayer(user);
+    ///////////////////
     gs::S2G_Login msg;
     uint32 msgId = uint32(gs::ProtoID::ID_S2G_Login);
     msg.set_tokenid(recv.tokenid());
     msg.set_ret(ret);
     std::string msgStr = msg.SerializeAsString();
     gSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d", pkt.cmd, pkt.uid);
+    log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d %d", pkt.cmd, pkt.uid, bUser.uid());
     return true;
 }
 
@@ -125,6 +214,7 @@ bool World::HandlerRSCreate(struct PACKET& pkt) {
     }
     uint32 ret = recv.ret();
 
+    ///////////////////
     gs::S2G_Create msg;
     uint32 msgId = uint32(gs::ProtoID::ID_S2G_Create);
     msg.set_tokenid(recv.tokenid());

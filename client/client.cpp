@@ -10,7 +10,7 @@ class Client {
 public:
     typedef std::function<bool(struct PACKET&)> ServiceFunc;
     Client(khaki::EventLoop* loop, std::string host, uint16_t port) : 
-        loop_(loop), conn_(new khaki::Connector(loop_, host, port)){
+        loop_(loop), conn_(new khaki::Connector(loop_, host, port)), uid_(0), sid_(0){
         conn_->setConnectCallback(std::bind(&Client::OnConnected, this, 
                 std::placeholders::_1));
         conn_->setCloseCallback(std::bind(&Client::OnConnectClose, this, 
@@ -59,6 +59,7 @@ public:
     void RegisterCmd() {
         command_[cs::ProtoID::ID_S2C_Login] = std::bind(&Client::HandlerLogin, this, std::placeholders::_1);
         command_[cs::ProtoID::ID_S2C_Create] = std::bind(&Client::HandlerCreate, this, std::placeholders::_1);
+        command_[cs::ProtoID::ID_S2C_GetMoney] = std::bind(&Client::HandlerGetMoney, this, std::placeholders::_1);
     }
     void DispatcherCmd(struct PACKET& msg) {
         if ( command_.find(msg.cmd) != command_.end() ) {
@@ -116,6 +117,15 @@ public:
             log4cppDebug(khaki::logger, "Need Create Uid ret : %d", ret);
         }
 
+        if (ret == ERROR_LOGIN_SUCCESS) {
+            cs::C2S_GetMoney msg3;
+            msg3.set_addmoney(500);
+
+            std::string str3 = msg3.SerializeAsString();
+            SendPacket(uint32(cs::ProtoID::ID_C2S_GetMoney), str3);
+            log4cppDebug(khaki::logger, "I Need Money 500");
+        }
+
         log4cppDebug(khaki::logger, "HandlerLogin ret : %d", ret);
         return true;
     }
@@ -133,18 +143,33 @@ public:
         log4cppDebug(khaki::logger, "HandlerCreate ret : %d, uid : %d", ret, uid);
         return true;
     }
+
+    bool HandlerGetMoney(struct PACKET& msg) {
+        cs::S2C_GetMoney recv;
+        if ( !recv.ParseFromString(msg.msg) )
+        {
+            log4cppDebug(khaki::logger, "proto parse error : %d", msg.cmd);
+            return false;
+        }
+
+        uint32 ret = recv.ret();
+        uint32 money = recv.summoney();
+        log4cppDebug(khaki::logger, "HandlerGetMoney ret : %d, money : %d", ret, money);
+        return true;
+    }
 };
 
 int main(int argc, char* argv[]) {
     khaki::EventLoop loop;
     khaki::InitLog(khaki::logger, "./client.log", log4cpp::Priority::DEBUG);
     Client* client = new Client(&loop, "127.0.0.1", 9527);
+    client->SetUid(123456);
+    client->SetSid(1);
     if ( !client->ConnectGateway() ) {
         log4cppDebug(khaki::logger, "connect gateway failed !!");
         return 0;
     }
-    client->SetUid(123456);
-    client->SetSid(1);
+    
     client->Loop();
 
     ///////

@@ -19,6 +19,7 @@ public:
     void OnConnection(const khaki::TcpClientPtr& con);
 	void OnConnClose(const khaki::TcpClientPtr& con);
     void SendPacketByUniqueId(uint64 uniqueId, struct PACKET& pkt);
+    void SetClientStatusByUniqueId(uint64 uniqueId, uint8 status);
 private:
     uint64 markId_;
     khaki::TcpThreadServer server_;
