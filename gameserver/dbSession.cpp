@@ -39,6 +39,7 @@ void dbSession::OnConnected(const khaki::TcpConnectorPtr& con) {
 
 void dbSession::OnMessage(const khaki::TcpConnectorPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
+    log4cppDebug(khaki::logger, "dbSession buf size : %d", buf.size());
     while( buf.size() > 0 ) {
         if (!buf.checkInt32()) break;
         struct PACKET pkt = Decode(buf);

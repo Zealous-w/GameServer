@@ -41,6 +41,7 @@ void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
 
 void gateSession::OnMessage(const khaki::TcpConnectorPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
+    log4cppDebug(khaki::logger, "gateSession buf size : %d", buf.size());
     while( buf.size() > 0 ) {
         if (!buf.checkInt32()) break;
         struct PACKET pkt = Decode(buf);

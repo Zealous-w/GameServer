@@ -3,7 +3,7 @@
 #include <Log.h>
 #include <protocol/out/cs.pb.h>
 #include <protocol/in/base.pb.h>
-#include <error.h>
+#include <base/error.h>
 
 World::World():thread_(&World::Run, this) {
     running_ = false;
@@ -26,6 +26,7 @@ void World::Run() {
 
 void World::MsgProcess(khaki::queue<struct PACKET>& msg) {
     if ( msg.size() > 0 ) {
+        log4cppDebug(khaki::logger, "MsgProcess : %d", msg.size());
         std::queue<struct PACKET> tmpQueue = msg.popAll();
         while ( !tmpQueue.empty() ) {
             struct PACKET pkt = tmpQueue.front();
@@ -59,7 +60,8 @@ void World::DispatcherCmd(struct PACKET& msg) {
 }
 
 void World::AddPlayer(Player* player) {
-    users_.insert(std::make_pair(player->uid, player));
+    bool ret = users_.insert(std::make_pair(player->uid, player)).first->second;
+    log4cppDebug(khaki::logger, "AddPlayer : %lld, ret:%d", player->uid, ret);
 }
 
 void World::RemovePlayer(uint64 uid) {
@@ -187,13 +189,16 @@ bool World::HandlerRSLogin(struct PACKET& pkt) {
     }
     uint32 ret = recv.ret();
     base::User bUser = recv.user();
-    Player* user = new Player();
-    user->uid = bUser.uid();
-    user->sid = bUser.sid();
-    user->name = bUser.name();
-    user->level = bUser.level();
-    user->money = bUser.money();
-    AddPlayer(user);
+    if (ret == ERROR_LOGIN_SUCCESS) {
+        Player* user = new Player();
+        user->uid = bUser.uid();
+        user->sid = bUser.sid();
+        user->name = bUser.name();
+        user->level = bUser.level();
+        user->money = bUser.money();
+        AddPlayer(user);
+    }
+    
     ///////////////////
     gs::S2G_Login msg;
     uint32 msgId = uint32(gs::ProtoID::ID_S2G_Login);
@@ -201,7 +206,7 @@ bool World::HandlerRSLogin(struct PACKET& pkt) {
     msg.set_ret(ret);
     std::string msgStr = msg.SerializeAsString();
     gSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d %d", pkt.cmd, pkt.uid, bUser.uid());
+    log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d %d %d", pkt.cmd, pkt.uid, ret, bUser.uid());
     return true;
 }
 

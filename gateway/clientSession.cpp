@@ -83,7 +83,7 @@ void clientSession::StatusChange(uint8 status) {
         SetStatus(E_STATUS_VALID);
         std::shared_ptr<gameSession> gsp = gameSession_.lock();
         if ( gsp ) {
-            gsp->AddClient(uid_, conn_->getIpPort());
+            gsp->AddClient(uid_, conn_->getUniqueId());
         }
     }
 }
@@ -167,7 +167,7 @@ bool clientSession::HandlerCreate(struct PACKET& pkt) {
     data.uid = pkt.uid;
     data.sid = pkt.sid;
     data.msg = msgStr;
-    gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
+    //gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
     log4cppDebug(khaki::logger, "HandlerCreate uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }

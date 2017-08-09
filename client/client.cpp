@@ -173,13 +173,13 @@ int main(int argc, char* argv[]) {
     khaki::EventLoop loop;
     khaki::InitLog(khaki::logger, "./client.log", log4cpp::Priority::DEBUG);
 
-    if (argc < 2) {
-        log4cppDebug(khaki::logger, "Usage : ./client <sessionNumber>");
+    if (argc < 3) {
+        log4cppDebug(khaki::logger, "Usage : ./client <sessionNumber> <uid>");
         return 0;
     }
     
     uint32 sessionNum = std::stoi(std::string(argv[1]));
-
+    uint64 uidBegin = std::stoi(std::string(argv[2]));
     // Client* client = new Client(&loop, "127.0.0.1", 9527);
     // client->SetUid(123456);
     // client->SetSid(1);
@@ -187,7 +187,7 @@ int main(int argc, char* argv[]) {
     //     log4cppDebug(khaki::logger, "connect gateway failed !!");
     //     return 0;
     // }
-    uint64 uid = 100;
+    uint64 uid = uidBegin;
     std::vector<std::shared_ptr<Client>> vClients;
     for (int idx = 0; idx < sessionNum; idx++) {
         vClients.push_back(std::shared_ptr<Client>(new Client(&loop, "127.0.0.1", 9527, uid++, 1)));

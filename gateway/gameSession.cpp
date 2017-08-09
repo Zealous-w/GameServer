@@ -13,6 +13,7 @@ gameSession::~gameSession(){}
 
 void gameSession::OnMessage(const khaki::TcpClientPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
+    log4cppDebug(khaki::logger, "gateway gameSession buf size : %d", buf.size());
     while( buf.size() > 0 ) {
         if (!buf.checkInt32()) break;
         struct PACKET pkt = Decode(buf);
@@ -90,7 +91,6 @@ bool gameSession::HandlerPing(struct PACKET& pkt) {
         return false;
     }
     uint32 now_time = recv.now_time();
-    //log4cppDebug(khaki::logger, "gameSession::HandlerPing : %d, time:%d", pkt.cmd, now_time);
 }
 
 bool gameSession::HandlerRegisterSid(struct PACKET& pkt) {
@@ -102,7 +102,7 @@ bool gameSession::HandlerRegisterSid(struct PACKET& pkt) {
     }
 
     sid_ = recv.sid();
-    g_gServer->AddAuthGameSession(sid_, conn_->getFd());
+    g_gServer->AddAuthGameSession(sid_, conn_->getUniqueId());
     gs::G2S_RegisterServer msg;
     uint32 msgId = gs::ProtoID::ID_G2S_RegisterServer;
     msg.set_ret(ERROR_LOGIN_SUCCESS);
@@ -121,7 +121,7 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
         return false;
     }
 
-    uint32 tokenId = recv.tokenid();
+    uint64 tokenId = recv.tokenid();
 
     cs::S2C_Login msg;
     uint32 msgId = uint32(cs::ProtoID::ID_S2C_Login);
@@ -142,7 +142,7 @@ bool gameSession::HandlerCreate(struct PACKET& pkt) {
         return false;
     }
     
-    uint32 tokenId = recv.tokenid();
+    uint64 tokenId = recv.tokenid();
 
     cs::S2C_Create msg;
     uint32 msgId = uint32(cs::ProtoID::ID_S2C_Create);
