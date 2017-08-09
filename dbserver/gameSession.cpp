@@ -103,7 +103,7 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
 
     std::string msgStr = msg.SerializeAsString();
     SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", user->uid(), pkt.sid, pkt.cmd);
+    //log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", user->uid(), pkt.sid, pkt.cmd);
     return true;
 }
 
@@ -126,7 +126,7 @@ bool gameSession::HandlerCreate(struct PACKET& pkt) {
 
     std::string msgStr = msg.SerializeAsString();
     SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    //log4cppDebug(khaki::logger, "dbMaster HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
     return true;
 }
 
@@ -139,6 +139,6 @@ bool gameSession::HandlerSaveUser(struct PACKET& pkt) {
     }
     base::User user = recv.user();
     server_->GetDb()->SaveUserBaseInfo(user);
-    log4cppDebug(khaki::logger, "dbMaster HandlerSaveUser uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    //log4cppDebug(khaki::logger, "dbMaster HandlerSaveUser uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
     return true;
 }

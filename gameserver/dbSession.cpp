@@ -29,7 +29,6 @@ void dbSession::Heartbeat() {
 
 void dbSession::OnConnected(const khaki::TcpConnectorPtr& con) {
     sr::S2R_RegisterServer msg;
-    log4cppDebug(khaki::logger, "dbSession::OnConnected");
     msg.set_sid(1);
 
     std::string str = msg.SerializeAsString();
@@ -39,7 +38,6 @@ void dbSession::OnConnected(const khaki::TcpConnectorPtr& con) {
 
 void dbSession::OnMessage(const khaki::TcpConnectorPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
-    log4cppDebug(khaki::logger, "dbSession buf size : %d", buf.size());
     while( buf.size() > 0 ) {
         if (!buf.checkInt32()) break;
         struct PACKET pkt = Decode(buf);

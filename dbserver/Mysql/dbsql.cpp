@@ -74,7 +74,7 @@ bool DbSQL::GetUserBaseInfo(base::User* user, uint64 uid) {
         }
         return true;
     }
-    log4cppDebug(khaki::logger, "GetUserBaseInfo, query failed, retsize:%d", ret.size());
+    //log4cppDebug(khaki::logger, "GetUserBaseInfo, query failed, retsize:%d", ret.size());
     return false;
 }
 
@@ -117,7 +117,7 @@ bool DbSQL::CreateGameTable() {
 
 bool DbSQL::LoadUser(base::User* user, uint64 uid) {
     if (!GetUserBaseInfo(user, uid)) {
-        log4cppError(khaki::logger, "LoadUser, load base user error %d", uid);
+        //log4cppError(khaki::logger, "LoadUser, load base user error %d", uid);
         return false;
     }
     return true;

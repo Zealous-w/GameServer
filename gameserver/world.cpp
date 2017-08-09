@@ -26,7 +26,6 @@ void World::Run() {
 
 void World::MsgProcess(khaki::queue<struct PACKET>& msg) {
     if ( msg.size() > 0 ) {
-        log4cppDebug(khaki::logger, "MsgProcess : %d", msg.size());
         std::queue<struct PACKET> tmpQueue = msg.popAll();
         while ( !tmpQueue.empty() ) {
             struct PACKET pkt = tmpQueue.front();
@@ -61,7 +60,7 @@ void World::DispatcherCmd(struct PACKET& msg) {
 
 void World::AddPlayer(Player* player) {
     bool ret = users_.insert(std::make_pair(player->uid, player)).first->second;
-    log4cppDebug(khaki::logger, "AddPlayer : %lld, ret:%d", player->uid, ret);
+    //log4cppDebug(khaki::logger, "AddPlayer : %lld, ret:%d", player->uid, ret);
 }
 
 void World::RemovePlayer(uint64 uid) {
@@ -98,7 +97,7 @@ bool World::HandlerLogin(struct PACKET& pkt) {
     msg.set_uid(uid);
     std::string msgStr = msg.SerializeAsString();
     dSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "HandlerLogin proto : %d %d", pkt.cmd, uid);
+    //log4cppDebug(khaki::logger, "HandlerLogin proto : %d %d", pkt.cmd, uid);
 }
 
 bool World::HandlerCreate(struct PACKET& pkt) {
@@ -124,7 +123,7 @@ bool World::HandlerCreate(struct PACKET& pkt) {
     ////////////////
     std::string msgStr = msg.SerializeAsString();
     dSession_->SendPacket(msgId, user->uid(), pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "HandlerCreate proto : %d %d", pkt.cmd, uid);
+    //log4cppDebug(khaki::logger, "HandlerCreate proto : %d %d", pkt.cmd, uid);
 }
 
 bool World::HandlerOffline(struct PACKET& pkt) {
@@ -136,7 +135,7 @@ bool World::HandlerOffline(struct PACKET& pkt) {
     }
     uint64 uid = recv.uid();
     RemovePlayer(uid);
-    log4cppDebug(khaki::logger, "HandlerOffline uid : %d", uid);
+    //log4cppDebug(khaki::logger, "HandlerOffline uid : %d", uid);
     return true;
 }
 
@@ -206,7 +205,7 @@ bool World::HandlerRSLogin(struct PACKET& pkt) {
     msg.set_ret(ret);
     std::string msgStr = msg.SerializeAsString();
     gSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d %d %d", pkt.cmd, pkt.uid, ret, bUser.uid());
+    //log4cppDebug(khaki::logger, "HandlerRSLogin proto : %d %d %d %d", pkt.cmd, pkt.uid, ret, bUser.uid());
     return true;
 }
 
@@ -226,6 +225,6 @@ bool World::HandlerRSCreate(struct PACKET& pkt) {
     msg.set_ret(ret);
     std::string msgStr = msg.SerializeAsString();
     gSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
-    log4cppDebug(khaki::logger, "HandlerRSCreate proto : %d %d ret=%d", pkt.cmd, pkt.uid, ret);
+    //log4cppDebug(khaki::logger, "HandlerRSCreate proto : %d %d ret=%d", pkt.cmd, pkt.uid, ret);
     return true;
 }

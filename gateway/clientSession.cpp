@@ -145,7 +145,7 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
 
     gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
-    log4cppDebug(khaki::logger, "HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    //log4cppDebug(khaki::logger, "HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }
 
 bool clientSession::HandlerCreate(struct PACKET& pkt) {
@@ -169,7 +169,7 @@ bool clientSession::HandlerCreate(struct PACKET& pkt) {
     data.msg = msgStr;
     //gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
-    log4cppDebug(khaki::logger, "HandlerCreate uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    //log4cppDebug(khaki::logger, "HandlerCreate uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }
 
 bool clientSession::HandlerDirtyPacket(struct PACKET& str) {

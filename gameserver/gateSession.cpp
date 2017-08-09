@@ -31,7 +31,6 @@ void gateSession::Heartbeat() {
 
 void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
     gs::S2G_RegisterServer msg;
-    log4cppDebug(khaki::logger, "gateSession::OnConnected");
     msg.set_sid(1);
 
     std::string str = msg.SerializeAsString();
@@ -41,7 +40,6 @@ void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
 
 void gateSession::OnMessage(const khaki::TcpConnectorPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
-    log4cppDebug(khaki::logger, "gateSession buf size : %d", buf.size());
     while( buf.size() > 0 ) {
         if (!buf.checkInt32()) break;
         struct PACKET pkt = Decode(buf);
@@ -89,5 +87,6 @@ bool gateSession::HandlerRegisterSid(struct PACKET& str) {
 
 bool gateSession::HandlerDirtyPacket(struct PACKET& str) {
     gWorld.PushGateMsg(str);
+    //log4cppDebug(khaki::logger, "gateSession::HandlerDirtyPacket");
     return true;
 }
