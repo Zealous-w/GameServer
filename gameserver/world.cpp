@@ -114,7 +114,7 @@ bool World::HandlerCreate(struct PACKET& pkt) {
     msg.set_tokenid(recv.tokenid());
     base::User* user = msg.mutable_user();
     ///////////////// create new role
-    user->set_uid(123456);
+    user->set_uid(pkt.uid);
     user->set_sid(pkt.sid);
     user->set_name("wkw");
     user->set_level(1);

@@ -6,11 +6,11 @@
 #include <protocol/out/cs.pb.h>
 #include <khaki.h>
 
-class Client {
+class Client : public std::enable_shared_from_this<Client> {
 public:
     typedef std::function<bool(struct PACKET&)> ServiceFunc;
-    Client(khaki::EventLoop* loop, std::string host, uint16_t port) : 
-        loop_(loop), conn_(new khaki::Connector(loop_, host, port)), uid_(0), sid_(0){
+    Client(khaki::EventLoop* loop, std::string host, uint16_t port, uint64 uid, uint32 sid) : 
+        loop_(loop), conn_(new khaki::Connector(loop_, host, port)), uid_(uid), sid_(sid){
         conn_->setConnectCallback(std::bind(&Client::OnConnected, this, 
                 std::placeholders::_1));
         conn_->setCloseCallback(std::bind(&Client::OnConnectClose, this, 
@@ -18,6 +18,8 @@ public:
         conn_->setReadCallback(std::bind(&Client::OnMessage, this, 
                 std::placeholders::_1));
         RegisterCmd();
+
+        ConnectGateway();
     }
     ~Client() {}
 
@@ -31,10 +33,9 @@ public:
     void OnConnected(const khaki::TcpConnectorPtr& con) {
         cs::C2S_Login msg;
         msg.set_uid(uid_);
-
+        log4cppDebug(khaki::logger, "OnConnected uid : %d", uid_);
         std::string str = msg.SerializeAsString();
         SendPacket(uint32(cs::ProtoID::ID_C2S_Login), str);
-
         ///start tick
         loop_->getTimer()->AddTimer(std::bind(&Client::Heartbeat, this), khaki::util::getTime(), 20);/*10s tick*/
     }
@@ -117,14 +118,14 @@ public:
             log4cppDebug(khaki::logger, "Need Create Uid ret : %d", ret);
         }
 
-        if (ret == ERROR_LOGIN_SUCCESS) {
-            cs::C2S_GetMoney msg3;
-            msg3.set_addmoney(500);
+        // if (ret == ERROR_LOGIN_SUCCESS) {
+        //     cs::C2S_GetMoney msg3;
+        //     msg3.set_addmoney(500);
 
-            std::string str3 = msg3.SerializeAsString();
-            SendPacket(uint32(cs::ProtoID::ID_C2S_GetMoney), str3);
-            log4cppDebug(khaki::logger, "I Need Money 500");
-        }
+        //     std::string str3 = msg3.SerializeAsString();
+        //     SendPacket(uint32(cs::ProtoID::ID_C2S_GetMoney), str3);
+        //     log4cppDebug(khaki::logger, "I Need Money 500");
+        // }
 
         log4cppDebug(khaki::logger, "HandlerLogin ret : %d", ret);
         return true;
@@ -140,6 +141,15 @@ public:
 
         uint32 ret = recv.ret();
         uint64 uid = recv.uid();
+
+        if (ret == ERROR_LOGIN_SUCCESS) {
+            cs::C2S_Login msg;
+            msg.set_uid(uid_);
+            log4cppDebug(khaki::logger, "HandlerCreate Login uid : %d", uid_);
+            std::string str = msg.SerializeAsString();
+            SendPacket(uint32(cs::ProtoID::ID_C2S_Login), str);
+        }
+        
         log4cppDebug(khaki::logger, "HandlerCreate ret : %d, uid : %d", ret, uid);
         return true;
     }
@@ -162,18 +172,32 @@ public:
 int main(int argc, char* argv[]) {
     khaki::EventLoop loop;
     khaki::InitLog(khaki::logger, "./client.log", log4cpp::Priority::DEBUG);
-    Client* client = new Client(&loop, "127.0.0.1", 9527);
-    client->SetUid(123456);
-    client->SetSid(1);
-    if ( !client->ConnectGateway() ) {
-        log4cppDebug(khaki::logger, "connect gateway failed !!");
+
+    if (argc < 2) {
+        log4cppDebug(khaki::logger, "Usage : ./client <sessionNumber>");
         return 0;
     }
     
-    client->Loop();
+    uint32 sessionNum = std::stoi(std::string(argv[1]));
+
+    // Client* client = new Client(&loop, "127.0.0.1", 9527);
+    // client->SetUid(123456);
+    // client->SetSid(1);
+    // if ( !client->ConnectGateway() ) {
+    //     log4cppDebug(khaki::logger, "connect gateway failed !!");
+    //     return 0;
+    // }
+    uint64 uid = 100;
+    std::vector<std::shared_ptr<Client>> vClients;
+    for (int idx = 0; idx < sessionNum; idx++) {
+        vClients.push_back(std::shared_ptr<Client>(new Client(&loop, "127.0.0.1", 9527, uid++, 1)));
+        //log4cppDebug(khaki::logger, "conn count : %d", idx);
+    }
+
+    loop.loop();
 
     ///////
-    delete client;
+    //delete client;
     log4cpp::Category::shutdown();
 	google::protobuf::ShutdownProtobufLibrary();
     return 0;

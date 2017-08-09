@@ -83,13 +83,14 @@ void clientSession::StatusChange(uint8 status) {
         SetStatus(E_STATUS_VALID);
         std::shared_ptr<gameSession> gsp = gameSession_.lock();
         if ( gsp ) {
-            gsp->AddClient(uid_, conn_->getUniqueId());
+            gsp->AddClient(uid_, conn_->getIpPort());
         }
     }
 }
 
 void clientSession::UserOffline() {
     if (GetStatus() != E_STATUS_VALID) {
+        log4cppDebug(khaki::logger, "UserOffline status : %d", GetStatus());
         return;
     }
 
@@ -97,7 +98,7 @@ void clientSession::UserOffline() {
     if ( gsp ) {
         gsp->RemoveClient(uid_);
     }
-    
+
     gs::G2S_LoginOffline msg;
     uint32 msgId = uint32(gs::ProtoID::ID_G2S_LoginOffline);
     msg.set_uid(uid_);
@@ -109,7 +110,6 @@ void clientSession::UserOffline() {
     data.msg = msgStr;
 
     SendToServer(data);
-    //log4cppDebug(khaki::logger, "UserOffline");
 }   
 
 bool clientSession::HandlerPing(struct PACKET& pkt) {
@@ -119,7 +119,7 @@ bool clientSession::HandlerPing(struct PACKET& pkt) {
         log4cppDebug(khaki::logger, "proto parse error : %d", pkt.cmd);
         return false;
     }
-    log4cppDebug(khaki::logger, "HandlerPing uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    //log4cppDebug(khaki::logger, "HandlerPing uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }
 
 bool clientSession::HandlerLogin(struct PACKET& pkt) {
@@ -145,6 +145,7 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
 
     gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
+    log4cppDebug(khaki::logger, "HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }
 
 bool clientSession::HandlerCreate(struct PACKET& pkt) {
@@ -163,10 +164,12 @@ bool clientSession::HandlerCreate(struct PACKET& pkt) {
     struct PACKET data;
     data.len = PACKET_HEAD_LEN + msgStr.size();
     data.cmd = msgId;
+    data.uid = pkt.uid;
     data.sid = pkt.sid;
     data.msg = msgStr;
     gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
+    log4cppDebug(khaki::logger, "HandlerCreate uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }
 
 bool clientSession::HandlerDirtyPacket(struct PACKET& str) {

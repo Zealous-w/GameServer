@@ -90,7 +90,7 @@ bool gameSession::HandlerPing(struct PACKET& pkt) {
         return false;
     }
     uint32 now_time = recv.now_time();
-    log4cppDebug(khaki::logger, "gameSession::HandlerPing : %d, time:%d", pkt.cmd, now_time);
+    //log4cppDebug(khaki::logger, "gameSession::HandlerPing : %d, time:%d", pkt.cmd, now_time);
 }
 
 bool gameSession::HandlerRegisterSid(struct PACKET& pkt) {
