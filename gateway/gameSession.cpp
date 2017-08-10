@@ -119,6 +119,7 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
         return false;
     }
 
+    uint32 status = recv.ret();
     uint64 tokenId = recv.tokenid();
 
     cs::S2C_Login msg;
@@ -126,9 +127,17 @@ bool gameSession::HandlerLogin(struct PACKET& pkt) {
     msg.set_ret(recv.ret());
     std::string msgStr = msg.SerializeAsString();
 
-    g_cServer->SetClientStatusByUniqueId(tokenId, recv.ret());
     struct PACKET msgPkt =  BuildPacket(msgId, pkt.uid, sid_, msgStr);
-    g_cServer->SendPacketByUniqueId(tokenId, msgPkt);
+
+    clientSessionPtr csp = g_cServer->GetClientSessionByUniqueId(tokenId);
+    if (csp) {
+        csp->StatusChange(uint8(status));
+        if (status == ERROR_LOGIN_SUCCESS) {
+            AddClient(csp->GetUid(), tokenId);
+        }
+        csp->SendPacket(msgPkt);
+    }
+   
     log4cppDebug(khaki::logger, "gateway HandlerLogin : tokenId:%d, ret:%d", tokenId, recv.ret());
 }
 
@@ -148,9 +157,12 @@ bool gameSession::HandlerCreate(struct PACKET& pkt) {
     msg.set_uid(pkt.uid);
     std::string msgStr = msg.SerializeAsString();
 
-    g_cServer->SetClientStatusByUniqueId(tokenId, recv.ret());
     struct PACKET msgPkt =  BuildPacket(msgId, pkt.uid, sid_, msgStr);
-    g_cServer->SendPacketByUniqueId(tokenId, msgPkt);
+
+    clientSessionPtr csp = g_cServer->GetClientSessionByUniqueId(tokenId);
+    if (csp) {
+        csp->SendPacket(msgPkt);
+    }
     //log4cppDebug(khaki::logger, "gateway HandlerCreate : tokenId:%d, ret:%d", tokenId, recv.ret());
 }
 
@@ -160,7 +172,11 @@ bool gameSession::HandlerDirtyPacket(struct PACKET& pkt) {
         log4cppDebug(khaki::logger, "gateway HandlerDirtyPacket ERROR");
         return false;
     }
-    g_cServer->SendPacketByUniqueId(client->second, pkt);
+
+    clientSessionPtr csp = g_cServer->GetClientSessionByUniqueId(client->second);
+    if (csp) {
+        csp->SendPacket(pkt);
+    }
     //log4cppDebug(khaki::logger, "gateway HandlerDirtyPacket SUCCESS");
     return false;
 }

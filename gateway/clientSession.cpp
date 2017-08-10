@@ -26,7 +26,7 @@ void clientSession::DispatcherCmd(struct PACKET& msg) {
     } else if (GetStatus() == E_STATUS_VALID) {
         SendToServer(msg);
     } else {
-        log4cppDebug(khaki::logger, "error proto : %d", msg.cmd);
+        log4cppDebug(khaki::logger, "clientSession error proto : %d, %d", msg.cmd, command_.size());
     }
 }
 
@@ -81,10 +81,6 @@ void clientSession::StatusChange(uint8 status) {
         SetStatus(E_STATUS_CREATE);
     } else if (status == ERROR_LOGIN_SUCCESS) {
         SetStatus(E_STATUS_VALID);
-        std::shared_ptr<gameSession> gsp = gameSession_.lock();
-        if ( gsp ) {
-            gsp->AddClient(uid_, conn_->getUniqueId());
-        }
     }
 }
 
@@ -145,7 +141,7 @@ bool clientSession::HandlerLogin(struct PACKET& pkt) {
 
     gameSession_ = g_gServer->GetGameSessionBySid(data.sid);
     SendToServer(data);
-    //log4cppDebug(khaki::logger, "HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
+    log4cppDebug(khaki::logger, "HandlerLogin uid : %d, sid : %d, cmd : %d", pkt.uid, pkt.sid, pkt.cmd);
 }
 
 bool clientSession::HandlerCreate(struct PACKET& pkt) {

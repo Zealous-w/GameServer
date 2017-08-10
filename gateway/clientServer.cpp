@@ -26,6 +26,7 @@ void clientServer::OnConnection(const khaki::TcpClientPtr& con) {
     std::unique_lock<std::mutex> lck(mtx_);
     if (sessionLists_.find(con->getUniqueId()) != sessionLists_.end()) {
         log4cppError(khaki::logger, "clientServer OnConnection ERROR : %lld add sessionlists size:%d", con->getUniqueId(), sessionLists_.size());
+        return;
     }
     sessionLists_[con->getUniqueId()] = clientSessionPtr(new clientSession(this, con));
     //log4cppDebug(khaki::logger, "clientServer getIpPort : %lld add sessionlists size:%d", con->getIpPort(), sessionLists_.size());
@@ -43,20 +44,13 @@ void clientServer::OnConnClose(const khaki::TcpClientPtr& con) {
     }
 }
 
-void clientServer::SendPacketByUniqueId(uint64 uniqueId, struct PACKET& pkt) {
-    auto client = sessionLists_.find(uniqueId);
-    if (client == sessionLists_.end()) {
-        return;
+clientSessionPtr clientServer::GetClientSessionByUniqueId(uint64 uniqueId) {
+    std::unique_lock<std::mutex> lck(mtx_);
+    clientSessionPtr csp;
+    if ( sessionLists_.find(uniqueId) != sessionLists_.end() ) {
+        csp = sessionLists_[uniqueId];
+    } else {
+        log4cppDebug(khaki::logger, "GetClientSessionByUniqueId uniqueId : %lld not exit", uniqueId);
     }
-
-    client->second->SendPacket(pkt);
-}
-
-void clientServer::SetClientStatusByUniqueId(uint64 uniqueId, uint8 status) {
-    auto client = sessionLists_.find(uniqueId);
-    if (client == sessionLists_.end()) {
-        return;
-    }
-
-    client->second->StatusChange(status);
+    return csp;
 }

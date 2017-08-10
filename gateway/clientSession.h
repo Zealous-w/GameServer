@@ -37,6 +37,9 @@ public:
     void SetStatus(uint8 status) { status_.store(status); }
     void StatusChange(uint8 status);
     void UserOffline();
+    uint64 GetUid() { return uid_; }
+    uint32 GetSid() { return sid_; }
+    uint64 GetUniqueId() { return conn_->getUniqueId(); }
 private:
     std::atomic<uint8_t> status_;
     uint64 uid_;
