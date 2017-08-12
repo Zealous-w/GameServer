@@ -42,8 +42,10 @@ public:
 	void OnMessage(const khaki::TcpConnectorPtr& con) {
         khaki::Buffer& buf = con->getReadBuf();
         while( buf.size() > 0 ) {
-            if (!buf.checkInt32()) break;
-            struct PACKET pkt = Decode(buf);
+            //if (!buf.checkInt32()) break;
+            if (!checkBufValid(buf)) break;
+            struct PACKET pkt = Decode(buf.begin());
+            buf.addBegin(pkt.len);
             DispatcherCmd(pkt);
         }
     }

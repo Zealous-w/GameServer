@@ -14,8 +14,9 @@ gameSession::~gameSession(){}
 void gameSession::OnMessage(const khaki::TcpClientPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
     while( buf.size() > 0 ) {
-        if (!buf.checkInt32()) break;
-        struct PACKET pkt = Decode(buf);
+        if (!checkBufValid(buf)) break;
+        struct PACKET pkt = Decode(buf.begin());
+        buf.addBegin(pkt.len);
         DispatcherCmd(pkt);
     }
 }

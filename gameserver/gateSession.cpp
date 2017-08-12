@@ -41,8 +41,9 @@ void gateSession::OnConnected(const khaki::TcpConnectorPtr& con) {
 void gateSession::OnMessage(const khaki::TcpConnectorPtr& con) {
     khaki::Buffer& buf = con->getReadBuf();
     while( buf.size() > 0 ) {
-        if (!buf.checkInt32()) break;
-        struct PACKET pkt = Decode(buf);
+        if (!checkBufValid(buf)) break;
+        struct PACKET pkt = Decode(buf.begin());
+        buf.addBegin(pkt.len);
         DispatcherCmd(pkt);
     }
 }
@@ -87,6 +88,6 @@ bool gateSession::HandlerRegisterSid(struct PACKET& str) {
 
 bool gateSession::HandlerDirtyPacket(struct PACKET& str) {
     gWorld.PushGateMsg(str);
-    //log4cppDebug(khaki::logger, "gateSession::HandlerDirtyPacket");
+    //log4cppDebug(khaki::logger, "gateSession::HandlerDirtyPacket queue size : %d", gWorld.getMsgSize());
     return true;
 }

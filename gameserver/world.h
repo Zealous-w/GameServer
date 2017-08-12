@@ -42,6 +42,7 @@ public:
     void Stop() { running_ = false; }
     void SetSession(gateSession* gSession, dbSession* dSession) { gSession_ = gSession; dSession_ = dSession; }
     void Run();
+    uint32_t getMsgSize() { return msgQueue_.size(); }
     void PushGateMsg(struct PACKET& t) { msgQueue_.push(t); }
     void PushDbMsg(struct PACKET& t) { dbMsgQueue_.push(t); }
     void MsgProcess(khaki::queue<struct PACKET>& msg);
