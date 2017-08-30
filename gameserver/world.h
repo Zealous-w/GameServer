@@ -58,6 +58,7 @@ public:
     bool HandlerOffline(struct PACKET& pkt);
 
     bool HandlerGetMoney(struct PACKET& pkt);
+    bool HandlerAddItem(struct PACKET& pkt);
 public:
     ///////dbs -> gs
     bool HandlerRSLogin(struct PACKET& pkt);

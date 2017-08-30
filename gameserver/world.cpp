@@ -4,6 +4,7 @@
 #include <protocol/out/cs.pb.h>
 #include <protocol/in/base.pb.h>
 #include <base/error.h>
+#include <ItemSystem.h>
 
 World::World():thread_(&World::Run, this) {
     running_ = false;
@@ -175,6 +176,16 @@ bool World::HandlerGetMoney(struct PACKET& pkt) {
     std::string msgStr = msg.SerializeAsString();
     dSession_->SendPacket(msgId, pkt.uid, pkt.sid, msgStr);
     log4cppDebug(khaki::logger, "HandlerGetMoney proto : %d %d", pkt.cmd, pkt.uid);
+    return true;
+}
+
+bool World::HandlerAddItem(struct PACKET& pkt) {
+    auto player = GetPlayer(pkt.uid);
+    if (player == NULL) {
+        log4cppDebug(khaki::logger, "Not Found user : %d", pkt.uid);
+        return false;
+    }
+    ItemSystem::GetSystem().AddItem(player, 0, 0);
     return true;
 }
 
